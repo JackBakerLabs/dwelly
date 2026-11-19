@@ -1,0 +1,28 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {mkdtempSync,rmSync} from 'node:fs';import {tmpdir} from 'node:os';import {join} from 'node:path';
+import {Store} from '../src/store/index.js';import {Graph} from '../src/graph/index.js';import {ReplayWorldClient} from '../src/world/index.js';import {bindProposal} from '../src/triage/proposal.js';import {acknowledgeWaitingReview} from '../src/workflow/waiting.js';import type {Issue,Assessor,WorldEvent} from '../src/types.js';
+const event=(n:number,body:string):WorldEvent=>({id:'e'+n,cursor:n,type:'message.received',channel:'email',actor:{id:'tenant',name:'Tenant',role:'tenant'},sim_ms:n,occurred_at:'2026-11-19T00:00:00Z',payload:{body,conversation_id:'one'}});
+const issue:Issue={id:'local',session:'s',actorId:'tenant',status:'active',evidence:[{eventId:'e1',cursor:1,actor:event(1,'').actor,body:'Report',occurredAt:event(1,'').occurred_at}]};
+const common={scope:'maintenance',evidenceIds:['e1'],reason:'Observed facts',humanAction:null};
+test('scope and action cannot contradict and unknown/external emergencies have bounded choices',()=>{
+ assert.throws(()=>bindProposal(issue,{decision:{...common,kind:'outOfScope',urgency:'low'}}),/Maintenance scope/);
+ assert.throws(()=>bindProposal(issue,{decision:{...common,scope:'nonMaintenance',kind:'open',title:'Noise',description:null,urgency:'low'}}),/Non-maintenance scope/);
+ assert.throws(()=>bindProposal(issue,{decision:{...common,scope:'unknown',kind:'open',title:'Problem',description:null,urgency:'low'}}),/Unknown scope/);
+ assert.throws(()=>bindProposal(issue,{decision:{...common,scope:'externalEmergency',kind:'review',urgency:'high'}}),/External emergency/);
+ assert.equal(bindProposal(issue,{decision:{...common,scope:'nonMaintenance',kind:'outOfScope',urgency:'low'}}).scope,'nonMaintenance');
+ assert.equal(bindProposal(issue,{decision:{...common,scope:'externalEmergency',kind:'open',title:'Gas report',description:null,urgency:'emergency',humanAction:'Human emergency escalation required'}}).scope,'externalEmergency');
+ assert.throws(()=>bindProposal(issue,{decision:{...common,kind:'wait',urgency:'low'}}));
+ assert.throws(()=>bindProposal(issue,{decision:{...common,kind:'wait',urgency:'low',resume:{kind:'tenantReply',condition:'Need answer'}}}),/outstanding question/);
+});
+test('waiting survives restart, becomes review at deadline once, and linked reply resumes without duplicate writes',async()=>{
+ const dir=mkdtempSync(join(tmpdir(),'dwelly-wait-'));const path=join(dir,'s.sqlite');let store=new Store({path,session:'s'});const world=new ReplayWorldClient();let now=1000;let calls=0;
+ const assess:Assessor=async i=>{calls++;return i.evidence.length===1?{scope:'unknown',kind:'ask',actorId:i.actorId,question:'Where is the water?',evidenceIds:['e1'],reason:'Need detail'}:{scope:'maintenance',kind:'open',title:'Pipe leak',urgency:'medium',evidenceIds:['e2'],reason:'Sufficient detail'};};
+ try{await new Graph({store,world,assess,now:()=>now,reviewAfterMs:500}).processEvent(event(1,'Water problem'));assert.equal(store.issues()[0]!.waiting!.reviewAt,1500);store.close();store=new Store({path,session:'s'});const graph=new Graph({store,world,assess,now:()=>now,reviewAfterMs:500});now=1500;await graph.drain();await graph.drain();assert.equal(store.issues()[0]!.status,'review');assert.equal(store.traces().filter(t=>t.edge==='waiting-review-due').length,1);assert.equal(world.writes.length,1);await graph.processEvent(event(2,'Kitchen pipe dripping into tub'));await graph.processEvent(event(2,'Kitchen pipe dripping into tub'));assert.equal(calls,2);assert.equal(store.issues().length,1);assert.equal(store.issues()[0]!.scope,'maintenance');assert.equal(store.issues()[0]!.waiting,undefined);assert.equal(world.writes.length,2);}finally{store.close();rmSync(dir,{recursive:true,force:true});}
+});
+test('unconfigured waits are visible and do not invent deadlines; operator acknowledgement cannot clear uncertainty',async()=>{
+ const store=new Store({path:':memory:',session:'s'});const world=new ReplayWorldClient();
+ const assess:Assessor=async i=>({kind:'ask',scope:'unknown',actorId:i.actorId,question:'Where?',evidenceIds:['e1'],reason:'Need detail'});
+ try{await new Graph({store,world,assess}).processEvent(event(1,'Problem'));const local=store.issues()[0]!;assert.equal(local.waiting?.reviewAt,undefined);assert.equal(store.waitingQueue()[0]!.waiting?.state,'needsSchedule');const intent=store.intents()[0]!;intent.state='uncertain';store.putIntent(intent);assert.throws(()=>acknowledgeWaitingReview(store,local.id),/Unresolved/);intent.state='confirmed';store.putIntent(intent);acknowledgeWaitingReview(store,local.id);assert.equal(world.writes.length,1);assert.equal(store.issues()[0]!.waiting,undefined);assert.throws(()=>new Graph({store,world,assess,reviewAfterMs:0}),/positive integer/);}finally{store.close();}
+});
+test('wrong reply actor and acknowledgements do not satisfy an outstanding wait',async()=>{
+ const store=new Store({path:':memory:',session:'s'});const world=new ReplayWorldClient();const assess:Assessor=async i=>({kind:'ask',scope:'unknown',actorId:i.actorId,question:'Where?',evidenceIds:['e1'],reason:'Need detail'});try{const graph=new Graph({store,world,assess,reviewAfterMs:10000});await graph.processEvent(event(1,'Problem'));await graph.processEvent({...event(2,'Other message'),actor:{id:'someone',role:'tenant',name:'Other'}});await graph.processEvent(event(3,'Thanks'));assert.equal(world.writes.length,1);assert.ok(store.issues()[0]!.waiting);assert.equal(store.issues()[0]!.outstandingQuestion,'Where?');}finally{store.close();}
+});

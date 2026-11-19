@@ -7,7 +7,7 @@ import type {HistoryCase,Issue} from '../src/types.js';
 const issue:Issue={id:'test',session:'test',actorId:'tenant',status:'active',evidence:[{eventId:'e1',cursor:1,body:'Leaking pipe',actor:{id:'tenant',role:'tenant',name:'Tenant'},occurredAt:'2026-11-19T00:00:00Z'}]};
 test('diagnostics preserve exact schema issues and both attempts without leaking credential or changing correction',async()=>{
  const entries:AssessmentDiagnostic[]=[];let calls=0;
- const assess=createModelAssessor({apiKey:'test-secret',onDiagnostic:d=>entries.push(d),fetch:async()=>{calls++;return new Response(JSON.stringify({choices:[{message:{content:JSON.stringify({decision:{kind:'open',title:'Leak',urgency:'medium',reason:'test-secret',evidenceIds:['e1'],humanAction:null,description:null,extra:true}})}}]}));}});
+ const assess=createModelAssessor({apiKey:'test-secret',onDiagnostic:d=>entries.push(d),fetch:async()=>{calls++;return new Response(JSON.stringify({choices:[{message:{content:JSON.stringify({decision:{scope:'maintenance',kind:'open',title:'Leak',urgency:'medium',reason:'test-secret',evidenceIds:['e1'],humanAction:null,description:null,extra:true}})}}]}));}});
  const decision=await assess(issue,issue.evidence,[]);
  assert.equal(decision.kind,'review');assert.equal(calls,2);assert.deepEqual(entries.map(e=>e.stage),['validation','validation']);
  assert.match(JSON.stringify(entries[0]!.issues),/unrecognized_keys/);assert.match(entries[0]!.error!,/extra/);

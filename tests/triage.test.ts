@@ -5,7 +5,7 @@ import { buildCase04Replay, case04ScriptedAssessor, createModelAssessor, runEval
 import type { HistoryCase, Issue } from '../src/types.js';
 const history = JSON.parse(readFileSync('snapshots/2026-11-19/history.json', 'utf8')).cases as HistoryCase[];
 const issue: Issue = { id: 'local', session: 'test', actorId: 'tenant', status: 'active', evidence: [{ eventId: 'e1', cursor: 1, actor: { id: 'tenant', role: 'tenant', name: 'Tenant' }, body: 'Leak', occurredAt: '2026-11-19T00:00:00Z' }] };
-const open = { kind: 'open', title: 'Leak', urgency: 'medium', reason: 'Observed leak', evidenceIds: ['e1'] };
+const open = { scope:'maintenance', kind: 'open', title: 'Leak', urgency: 'medium', reason: 'Observed leak', evidenceIds: ['e1'] };
 test('strict validation rejects malformed output, unknown evidence and recipients', () => {
     assert.throws(() => validateDecision(issue, { ...open, urgency: 'urgent' }));
     assert.throws(() => validateDecision(issue, { ...open, evidenceIds: ['future'] }));

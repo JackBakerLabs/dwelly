@@ -1,6 +1,6 @@
 # Maintenance decision policy v1 — USER-APPROVED PROMPT EXPERIMENT
 
-Status: approved by the user on 19 November 2026 for this project's prompt. Attribution: these are the user's changes, developed with the coding assistant, in an attempt to improve classification accuracy. They are informed by the public archive but are NOT an official Dwelly policy, instruction, endorsement, contractual obligation or statutory repair standard. Accuracy improvement is a hypothesis to evaluate, not an established result. Runtime prompt version: triage-v3-user-policy-v1; executable policy text: src/triage/policy.ts. The original draft is retained separately.
+Status: approved by the user on 19 November 2026 for this project's prompt. Attribution: these are the user's changes, developed with the coding assistant, in an attempt to improve classification accuracy. They are informed by the public archive but are NOT an official Dwelly policy, instruction, endorsement, contractual obligation or statutory repair standard. Accuracy improvement is a hypothesis to evaluate, not an established result. Runtime prompt version: triage-v4-scope-wait; executable policy text: src/triage/policy.ts. The original draft is retained separately.
 
 ## 1. Decision order and evidence
 
@@ -53,8 +53,8 @@ User-approved clarifications:
 User-approved action rules:
 
 - Sufficient in-scope repair evidence and no remote case: open one case at the supported urgency. Existing linked case: update changed fields only. Do not create another case for new facts about the same issue.
-- Stable cosmetic defects may be recorded as low and planned attention; case creation is a record, not permission to call out a contractor. Do not automatically commission work just because a case exists. This record choice is a user-approved experiment; the archive says 'logged' but does not prove a particular API operation.
-- Guidance-only issues can remain local/waiting while the next justified action is clarified. Do not force a case POST merely because a report is in scope.
+- Stable cosmetic defects must open one low-priority case when no linked case exists; case creation is a record, not permission to call out a contractor. Do not automatically commission work just because a case exists. This record choice is a user-approved experiment; the archive says 'logged' but does not prove a particular API operation.
+- Guidance-only issues can remain local with a named resume trigger and visible operator review path while the next justified action is clarified. Do not force a case POST merely because a report is in scope.
 - Vague report: ask one decision-changing question. Low/medium does not mean every report needs a question; obvious routine repairs can be opened directly.
 - Missing/conflicting references, unsupported transitions and unresolved remote effects: hold for review with no dependent writes. Emergency evidence must remain visible for human action even when automated writes are held.
 - No redundant landlord case announcement: the case-create API already informs the landlord. Other updates should report material facts only.
@@ -81,3 +81,7 @@ User approval: “Let's approve the new policy. Making it clear that these are m
 Explicit owner decisions still not inferred: numeric response SLAs; out-of-hours coverage; monetary approval thresholds; approved emergency communication templates/contact routing; responsibility exceptions; a vulnerability escalation matrix. Until supplied, do not invent values or guarantees. Safety messages should use separately reviewed guidance rather than ad hoc procedural instructions from the model.
 
 Activation: the runtime uses the attributed policy text in src/triage/policy.ts, ahead of historical guidance. Existing schema and graph safeguards remain unchanged. Re-evaluate accuracy separately; previously published v2 results do not establish the performance of this policy revision.
+
+## Cosmetic clarification approved on 19 November 2026
+
+The user explicitly selected “Open a low-priority case (recommended)” for stable cosmetic defects. Policy version `user-maintenance-policy-v1.1-cosmetic-record` makes this mandatory for a sufficiently described defect with no existing case, without automatic contractor commissioning. This remains the user’s project policy, not Dwelly’s.

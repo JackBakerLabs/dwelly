@@ -77,7 +77,7 @@ This sends one work order to a current, explicitly available contractor. It wait
 
 **The extension is verified with synthetic structured event fixtures.** Live correspondence extraction is not implemented: `coordination.*` event names and payload keys are local adapter conventions, not fields promised by the Dwelly API. They must be mapped from real, attributable observations before relying on this branch in a live session. Unknown payloads are held for review. Trade selection is explicit; availability accepts only clearly available values. Failed/uncertain coordination effects are held for review; unlike the MVP, extension rate limits do not automatically retry. It does not infer spending permission or place external calls. Changed appointments require human reconfirmation.
 
-See `docs/coordination-contract.md` for exact fixture shapes and limitations. The last fully verified capability is the offline MVP plus deterministic extension scenarios; real-model judgment and live operation remain unverified.
+See `docs/coordination-contract.md` for exact fixture shapes and limitations. The last fully verified capability is the offline MVP plus deterministic extension scenarios; real-model judgment is measured separately below; live operation remains unverified.
 
 ## Operator review
 
@@ -92,7 +92,7 @@ Both commands use the same `DWELLY_SESSION_ID` and database selection; reconcili
 
 The evaluator also supports [OpenRouter Chat Completions](https://openrouter.ai/docs/api/reference/overview). Set `MODEL_PROVIDER=openrouter`, supply `OPENROUTER_API_KEY` securely in your shell, and set `OPENROUTER_MODEL` to your chosen full model ID (including its organization prefix). Then run `npm run build` and `npm run eval`. The same configuration works for live triage. The CLI does not read `.env` automatically.
 
-OpenRouter model selection is explicit so evaluation does not silently choose a paid model. Output records the selected provider and model, never the key. All normal evidence/decision validation still applies. Provider support is tested with mocked requests; a real OpenRouter evaluation has not yet been run.
+OpenRouter model selection is explicit so evaluation does not silently choose a paid model. Output records the selected provider and model, never the key. All normal evidence/decision validation still applies. Provider support is tested with mocked requests and recorded real-model runs under `docs/diagnostics/`.
 
 ## Diagnose judgment versus graph failures
 
@@ -108,6 +108,19 @@ See [assessment-v2.md](docs/assessment-v2.md) for the implementation, 103 passin
 
 ## User-approved policy revision
 
-The active prompt is now `triage-v3-user-policy-v1`. These are **the user's prompt-policy changes, developed with the coding assistant in an attempt to improve accuracy—not an official Dwelly policy, instruction or endorsement**. See [the approval record](docs/policy/maintenance-policy-v1-approved.md) and `src/triage/policy.ts`. Attribution and policy version are recorded in evaluation reports and diagnostics.
+The active prompt is now `triage-v4-scope-wait` (policy v1.1). These are **the user's prompt-policy changes, developed with the coding assistant in an attempt to improve accuracy—not an official Dwelly policy, instruction or endorsement**. See [the approval record](docs/policy/maintenance-policy-v1-approved.md) and `src/triage/policy.ts`. Attribution and policy version are recorded in evaluation reports and diagnostics.
 
-The original archive cases and previously inspected synthetic scenarios are policy-conformance/regression tests, not independent hold-outs. The 24/24 contract results and model judgment scores above were obtained with v2; they do not establish accuracy for this new prompt. The revision passes 104 offline tests. Its real-model accuracy must be measured separately.
+The original archive cases and previously inspected synthetic scenarios are policy-conformance/regression tests, not independent hold-outs. The 24/24 contract results and model judgment scores above were obtained with v2; they do not establish accuracy for this new prompt. The v3 measurement is retained in `docs/policy/v3-model-comparison.md`. Current v4 results and 109 passing offline tests are documented in [scope and waiting results](docs/scope-wait-results.md).
+
+
+## Scope and waiting reliability
+
+The current model contract (`assessment-v3-scope-wait`) requires a scope label independently of urgency. Contradictory scope/actions are rejected. Stable cosmetic defects open one low-priority case under the user-approved policy; this does not commission work. Historical v2 proposal replays use a frozen adapter, and existing executable journals remain readable.
+
+Set `DWELLY_REVIEW_AFTER_MS` to an explicitly chosen positive integer to schedule local operator review of waits. The live worker checks deadlines while polling; after a restart it checks overdue waits before processing new events. This is an operator-review interval, not a promised repair SLA. Without it, waits expose a configuration/review notice rather than assuming a deadline. Tenant replies must match the linked tenant; acknowledgements do not clear waits. Review expiry never triggers a remote write.
+
+`npm run inspect -- --waiting` lists waiting items, including legacy waits without a recorded deadline. Stop the live worker before running `npm run ack-wait -- <issue-id>` with the original session/token binding. It acknowledges only a wait-specific review and refuses unresolved effects. It performs no remote write or immediate reassessment; new linked evidence resumes processing. Legacy waits without structured state require operator investigation and are not silently given invented deadlines.
+
+`npm run eval-conversations -- <OpenRouter-model-id> 2` runs frozen synthetic conversations, two paraphrases and two repeats per scenario. It requires `OPENROUTER_API_KEY` and writes a timestamped report. Labels remain outside model context. Every turn exercises the full graph against a simulated World API, followed by restart and duplicate-delivery checks. Reports separate scope, urgency, action, provider/contract failure and graph execution, and retain returned usage and latency. They do not establish independent real-world accuracy or replace live-token verification.
+
+Latest measurement: Claude Sonnet 5.5 and GPT-4.1 mini each passed all 24 synthetic conversation turns (20 urgency-scored), with no provider/contract errors and all graph/restart checks passing. See [the detailed report and limitations](docs/scope-wait-results.md).

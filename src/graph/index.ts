@@ -1,3 +1,4 @@
+import {startWaiting,expireWaiting,clearWaiting,WAIT_REVIEW_PREFIX} from '../workflow/waiting.js';
 import { randomUUID } from 'node:crypto';
 import type { Assessor, Decision, EventBatch, HistoryCase, Issue, RemoteCase, TraceEntry, WorldClient, WorldEvent } from '../types.js';
 import { Store, type Intent } from '../store/index.js';
@@ -8,16 +9,19 @@ export interface GraphDependencies {
     world: WorldClient;
     assess: Assessor;
     precedents?: HistoryCase[];
+    now?:()=>number;
+    reviewAfterMs?:number;
     beforeEvent?: (event: WorldEvent) => Promise<boolean>;
 }
 export const transitions = { Ingest: ['Route'], Route: ['Assess', 'Checkpoint'], Assess: ['Validate'], Validate: ['Act', 'Checkpoint'], Act: ['Checkpoint'], Checkpoint: [] } as const;
 export class Graph {
     private running = false;
-    constructor(readonly dependencies: GraphDependencies) { }
+    constructor(readonly dependencies: GraphDependencies) { if(dependencies.reviewAfterMs!==undefined&&(!Number.isSafeInteger(dependencies.reviewAfterMs)||dependencies.reviewAfterMs<=0))throw new Error('reviewAfterMs must be a positive integer'); }
     ingest(batch: EventBatch) { this.dependencies.store.ingest(batch); }
     async pollOnce() { await this.drain(); const batch = await this.dependencies.world.poll(this.dependencies.store.cursor()); this.ingest(batch); await this.drain(); return batch; }
     async drain() { if (this.running)
         throw new Error('One graph worker per session'); this.running = true; try {
+        expireWaiting(this.dependencies.store,(this.dependencies.now??Date.now)());
         for (const event of this.dependencies.store.pending())
             await this.runEvent(event);
     }
@@ -123,6 +127,12 @@ export class Graph {
             }
             issue = { id: 'issue-' + randomUUID(), session: s.session, actorId: event.actor.id, propertyId: decoded.propertyId, conversationId: decoded.conversationId, status: 'active', evidence: [] };
         }
+        if(issue.waiting){
+            if(issue.waiting.trigger.kind==='tenantReply'&&event.actor.id!==issue.waiting.actorId){this.trace(event,'Route','review','Reply actor does not match outstanding wait',issue);this.complete(event,issue,'Unmatched reply retained without clearing wait');return;}
+            if(issue.status==='review'&&issue.humanAction?.startsWith(WAIT_REVIEW_PREFIX))issue.status='active';
+            if(issue.waiting.trigger.kind==='tenantReply'){issue.lastQuestion=issue.outstandingQuestion;delete issue.outstandingQuestion;}
+            clearWaiting(issue);
+        }
         if (decoded.supersedes && !issue.evidence.some(e => e.eventId === decoded.supersedes && e.cursor < event.cursor)) {
             issue.status = 'review';
             issue.humanAction = 'Correction references missing or foreign evidence';
@@ -159,10 +169,15 @@ export class Graph {
             this.complete(event, issue, 'No write on invalid decision');
             return;
         }
+        if(decision.scope)issue.scope=decision.scope;
         if (decision.humanAction)
             issue.humanAction = decision.humanAction;
         if (decision.kind === 'wait' || decision.kind === 'review' || decision.kind === 'outOfScope') {
             issue.status = decision.kind === 'wait' ? 'waiting' : decision.kind;
+            if(decision.kind==='wait'){
+                if(!decision.resume||decision.resume.kind==='operatorReview'){issue.status='review';issue.humanAction='Waiting requires operator review: '+decision.reason;}
+                else {startWaiting(issue,event,decision.resume,(this.dependencies.now??Date.now)(),this.dependencies.reviewAfterMs);if(this.dependencies.reviewAfterMs===undefined)issue.status='review';}
+            }else clearWaiting(issue);
             if (decision.urgency)
                 issue.urgency = decision.urgency;
             this.complete(event, issue, decision.reason);
@@ -190,6 +205,7 @@ export class Graph {
                     issue.remoteCase = result as RemoteCase;
                     issue.urgency = d.urgency;
                     issue.status = 'active';
+                    clearWaiting(issue);
                     delete issue.outstandingQuestion;
                     break;
                 case 'update':
@@ -197,12 +213,14 @@ export class Graph {
                     issue.remoteCase = result as RemoteCase;
                     issue.urgency = issue.remoteCase.urgency ?? issue.urgency;
                     issue.status = 'active';
+                    clearWaiting(issue);
                     delete issue.outstandingQuestion;
                     break;
                 case 'ask':
                     result = await world.sendMessage(d.actorId, { body: d.question });
                     issue.outstandingQuestion = d.question;
                     issue.status = 'awaitingReply';
+                    startWaiting(issue,event,{kind:'tenantReply',condition:d.question},(this.dependencies.now??Date.now)(),this.dependencies.reviewAfterMs);
                     break;
                 default: throw new Error('Invalid action intent');
             }

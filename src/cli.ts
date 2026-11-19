@@ -1,3 +1,4 @@
+import {acknowledgeWaitingReview} from './workflow/waiting.js';
 import { readFileSync, mkdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { createHash } from 'node:crypto';
@@ -48,7 +49,7 @@ export async function main(args = process.argv.slice(2)): Promise<void> {
         const session = required('DWELLY_SESSION_ID');
         const store = new Store({ path: process.env.DWELLY_DB ?? dataPath(session), session, readOnly: true });
         try {
-            console.log(JSON.stringify(arg === '--review' ? store.reviewEvents() : { ...store.inspect(arg), coordination: inspectCoordination(store, arg) }, null, 2));
+            console.log(JSON.stringify(arg === '--waiting' ? store.waitingQueue() : arg === '--review' ? store.reviewEvents() : { ...store.inspect(arg), coordination: inspectCoordination(store, arg) }, null, 2));
         }
         finally {
             store.close();
@@ -73,6 +74,12 @@ export async function main(args = process.argv.slice(2)): Promise<void> {
         finally {
             store.close();
         }
+    }
+    else if (command === 'ack-wait') {
+        if(!arg)throw new Error('Usage: npm run ack-wait -- <issue-id>');
+        const session=required('DWELLY_SESSION_ID');const token=required('DWELLY_TOKEN');
+        const store=new Store({path:process.env.DWELLY_DB??dataPath(session),session,identity:createHash('sha256').update(token).digest('hex')});
+        try{console.log(JSON.stringify(acknowledgeWaitingReview(store,arg),null,2));}finally{store.close();}
     }
     else if (command === 'diagnose') {
         const models = args.slice(1).filter(a => a !== '--saved');
@@ -100,7 +107,7 @@ export async function main(args = process.argv.slice(2)): Promise<void> {
             const precedents = await world.readHistory();
             const coordinator = new Coordinator({ store, world });
             await coordinator.drain();
-            const graph = new Graph({ store, world, beforeEvent: event => coordinator.processEvent(event), assess: createModelAssessor(modelConfig), precedents });
+            const graph = new Graph({ store, world, beforeEvent: event => coordinator.processEvent(event), reviewAfterMs:process.env.DWELLY_REVIEW_AFTER_MS?Number(process.env.DWELLY_REVIEW_AFTER_MS):undefined, assess: createModelAssessor(modelConfig), precedents });
             await graph.drain();
             console.log(`Live session ${session}; cursor ${store.cursor()}; Ctrl-C to stop.`);
             while (!stopped) {
@@ -116,7 +123,7 @@ export async function main(args = process.argv.slice(2)): Promise<void> {
         }
     }
     else {
-        console.log('Dwelly maintenance agent\nCommands: replay case-04 | inspect <issue-id> | eval | live | coordinate <issue-id> <trade> | reconcile <action-id> <event-id>\nSee README.md for environment configuration.');
+        console.log('Dwelly maintenance agent\nCommands: replay case-04 | inspect <issue-id>|--review|--waiting | ack-wait <issue-id> | eval | live | coordinate <issue-id> <trade> | reconcile <action-id> <event-id>\nSee README.md for environment configuration.');
         if (command)
             process.exitCode = 1;
     }

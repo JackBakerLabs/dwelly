@@ -91,6 +91,9 @@ export interface Observation {
     occurredAt: string;
     supersedes?: string;
 }
+export type MaintenanceScope = 'maintenance'|'nonMaintenance'|'externalEmergency'|'unknown';
+export type ResumeTrigger = { kind:'tenantReply'|'caseUpdate'|'operatorReview'; condition:string };
+export interface WaitState { trigger:ResumeTrigger; originEventId:string; startedAt:number; reviewAt?:number; state:'pending'|'needsSchedule'|'expired'; actorId?:string;priorHumanAction?:string }
 export interface Issue {
     id: string;
     session: string;
@@ -101,10 +104,14 @@ export interface Issue {
     evidence: Observation[];
     remoteCase?: RemoteCase;
     outstandingQuestion?: string;
+    lastQuestion?:string;
+    scope?: MaintenanceScope;
+    waiting?: WaitState;
     urgency?: Urgency;
     humanAction?: string;
 }
 export interface DecisionBase {
+    scope?: MaintenanceScope;
     evidenceIds: string[];
     reason: string;
     humanAction?: string;
@@ -125,6 +132,7 @@ export type Decision = DecisionBase & ({
 } | {
     kind: 'wait';
     urgency?: Urgency;
+    resume?: ResumeTrigger;
 } | {
     kind: 'outOfScope';
     urgency: Urgency;

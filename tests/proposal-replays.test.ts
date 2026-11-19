@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,readdirSync} from 'node:fs';
-import {bindProposal} from '../src/triage/proposal.js';
+import {bindProposal} from '../src/triage/proposal-v2.js';
 import {replayDecision} from '../src/evaluation/graph-replay.js';
 import type {HistoryCase,Issue} from '../src/types.js';
 import type {EvaluationFixture} from '../src/triage/index.js';
@@ -19,7 +19,7 @@ for(const directory of ['docs/diagnostics/triage-v2-2026-11-19T16-17-30.003Z','d
     const diagnostic=report.diagnostics.find((d:any)=>d.stage==='accepted'&&d.eventIds.includes(row.eventIds[0]));
     assert.ok(diagnostic,'Captured response must have passed binding');const raw=JSON.parse(diagnostic.responseText);
     assert.deepEqual(bindProposal(issue,raw),row.decision);
-    const replay=await replayDecision(history,row.caseId,raw,true,true);assert.equal(replay.passed,true,JSON.stringify(replay));
+    const replay=await replayDecision(history,row.caseId,raw,true,true,true);assert.equal(replay.passed,true,JSON.stringify(replay));
    });
   }
  }

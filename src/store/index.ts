@@ -158,6 +158,7 @@ export class Store {
         this.transaction(() => { intent.state = 'confirmed'; intent.result = { reconciled: true, eventId, case: remote }; this.putIntent(intent); issue.remoteCase = remote; issue.urgency = remote.urgency ?? undefined; issue.status = 'active'; issue.humanAction = intent.decision.humanAction; delete issue.outstandingQuestion; this.putIssue(issue); this.finish(intent.eventId); this.trace({ session: this.session, eventId: event.id, cursor: event.cursor, issueId: issue.id, remoteId: remote.id, node: 'Checkpoint', edge: 'reconciled', evidenceIds: [...intent.decision.evidenceIds, event.id], reason: 'Operator confirmed a uniquely matching observed creation; no remote retry', outcome: { actionId, remoteId: remote.id } }); });
         return this.inspect(issue.id);
     }
+    waitingQueue(){return this.issues().filter(i=>i.waiting||['waiting','awaitingReply'].includes(i.status)).map(i=>({issueId:i.id,status:i.status,scope:i.scope??null,waiting:i.waiting??null,humanAction:i.humanAction??(!i.waiting?'Legacy wait has no recorded trigger/deadline; operator review required':null)}));}
     reviewEvents() { const traced = new Set(this.traces().filter(t => t.edge === 'review' && !t.issueId).map(t => t.eventId)); return [...traced].map(id => ({ event: this.event(id), trace: this.traces().filter(t => t.eventId === id) })); }
     close() { this.db.close(); if (this.lock)
         rmSync(this.lock, { recursive: true, force: true }); }

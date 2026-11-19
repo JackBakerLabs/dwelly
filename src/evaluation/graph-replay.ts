@@ -1,3 +1,4 @@
+import {bindProposal as bindLegacyProposal} from '../triage/proposal-v2.js';
 import { bindProposal } from '../triage/proposal.js';
 import assert from 'node:assert/strict';
 import { mkdtempSync, rmSync } from 'node:fs';
@@ -8,7 +9,7 @@ import { Graph } from '../graph/index.js';
 import { ReplayWorldClient } from '../world/index.js';
 import type { HistoryCase, Decision, WorldEvent } from '../types.js';
 /** Inject the exact captured decision: no model calls and no repair of malformed output. */
-export async function replayDecision(history: HistoryCase[], caseId: string, decision: unknown, expectValid = true, proposal = false) {
+export async function replayDecision(history: HistoryCase[], caseId: string, decision: unknown, expectValid = true, proposal = false, legacy = false) {
     const c = history.find(c => c.id === caseId)!;
     const m = c.messages.find(m => m.from === 'tenant')!;
     const event: WorldEvent = { id: caseId + '-initial', cursor: 1, type: 'message.received', channel: 'email', actor: { id: 'eval-tenant', name: m.name, role: 'tenant' }, sim_ms: 0, occurred_at: m.sent_at, payload: { body: m.body, conversation_id: caseId } };
@@ -18,9 +19,9 @@ export async function replayDecision(history: HistoryCase[], caseId: string, dec
     const world = new ReplayWorldClient();
     let calls = 0;
     let executable: Decision | undefined;
-    const assess = async (current: import('../types.js').Issue) => { calls++; executable = proposal ? bindProposal(current, decision) : decision as Decision; return executable; };
+    const assess = async (current: import('../types.js').Issue) => { calls++; executable = proposal ? (legacy?bindLegacyProposal:bindProposal)(current, decision) : decision as Decision; return executable; };
     try {
-        await new Graph({ store, world, assess }).processEvent(event);
+        await new Graph({ store, world, assess, reviewAfterMs: 86400000 }).processEvent(event);
         const issue = store.issues()[0]!;
         assert.ok(issue);
         assert.equal(store.status(event.id), 'done');
@@ -45,15 +46,15 @@ export async function replayDecision(history: HistoryCase[], caseId: string, dec
             }
             else {
                 assert.equal(world.writes.length, 0);
-                assert.equal(issue.status, d.kind === 'wait' ? 'waiting' : d.kind);
+                assert.equal(issue.status, d.kind === 'wait' ? (d.resume && d.resume.kind !== 'operatorReview' ? 'waiting' : 'review') : d.kind);
             }
-            assert.equal(issue.humanAction, d.humanAction);
+            if (d.kind !== 'wait') assert.equal(issue.humanAction, d.humanAction);
         }
         const before = JSON.stringify(store.inspect(issue.id));
         const writes = world.writes.length;
         store.close();
         store = new Store({ path, session: 'model-replay' });
-        await new Graph({ store, world, assess }).processEvent(event);
+        await new Graph({ store, world, assess, reviewAfterMs: 86400000 }).processEvent(event);
         assert.equal(calls, 1);
         assert.equal(world.writes.length, writes);
         assert.equal(JSON.stringify(store.inspect(issue.id)), before);

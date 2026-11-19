@@ -10,7 +10,7 @@ import { Store } from '../src/store/index.js';
 import { ReplayWorldClient } from '../src/world/index.js';
 import type { Issue, HistoryCase, WorldEvent } from '../src/types.js';
 const issue: Issue = { id: 'local-issue', session: 's', actorId: 'tenant-1', status: 'active', evidence: [{ eventId: 'e1', cursor: 1, actor: { id: 'tenant-1', role: 'tenant', name: 'Tenant' }, body: 'Contained leak', occurredAt: '2026-11-19T00:00:00Z' }] };
-const base = { evidenceIds: ['e1'], reason: 'Observed fact', humanAction: null };
+const base = { scope:'maintenance', evidenceIds: ['e1'], reason: 'Observed fact', humanAction: null };
 const open = { ...base, kind: 'open', title: 'Leak', description: null, urgency: 'medium' };
 const linked: Issue = { ...issue, remoteCase: { id: 'remote-1', title: 'Leak', description: null, urgency: 'medium', property_id: null, status: 'open', created_at: 'now', updated_at: 'now' } };
 const response = (decision: unknown) => new Response(JSON.stringify({ model: 'returned-model', choices: [{ message: { content: JSON.stringify({ decision }) } }] }));
@@ -33,7 +33,7 @@ test('binding chooses only known recipients and remote IDs, never converts unava
         assert.equal(ask.actorId, 'tenant-1');
     const update = { ...base, kind: 'update', patch: { title: null, description: null, urgency: 'high', status: null } };
     const d = bindProposal(linked, { decision: update });
-    assert.deepEqual(d, { evidenceIds: ['e1'], reason: 'Observed fact', kind: 'update', caseId: 'remote-1', patch: { urgency: 'high' } });
+    assert.deepEqual(d, { scope:'maintenance',evidenceIds: ['e1'], reason: 'Observed fact', kind: 'update', caseId: 'remote-1', patch: { urgency: 'high' } });
     assert.throws(() => bindProposal(issue, { decision: update }), /unavailable/);
     assert.throws(() => bindProposal(linked, { decision: open }), /unavailable/);
     assert.throws(() => bindProposal(linked, { decision: { ...update, caseId: 'injected' } }), /Unrecognized key/);
@@ -117,7 +117,7 @@ test('model proposal graph resumes clarification then opens and updates the same
                 return response({ ...base, evidenceIds, kind: 'ask', question: 'Where is water coming from?' });
             if (calls === 2) {
                 assert.equal(c.remoteCase, null);
-                assert.ok(c.outstandingQuestion);
+                assert.equal(c.outstandingQuestion,null);assert.ok(c.lastQuestion);
                 return response({ ...open, evidenceIds });
             }
             assert.ok(c.remoteCase);

@@ -16,7 +16,9 @@
     "coordinate": "node dist/src/cli.js coordinate",
     "reconcile": "node dist/src/cli.js reconcile",
     "diagnose": "node dist/src/cli.js diagnose",
-    "eval-fresh": "node dist/src/cli.js eval-fresh"
+    "eval-fresh": "node dist/src/cli.js eval-fresh",
+    "ack-wait": "node dist/src/cli.js ack-wait",
+    "eval-conversations": "node dist/src/evaluation/run-conversations.js"
   },
   "dependencies": {
     "zod": "4.6.7"

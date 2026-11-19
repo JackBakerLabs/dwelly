@@ -1,0 +1,823 @@
+{
+  "model": "deepseek/deepseek-chat-v3.1",
+  "dataset": "synthetic",
+  "promptVersion": "triage-v3-user-policy-v1",
+  "evaluation": {
+    "provider": "real-or-injected",
+    "promptVersion": "triage-v3-user-policy-v1",
+    "policy": {
+      "version": "user-maintenance-policy-v1",
+      "owner": "user",
+      "approvedOn": "2026-11-19",
+      "officialDwellyPolicy": false,
+      "purpose": "User-proposed prompt changes intended to improve accuracy; effectiveness is not yet established"
+    },
+    "total": 4,
+    "passed": 3,
+    "underTriage": 0,
+    "providerFailures": 0,
+    "contractFailures": 0,
+    "unscoredUrgency": 0,
+    "results": [
+      {
+        "caseId": "fresh-01",
+        "eventIds": [
+          "fresh-01-initial"
+        ],
+        "expected": {
+          "urgency": "emergency",
+          "disposition": "escalated_externally"
+        },
+        "decision": {
+          "evidenceIds": [
+            "fresh-01-initial"
+          ],
+          "reason": "Water actively running from ceiling light fitting with electrical flickering presents immediate risk of electrocution and fire. This constitutes an emergency requiring qualified electrical and plumbing response.",
+          "humanAction": "Immediate escalation required: Contact emergency electrician and plumber to isolate power and address water ingress. Evacuate area if necessary. Do not attempt DIY fixes.",
+          "kind": "open",
+          "title": "Emergency: Water ingress through live ceiling light",
+          "description": "Water actively running from hall ceiling light fixture with electrical flickering. Water pooling on floor below. Immediate electrical and plumbing hazard.",
+          "urgency": "emergency"
+        },
+        "passed": true,
+        "underTriage": false,
+        "unscoredUrgency": false
+      },
+      {
+        "caseId": "fresh-02",
+        "eventIds": [
+          "fresh-02-initial"
+        ],
+        "expected": {
+          "urgency": "low",
+          "disposition": "resolved"
+        },
+        "decision": {
+          "evidenceIds": [
+            "fresh-02-initial"
+          ],
+          "reason": "Shallow scratch in paint on cupboard door described as cosmetic only, stable for months, with no functional impact or deterioration risk. No evidence of immediate hazard, active damage, or urgent repair need.",
+          "kind": "outOfScope",
+          "urgency": "low"
+        },
+        "passed": false,
+        "underTriage": false,
+        "unscoredUrgency": false
+      },
+      {
+        "caseId": "fresh-03",
+        "eventIds": [
+          "fresh-03-initial"
+        ],
+        "expected": {
+          "urgency": "high",
+          "disposition": "resolved"
+        },
+        "decision": {
+          "evidenceIds": [
+            "fresh-03-initial"
+          ],
+          "reason": "Ground-floor exterior door lock broken and will not latch or lock, leaving the property unsecured. This presents a security risk as anyone can push the door open. Based on guidance case-12, a ground-floor window facing the street that cannot be locked was assessed as high urgency due to the property being unsecured until fixed. This is analogous to a broken exterior door lock on the ground floor.",
+          "kind": "open",
+          "title": "Broken exterior door lock - property unsecured",
+          "description": "Ground-floor flat's exterior door lock broken, will not latch or lock, leaving property unsecured",
+          "urgency": "high"
+        },
+        "passed": true,
+        "underTriage": false,
+        "unscoredUrgency": false
+      },
+      {
+        "caseId": "fresh-04",
+        "eventIds": [
+          "fresh-04-initial"
+        ],
+        "expected": {
+          "urgency": "low",
+          "disposition": "closed_out_of_scope"
+        },
+        "decision": {
+          "evidenceIds": [
+            "fresh-04-initial"
+          ],
+          "reason": "Tenant reports a parking entitlement dispute with a neighbour. No physical defect, damage, or maintenance issue with the parking space, surface, signs, gate, or equipment is reported. This is a conduct/entitlement matter outside property maintenance scope.",
+          "humanAction": "Human follow-up required to address parking allocation dispute through appropriate channels (e.g., property management, lease enforcement).",
+          "kind": "outOfScope",
+          "urgency": "low"
+        },
+        "passed": true,
+        "underTriage": false,
+        "unscoredUrgency": false
+      }
+    ]
+  },
+  "diagnostics": [
+    {
+      "model": "deepseek/deepseek-chat-v3.1",
+      "eventIds": [
+        "fresh-01-initial"
+      ],
+      "attempt": 1,
+      "stage": "accepted",
+      "status": 200,
+      "responseText": "{\n  \"decision\": {\n    \"evidenceIds\": [\"fresh-01-initial\"],\n    \"reason\": \"Water actively running from ceiling light fitting with electrical flickering presents immediate risk of electrocution and fire. This constitutes an emergency requiring qualified electrical and plumbing response.\",\n    \"humanAction\": \"Immediate escalation required: Contact emergency electrician and plumber to isolate power and address water ingress. Evacuate area if necessary. Do not attempt DIY fixes.\",\n    \"kind\": \"open\",\n    \"title\": \"Emergency: Water ingress through live ceiling light\",\n    \"description\": \"Water actively running from hall ceiling light fixture with electrical flickering. Water pooling on floor below. Immediate electrical and plumbing hazard.\",\n    \"urgency\": \"emergency\"\n  }\n}",
+      "returnedModel": "deepseek/deepseek-chat-v3.1",
+      "elapsedMs": 2354,
+      "correctionSucceeded": false,
+      "provider": "openrouter",
+      "promptVersion": "triage-v3-user-policy-v1",
+      "schemaVersion": "assessment-v2",
+      "policy": {
+        "version": "user-maintenance-policy-v1",
+        "owner": "user",
+        "approvedOn": "2026-11-19",
+        "officialDwellyPolicy": false,
+        "purpose": "User-proposed prompt changes intended to improve accuracy; effectiveness is not yet established"
+      },
+      "schemaHash": "af0df44e4d3c1af415a97111a7a9ad7af98c21390bf9f2edfb94d7d7d54f6deb",
+      "settings": {
+        "responseFormat": "json_schema",
+        "timeoutMs": 45000,
+        "maxAttempts": 2
+      }
+    },
+    {
+      "model": "deepseek/deepseek-chat-v3.1",
+      "eventIds": [
+        "fresh-02-initial"
+      ],
+      "attempt": 1,
+      "stage": "accepted",
+      "status": 200,
+      "responseText": "{\n  \"decision\": {\n    \"evidenceIds\": [\"fresh-02-initial\"],\n    \"reason\": \"Shallow scratch in paint on cupboard door described as cosmetic only, stable for months, with no functional impact or deterioration risk. No evidence of immediate hazard, active damage, or urgent repair need.\",\n    \"humanAction\": null,\n    \"kind\": \"outOfScope\",\n    \"urgency\": \"low\"\n  }\n}",
+      "returnedModel": "deepseek/deepseek-chat-v3.1",
+      "elapsedMs": 1569,
+      "correctionSucceeded": false,
+      "provider": "openrouter",
+      "promptVersion": "triage-v3-user-policy-v1",
+      "schemaVersion": "assessment-v2",
+      "policy": {
+        "version": "user-maintenance-policy-v1",
+        "owner": "user",
+        "approvedOn": "2026-11-19",
+        "officialDwellyPolicy": false,
+        "purpose": "User-proposed prompt changes intended to improve accuracy; effectiveness is not yet established"
+      },
+      "schemaHash": "af0df44e4d3c1af415a97111a7a9ad7af98c21390bf9f2edfb94d7d7d54f6deb",
+      "settings": {
+        "responseFormat": "json_schema",
+        "timeoutMs": 45000,
+        "maxAttempts": 2
+      }
+    },
+    {
+      "model": "deepseek/deepseek-chat-v3.1",
+      "eventIds": [
+        "fresh-03-initial"
+      ],
+      "attempt": 1,
+      "stage": "accepted",
+      "status": 200,
+      "responseText": "{\n  \"decision\": {\n    \"evidenceIds\": [\"fresh-03-initial\"],\n    \"reason\": \"Ground-floor exterior door lock broken and will not latch or lock, leaving the property unsecured. This presents a security risk as anyone can push the door open. Based on guidance case-12, a ground-floor window facing the street that cannot be locked was assessed as high urgency due to the property being unsecured until fixed. This is analogous to a broken exterior door lock on the ground floor.\",\n    \"humanAction\": null,\n    \"kind\": \"open\",\n    \"title\": \"Broken exterior door lock - property unsecured\",\n    \"description\": \"Ground-floor flat's exterior door lock broken, will not latch or lock, leaving property unsecured\",\n    \"urgency\": \"high\"\n  }\n}",
+      "returnedModel": "deepseek/deepseek-chat-v3.1",
+      "elapsedMs": 2684,
+      "correctionSucceeded": false,
+      "provider": "openrouter",
+      "promptVersion": "triage-v3-user-policy-v1",
+      "schemaVersion": "assessment-v2",
+      "policy": {
+        "version": "user-maintenance-policy-v1",
+        "owner": "user",
+        "approvedOn": "2026-11-19",
+        "officialDwellyPolicy": false,
+        "purpose": "User-proposed prompt changes intended to improve accuracy; effectiveness is not yet established"
+      },
+      "schemaHash": "af0df44e4d3c1af415a97111a7a9ad7af98c21390bf9f2edfb94d7d7d54f6deb",
+      "settings": {
+        "responseFormat": "json_schema",
+        "timeoutMs": 45000,
+        "maxAttempts": 2
+      }
+    },
+    {
+      "model": "deepseek/deepseek-chat-v3.1",
+      "eventIds": [
+        "fresh-04-initial"
+      ],
+      "attempt": 1,
+      "stage": "accepted",
+      "status": 200,
+      "responseText": "{\n  \"decision\": {\n    \"evidenceIds\": [\"fresh-04-initial\"],\n    \"reason\": \"Tenant reports a parking entitlement dispute with a neighbour. No physical defect, damage, or maintenance issue with the parking space, surface, signs, gate, or equipment is reported. This is a conduct/entitlement matter outside property maintenance scope.\",\n    \"humanAction\": \"Human follow-up required to address parking allocation dispute through appropriate channels (e.g., property management, lease enforcement).\",\n    \"kind\": \"outOfScope\",\n    \"urgency\": \"low\"\n  }\n}",
+      "returnedModel": "deepseek/deepseek-chat-v3.1",
+      "elapsedMs": 2002,
+      "correctionSucceeded": false,
+      "provider": "openrouter",
+      "promptVersion": "triage-v3-user-policy-v1",
+      "schemaVersion": "assessment-v2",
+      "policy": {
+        "version": "user-maintenance-policy-v1",
+        "owner": "user",
+        "approvedOn": "2026-11-19",
+        "officialDwellyPolicy": false,
+        "purpose": "User-proposed prompt changes intended to improve accuracy; effectiveness is not yet established"
+      },
+      "schemaHash": "af0df44e4d3c1af415a97111a7a9ad7af98c21390bf9f2edfb94d7d7d54f6deb",
+      "settings": {
+        "responseFormat": "json_schema",
+        "timeoutMs": 45000,
+        "maxAttempts": 2
+      }
+    }
+  ],
+  "replays": [
+    {
+      "caseId": "fresh-01",
+      "passed": true,
+      "expectedValidation": "accept",
+      "writes": [
+        {
+          "operation": "createCase",
+          "input": {
+            "title": "Emergency: Water ingress through live ceiling light",
+            "urgency": "emergency",
+            "description": "Water actively running from hall ceiling light fixture with electrical flickering. Water pooling on floor below. Immediate electrical and plumbing hazard."
+          },
+          "id": "abb97a05-5918-4633-bbd1-c0aec5436b88"
+        }
+      ],
+      "inspection": {
+        "issue": {
+          "id": "issue-f12d6018-28b6-47c5-9bfd-4a7c14b2009e",
+          "session": "model-replay",
+          "actorId": "eval-tenant",
+          "conversationId": "fresh-01",
+          "status": "active",
+          "evidence": [
+            {
+              "eventId": "fresh-01-initial",
+              "cursor": 1,
+              "actor": {
+                "id": "eval-tenant",
+                "name": "Synthetic Tenant A",
+                "role": "tenant"
+              },
+              "body": "Water has started running out of the hall ceiling light. The light is on and flickering and the water is pooling on the floor beneath it.",
+              "occurredAt": "2026-11-19T12:00:00Z"
+            }
+          ],
+          "humanAction": "Immediate escalation required: Contact emergency electrician and plumber to isolate power and address water ingress. Evacuate area if necessary. Do not attempt DIY fixes.",
+          "remoteCase": {
+            "id": "abb97a05-5918-4633-bbd1-c0aec5436b88",
+            "title": "Emergency: Water ingress through live ceiling light",
+            "description": "Water actively running from hall ceiling light fixture with electrical flickering. Water pooling on floor below. Immediate electrical and plumbing hazard.",
+            "urgency": "emergency",
+            "property_id": null,
+            "status": "open",
+            "created_at": "2026-11-19T16:41:54.461Z",
+            "updated_at": "2026-11-19T16:41:54.461Z"
+          },
+          "urgency": "emergency"
+        },
+        "events": [
+          {
+            "id": "fresh-01-initial",
+            "cursor": 1,
+            "type": "message.received",
+            "channel": "email",
+            "actor": {
+              "id": "eval-tenant",
+              "name": "Synthetic Tenant A",
+              "role": "tenant"
+            },
+            "sim_ms": 0,
+            "occurred_at": "2026-11-19T12:00:00Z",
+            "payload": {
+              "body": "Water has started running out of the hall ceiling light. The light is on and flickering and the water is pooling on the floor beneath it.",
+              "conversation_id": "fresh-01"
+            }
+          }
+        ],
+        "actions": [
+          {
+            "id": "action-6773a5ad-048c-4518-aebc-4c79207eb5f8",
+            "eventId": "fresh-01-initial",
+            "issueId": "issue-f12d6018-28b6-47c5-9bfd-4a7c14b2009e",
+            "decision": {
+              "evidenceIds": [
+                "fresh-01-initial"
+              ],
+              "reason": "Water actively running from ceiling light fitting with electrical flickering presents immediate risk of electrocution and fire. This constitutes an emergency requiring qualified electrical and plumbing response.",
+              "humanAction": "Immediate escalation required: Contact emergency electrician and plumber to isolate power and address water ingress. Evacuate area if necessary. Do not attempt DIY fixes.",
+              "kind": "open",
+              "title": "Emergency: Water ingress through live ceiling light",
+              "description": "Water actively running from hall ceiling light fixture with electrical flickering. Water pooling on floor below. Immediate electrical and plumbing hazard.",
+              "urgency": "emergency"
+            },
+            "state": "confirmed",
+            "attempts": 1,
+            "result": {
+              "id": "abb97a05-5918-4633-bbd1-c0aec5436b88",
+              "title": "Emergency: Water ingress through live ceiling light",
+              "description": "Water actively running from hall ceiling light fixture with electrical flickering. Water pooling on floor below. Immediate electrical and plumbing hazard.",
+              "urgency": "emergency",
+              "property_id": null,
+              "status": "open",
+              "created_at": "2026-11-19T16:41:54.461Z",
+              "updated_at": "2026-11-19T16:41:54.461Z"
+            }
+          }
+        ],
+        "trace": [
+          {
+            "session": "model-replay",
+            "eventId": "fresh-01-initial",
+            "cursor": 1,
+            "issueId": "issue-f12d6018-28b6-47c5-9bfd-4a7c14b2009e",
+            "node": "Route",
+            "edge": "Assess",
+            "evidenceIds": [
+              "fresh-01-initial"
+            ],
+            "reason": "Material observation linked"
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-01-initial",
+            "cursor": 1,
+            "issueId": "issue-f12d6018-28b6-47c5-9bfd-4a7c14b2009e",
+            "node": "Assess",
+            "edge": "Validate",
+            "evidenceIds": [
+              "fresh-01-initial"
+            ],
+            "reason": "Water actively running from ceiling light fitting with electrical flickering presents immediate risk of electrocution and fire. This constitutes an emergency requiring qualified electrical and plumbing response."
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-01-initial",
+            "cursor": 1,
+            "issueId": "issue-f12d6018-28b6-47c5-9bfd-4a7c14b2009e",
+            "node": "Validate",
+            "edge": "Act",
+            "evidenceIds": [
+              "fresh-01-initial"
+            ],
+            "reason": "Water actively running from ceiling light fitting with electrical flickering presents immediate risk of electrocution and fire. This constitutes an emergency requiring qualified electrical and plumbing response.",
+            "outcome": {
+              "evidenceIds": [
+                "fresh-01-initial"
+              ],
+              "reason": "Water actively running from ceiling light fitting with electrical flickering presents immediate risk of electrocution and fire. This constitutes an emergency requiring qualified electrical and plumbing response.",
+              "humanAction": "Immediate escalation required: Contact emergency electrician and plumber to isolate power and address water ingress. Evacuate area if necessary. Do not attempt DIY fixes.",
+              "kind": "open",
+              "title": "Emergency: Water ingress through live ceiling light",
+              "description": "Water actively running from hall ceiling light fixture with electrical flickering. Water pooling on floor below. Immediate electrical and plumbing hazard.",
+              "urgency": "emergency"
+            }
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-01-initial",
+            "cursor": 1,
+            "issueId": "issue-f12d6018-28b6-47c5-9bfd-4a7c14b2009e",
+            "node": "Act",
+            "edge": "dispatch",
+            "evidenceIds": [
+              "fresh-01-initial"
+            ],
+            "reason": "Water actively running from ceiling light fitting with electrical flickering presents immediate risk of electrocution and fire. This constitutes an emergency requiring qualified electrical and plumbing response.",
+            "outcome": {
+              "actionId": "action-6773a5ad-048c-4518-aebc-4c79207eb5f8"
+            }
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-01-initial",
+            "cursor": 1,
+            "issueId": "issue-f12d6018-28b6-47c5-9bfd-4a7c14b2009e",
+            "remoteId": "abb97a05-5918-4633-bbd1-c0aec5436b88",
+            "node": "Checkpoint",
+            "edge": "confirmed",
+            "evidenceIds": [
+              "fresh-01-initial"
+            ],
+            "reason": "Water actively running from ceiling light fitting with electrical flickering presents immediate risk of electrocution and fire. This constitutes an emergency requiring qualified electrical and plumbing response.",
+            "outcome": {
+              "id": "abb97a05-5918-4633-bbd1-c0aec5436b88",
+              "title": "Emergency: Water ingress through live ceiling light",
+              "description": "Water actively running from hall ceiling light fixture with electrical flickering. Water pooling on floor below. Immediate electrical and plumbing hazard.",
+              "urgency": "emergency",
+              "property_id": null,
+              "status": "open",
+              "created_at": "2026-11-19T16:41:54.461Z",
+              "updated_at": "2026-11-19T16:41:54.461Z"
+            }
+          }
+        ]
+      },
+      "restartDuplicatePassed": true
+    },
+    {
+      "caseId": "fresh-02",
+      "passed": true,
+      "expectedValidation": "accept",
+      "writes": [],
+      "inspection": {
+        "issue": {
+          "id": "issue-01f6b08d-ea48-4e0e-b7fa-35eacf689d85",
+          "session": "model-replay",
+          "actorId": "eval-tenant",
+          "conversationId": "fresh-02",
+          "status": "outOfScope",
+          "evidence": [
+            {
+              "eventId": "fresh-02-initial",
+              "cursor": 1,
+              "actor": {
+                "id": "eval-tenant",
+                "name": "Synthetic Tenant B",
+                "role": "tenant"
+              },
+              "body": "There is a shallow scratch in the paint on the inside of a cupboard door. The door works normally, nothing is loose or sharp, and the mark has not changed for months.",
+              "occurredAt": "2026-11-19T12:01:00Z"
+            }
+          ],
+          "urgency": "low"
+        },
+        "events": [
+          {
+            "id": "fresh-02-initial",
+            "cursor": 1,
+            "type": "message.received",
+            "channel": "email",
+            "actor": {
+              "id": "eval-tenant",
+              "name": "Synthetic Tenant B",
+              "role": "tenant"
+            },
+            "sim_ms": 0,
+            "occurred_at": "2026-11-19T12:01:00Z",
+            "payload": {
+              "body": "There is a shallow scratch in the paint on the inside of a cupboard door. The door works normally, nothing is loose or sharp, and the mark has not changed for months.",
+              "conversation_id": "fresh-02"
+            }
+          }
+        ],
+        "actions": [],
+        "trace": [
+          {
+            "session": "model-replay",
+            "eventId": "fresh-02-initial",
+            "cursor": 1,
+            "issueId": "issue-01f6b08d-ea48-4e0e-b7fa-35eacf689d85",
+            "node": "Route",
+            "edge": "Assess",
+            "evidenceIds": [
+              "fresh-02-initial"
+            ],
+            "reason": "Material observation linked"
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-02-initial",
+            "cursor": 1,
+            "issueId": "issue-01f6b08d-ea48-4e0e-b7fa-35eacf689d85",
+            "node": "Assess",
+            "edge": "Validate",
+            "evidenceIds": [
+              "fresh-02-initial"
+            ],
+            "reason": "Shallow scratch in paint on cupboard door described as cosmetic only, stable for months, with no functional impact or deterioration risk. No evidence of immediate hazard, active damage, or urgent repair need."
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-02-initial",
+            "cursor": 1,
+            "issueId": "issue-01f6b08d-ea48-4e0e-b7fa-35eacf689d85",
+            "node": "Validate",
+            "edge": "Act",
+            "evidenceIds": [
+              "fresh-02-initial"
+            ],
+            "reason": "Shallow scratch in paint on cupboard door described as cosmetic only, stable for months, with no functional impact or deterioration risk. No evidence of immediate hazard, active damage, or urgent repair need.",
+            "outcome": {
+              "evidenceIds": [
+                "fresh-02-initial"
+              ],
+              "reason": "Shallow scratch in paint on cupboard door described as cosmetic only, stable for months, with no functional impact or deterioration risk. No evidence of immediate hazard, active damage, or urgent repair need.",
+              "kind": "outOfScope",
+              "urgency": "low"
+            }
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-02-initial",
+            "cursor": 1,
+            "issueId": "issue-01f6b08d-ea48-4e0e-b7fa-35eacf689d85",
+            "node": "Checkpoint",
+            "edge": "done",
+            "evidenceIds": [
+              "fresh-02-initial"
+            ],
+            "reason": "Shallow scratch in paint on cupboard door described as cosmetic only, stable for months, with no functional impact or deterioration risk. No evidence of immediate hazard, active damage, or urgent repair need."
+          }
+        ]
+      },
+      "restartDuplicatePassed": true
+    },
+    {
+      "caseId": "fresh-03",
+      "passed": true,
+      "expectedValidation": "accept",
+      "writes": [
+        {
+          "operation": "createCase",
+          "input": {
+            "title": "Broken exterior door lock - property unsecured",
+            "urgency": "high",
+            "description": "Ground-floor flat's exterior door lock broken, will not latch or lock, leaving property unsecured"
+          },
+          "id": "0300ddab-ddc3-416d-88fa-fee4c7a0bde8"
+        }
+      ],
+      "inspection": {
+        "issue": {
+          "id": "issue-092e4e75-edd4-40c7-bfa8-d2791ad64f25",
+          "session": "model-replay",
+          "actorId": "eval-tenant",
+          "conversationId": "fresh-03",
+          "status": "active",
+          "evidence": [
+            {
+              "eventId": "fresh-03-initial",
+              "cursor": 1,
+              "actor": {
+                "id": "eval-tenant",
+                "name": "Synthetic Tenant C",
+                "role": "tenant"
+              },
+              "body": "The ground-floor flat's exterior door lock has broken. The door will not latch or lock, and anyone in the street can push it open. There is no other working lock.",
+              "occurredAt": "2026-11-19T12:02:00Z"
+            }
+          ],
+          "remoteCase": {
+            "id": "0300ddab-ddc3-416d-88fa-fee4c7a0bde8",
+            "title": "Broken exterior door lock - property unsecured",
+            "description": "Ground-floor flat's exterior door lock broken, will not latch or lock, leaving property unsecured",
+            "urgency": "high",
+            "property_id": null,
+            "status": "open",
+            "created_at": "2026-11-19T16:41:54.479Z",
+            "updated_at": "2026-11-19T16:41:54.479Z"
+          },
+          "urgency": "high"
+        },
+        "events": [
+          {
+            "id": "fresh-03-initial",
+            "cursor": 1,
+            "type": "message.received",
+            "channel": "email",
+            "actor": {
+              "id": "eval-tenant",
+              "name": "Synthetic Tenant C",
+              "role": "tenant"
+            },
+            "sim_ms": 0,
+            "occurred_at": "2026-11-19T12:02:00Z",
+            "payload": {
+              "body": "The ground-floor flat's exterior door lock has broken. The door will not latch or lock, and anyone in the street can push it open. There is no other working lock.",
+              "conversation_id": "fresh-03"
+            }
+          }
+        ],
+        "actions": [
+          {
+            "id": "action-3d9d9a9e-d9d9-46de-a77a-e93fd56d9cdc",
+            "eventId": "fresh-03-initial",
+            "issueId": "issue-092e4e75-edd4-40c7-bfa8-d2791ad64f25",
+            "decision": {
+              "evidenceIds": [
+                "fresh-03-initial"
+              ],
+              "reason": "Ground-floor exterior door lock broken and will not latch or lock, leaving the property unsecured. This presents a security risk as anyone can push the door open. Based on guidance case-12, a ground-floor window facing the street that cannot be locked was assessed as high urgency due to the property being unsecured until fixed. This is analogous to a broken exterior door lock on the ground floor.",
+              "kind": "open",
+              "title": "Broken exterior door lock - property unsecured",
+              "description": "Ground-floor flat's exterior door lock broken, will not latch or lock, leaving property unsecured",
+              "urgency": "high"
+            },
+            "state": "confirmed",
+            "attempts": 1,
+            "result": {
+              "id": "0300ddab-ddc3-416d-88fa-fee4c7a0bde8",
+              "title": "Broken exterior door lock - property unsecured",
+              "description": "Ground-floor flat's exterior door lock broken, will not latch or lock, leaving property unsecured",
+              "urgency": "high",
+              "property_id": null,
+              "status": "open",
+              "created_at": "2026-11-19T16:41:54.479Z",
+              "updated_at": "2026-11-19T16:41:54.479Z"
+            }
+          }
+        ],
+        "trace": [
+          {
+            "session": "model-replay",
+            "eventId": "fresh-03-initial",
+            "cursor": 1,
+            "issueId": "issue-092e4e75-edd4-40c7-bfa8-d2791ad64f25",
+            "node": "Route",
+            "edge": "Assess",
+            "evidenceIds": [
+              "fresh-03-initial"
+            ],
+            "reason": "Material observation linked"
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-03-initial",
+            "cursor": 1,
+            "issueId": "issue-092e4e75-edd4-40c7-bfa8-d2791ad64f25",
+            "node": "Assess",
+            "edge": "Validate",
+            "evidenceIds": [
+              "fresh-03-initial"
+            ],
+            "reason": "Ground-floor exterior door lock broken and will not latch or lock, leaving the property unsecured. This presents a security risk as anyone can push the door open. Based on guidance case-12, a ground-floor window facing the street that cannot be locked was assessed as high urgency due to the property being unsecured until fixed. This is analogous to a broken exterior door lock on the ground floor."
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-03-initial",
+            "cursor": 1,
+            "issueId": "issue-092e4e75-edd4-40c7-bfa8-d2791ad64f25",
+            "node": "Validate",
+            "edge": "Act",
+            "evidenceIds": [
+              "fresh-03-initial"
+            ],
+            "reason": "Ground-floor exterior door lock broken and will not latch or lock, leaving the property unsecured. This presents a security risk as anyone can push the door open. Based on guidance case-12, a ground-floor window facing the street that cannot be locked was assessed as high urgency due to the property being unsecured until fixed. This is analogous to a broken exterior door lock on the ground floor.",
+            "outcome": {
+              "evidenceIds": [
+                "fresh-03-initial"
+              ],
+              "reason": "Ground-floor exterior door lock broken and will not latch or lock, leaving the property unsecured. This presents a security risk as anyone can push the door open. Based on guidance case-12, a ground-floor window facing the street that cannot be locked was assessed as high urgency due to the property being unsecured until fixed. This is analogous to a broken exterior door lock on the ground floor.",
+              "kind": "open",
+              "title": "Broken exterior door lock - property unsecured",
+              "description": "Ground-floor flat's exterior door lock broken, will not latch or lock, leaving property unsecured",
+              "urgency": "high"
+            }
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-03-initial",
+            "cursor": 1,
+            "issueId": "issue-092e4e75-edd4-40c7-bfa8-d2791ad64f25",
+            "node": "Act",
+            "edge": "dispatch",
+            "evidenceIds": [
+              "fresh-03-initial"
+            ],
+            "reason": "Ground-floor exterior door lock broken and will not latch or lock, leaving the property unsecured. This presents a security risk as anyone can push the door open. Based on guidance case-12, a ground-floor window facing the street that cannot be locked was assessed as high urgency due to the property being unsecured until fixed. This is analogous to a broken exterior door lock on the ground floor.",
+            "outcome": {
+              "actionId": "action-3d9d9a9e-d9d9-46de-a77a-e93fd56d9cdc"
+            }
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-03-initial",
+            "cursor": 1,
+            "issueId": "issue-092e4e75-edd4-40c7-bfa8-d2791ad64f25",
+            "remoteId": "0300ddab-ddc3-416d-88fa-fee4c7a0bde8",
+            "node": "Checkpoint",
+            "edge": "confirmed",
+            "evidenceIds": [
+              "fresh-03-initial"
+            ],
+            "reason": "Ground-floor exterior door lock broken and will not latch or lock, leaving the property unsecured. This presents a security risk as anyone can push the door open. Based on guidance case-12, a ground-floor window facing the street that cannot be locked was assessed as high urgency due to the property being unsecured until fixed. This is analogous to a broken exterior door lock on the ground floor.",
+            "outcome": {
+              "id": "0300ddab-ddc3-416d-88fa-fee4c7a0bde8",
+              "title": "Broken exterior door lock - property unsecured",
+              "description": "Ground-floor flat's exterior door lock broken, will not latch or lock, leaving property unsecured",
+              "urgency": "high",
+              "property_id": null,
+              "status": "open",
+              "created_at": "2026-11-19T16:41:54.479Z",
+              "updated_at": "2026-11-19T16:41:54.479Z"
+            }
+          }
+        ]
+      },
+      "restartDuplicatePassed": true
+    },
+    {
+      "caseId": "fresh-04",
+      "passed": true,
+      "expectedValidation": "accept",
+      "writes": [],
+      "inspection": {
+        "issue": {
+          "id": "issue-a16310fa-5aa2-4fc8-be0e-6def79862d25",
+          "session": "model-replay",
+          "actorId": "eval-tenant",
+          "conversationId": "fresh-04",
+          "status": "outOfScope",
+          "evidence": [
+            {
+              "eventId": "fresh-04-initial",
+              "cursor": 1,
+              "actor": {
+                "id": "eval-tenant",
+                "name": "Synthetic Tenant D",
+                "role": "tenant"
+              },
+              "body": "A neighbour keeps parking in my allocated space. The surface, signs, gate and parking equipment are all working and undamaged. I want somebody to settle who may use the space.",
+              "occurredAt": "2026-11-19T12:03:00Z"
+            }
+          ],
+          "humanAction": "Human follow-up required to address parking allocation dispute through appropriate channels (e.g., property management, lease enforcement).",
+          "urgency": "low"
+        },
+        "events": [
+          {
+            "id": "fresh-04-initial",
+            "cursor": 1,
+            "type": "message.received",
+            "channel": "email",
+            "actor": {
+              "id": "eval-tenant",
+              "name": "Synthetic Tenant D",
+              "role": "tenant"
+            },
+            "sim_ms": 0,
+            "occurred_at": "2026-11-19T12:03:00Z",
+            "payload": {
+              "body": "A neighbour keeps parking in my allocated space. The surface, signs, gate and parking equipment are all working and undamaged. I want somebody to settle who may use the space.",
+              "conversation_id": "fresh-04"
+            }
+          }
+        ],
+        "actions": [],
+        "trace": [
+          {
+            "session": "model-replay",
+            "eventId": "fresh-04-initial",
+            "cursor": 1,
+            "issueId": "issue-a16310fa-5aa2-4fc8-be0e-6def79862d25",
+            "node": "Route",
+            "edge": "Assess",
+            "evidenceIds": [
+              "fresh-04-initial"
+            ],
+            "reason": "Material observation linked"
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-04-initial",
+            "cursor": 1,
+            "issueId": "issue-a16310fa-5aa2-4fc8-be0e-6def79862d25",
+            "node": "Assess",
+            "edge": "Validate",
+            "evidenceIds": [
+              "fresh-04-initial"
+            ],
+            "reason": "Tenant reports a parking entitlement dispute with a neighbour. No physical defect, damage, or maintenance issue with the parking space, surface, signs, gate, or equipment is reported. This is a conduct/entitlement matter outside property maintenance scope."
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-04-initial",
+            "cursor": 1,
+            "issueId": "issue-a16310fa-5aa2-4fc8-be0e-6def79862d25",
+            "node": "Validate",
+            "edge": "Act",
+            "evidenceIds": [
+              "fresh-04-initial"
+            ],
+            "reason": "Tenant reports a parking entitlement dispute with a neighbour. No physical defect, damage, or maintenance issue with the parking space, surface, signs, gate, or equipment is reported. This is a conduct/entitlement matter outside property maintenance scope.",
+            "outcome": {
+              "evidenceIds": [
+                "fresh-04-initial"
+              ],
+              "reason": "Tenant reports a parking entitlement dispute with a neighbour. No physical defect, damage, or maintenance issue with the parking space, surface, signs, gate, or equipment is reported. This is a conduct/entitlement matter outside property maintenance scope.",
+              "humanAction": "Human follow-up required to address parking allocation dispute through appropriate channels (e.g., property management, lease enforcement).",
+              "kind": "outOfScope",
+              "urgency": "low"
+            }
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-04-initial",
+            "cursor": 1,
+            "issueId": "issue-a16310fa-5aa2-4fc8-be0e-6def79862d25",
+            "node": "Checkpoint",
+            "edge": "done",
+            "evidenceIds": [
+              "fresh-04-initial"
+            ],
+            "reason": "Tenant reports a parking entitlement dispute with a neighbour. No physical defect, damage, or maintenance issue with the parking space, surface, signs, gate, or equipment is reported. This is a conduct/entitlement matter outside property maintenance scope."
+          }
+        ]
+      },
+      "restartDuplicatePassed": true
+    }
+  ]
+}

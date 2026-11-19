@@ -1,0 +1,823 @@
+{
+  "model": "openai/gpt-4.1-mini",
+  "dataset": "synthetic",
+  "promptVersion": "triage-v3-user-policy-v1",
+  "evaluation": {
+    "provider": "real-or-injected",
+    "promptVersion": "triage-v3-user-policy-v1",
+    "policy": {
+      "version": "user-maintenance-policy-v1",
+      "owner": "user",
+      "approvedOn": "2026-11-19",
+      "officialDwellyPolicy": false,
+      "purpose": "User-proposed prompt changes intended to improve accuracy; effectiveness is not yet established"
+    },
+    "total": 4,
+    "passed": 3,
+    "underTriage": 0,
+    "providerFailures": 0,
+    "contractFailures": 0,
+    "unscoredUrgency": 0,
+    "results": [
+      {
+        "caseId": "fresh-01",
+        "eventIds": [
+          "fresh-01-initial"
+        ],
+        "expected": {
+          "urgency": "emergency",
+          "disposition": "escalated_externally"
+        },
+        "decision": {
+          "evidenceIds": [
+            "fresh-01-initial"
+          ],
+          "reason": "Water actively leaking through a ceiling light fitting, which is on and flickering, presents a credible immediate danger of electric shock and fire hazard. This matches emergency guidance for active water ingress near electrics. Immediate human intervention is required to isolate electrical supply and stop water ingress.",
+          "humanAction": "Isolate electrical circuit supplying the affected light and cease electricity use in the vicinity. Arrange emergency attendance by qualified electrician and plumber immediately.",
+          "kind": "open",
+          "title": "Emergency Repair: Water Leak on Live Ceiling Light Fitting",
+          "description": "Water is leaking through a ceiling light fitting that is on and flickering. This poses immediate electrical hazard and property damage risk. Emergency repair required to isolate power and fix water ingress.",
+          "urgency": "emergency"
+        },
+        "passed": true,
+        "underTriage": false,
+        "unscoredUrgency": false
+      },
+      {
+        "caseId": "fresh-02",
+        "eventIds": [
+          "fresh-02-initial"
+        ],
+        "expected": {
+          "urgency": "low",
+          "disposition": "resolved"
+        },
+        "decision": {
+          "evidenceIds": [
+            "fresh-02-initial"
+          ],
+          "reason": "The reported issue is a shallow, stable scratch inside a cupboard door with no functional defects or deterioration, matching a stable cosmetic condition with no risk. This aligns with low urgency cosmetic cases in guidance.",
+          "kind": "wait",
+          "urgency": "low"
+        },
+        "passed": false,
+        "underTriage": false,
+        "unscoredUrgency": false
+      },
+      {
+        "caseId": "fresh-03",
+        "eventIds": [
+          "fresh-03-initial"
+        ],
+        "expected": {
+          "urgency": "high",
+          "disposition": "resolved"
+        },
+        "decision": {
+          "evidenceIds": [
+            "fresh-03-initial"
+          ],
+          "reason": "The ground-floor flat's exterior door lock is broken, causing the door to not latch or lock and leaving the flat unsecured to the street. This is a physical defect compromising security at a ground-floor access point, similar to a ground-floor window that cannot be locked. According to guidance case-12, such defects constitute a high urgency issue because the flat is unsecured until repaired. There is no explicit evidence of immediate risk of harm beyond security vulnerability, so while the situation is urgent, it does not meet emergency criteria requiring immediate human intervention beyond normal repair processes.",
+          "kind": "open",
+          "title": "Repair broken ground-floor exterior door lock to restore security",
+          "description": "The front door lock is broken and will not latch or lock. Repair is needed to secure the flat against unauthorized access from the street.",
+          "urgency": "high"
+        },
+        "passed": true,
+        "underTriage": false,
+        "unscoredUrgency": false
+      },
+      {
+        "caseId": "fresh-04",
+        "eventIds": [
+          "fresh-04-initial"
+        ],
+        "expected": {
+          "urgency": "low",
+          "disposition": "closed_out_of_scope"
+        },
+        "decision": {
+          "evidenceIds": [
+            "fresh-04-initial"
+          ],
+          "reason": "The complaint concerns neighbour parking in the tenant's allocated space, but there is no physical defect, equipment failure, or damage to managed premises. This is a dispute over parking entitlement without identified physical maintenance issues, which is explicitly out of scope for property maintenance.",
+          "humanAction": "Advise the tenant to pursue the parking dispute with the management office or local authorities as this is outside maintenance scope.",
+          "kind": "outOfScope",
+          "urgency": "low"
+        },
+        "passed": true,
+        "underTriage": false,
+        "unscoredUrgency": false
+      }
+    ]
+  },
+  "diagnostics": [
+    {
+      "model": "openai/gpt-4.1-mini",
+      "eventIds": [
+        "fresh-01-initial"
+      ],
+      "attempt": 1,
+      "stage": "accepted",
+      "status": 200,
+      "responseText": "{\"decision\":{\"evidenceIds\":[\"fresh-01-initial\"],\"reason\":\"Water actively leaking through a ceiling light fitting, which is on and flickering, presents a credible immediate danger of electric shock and fire hazard. This matches emergency guidance for active water ingress near electrics. Immediate human intervention is required to isolate electrical supply and stop water ingress.\",\"humanAction\":\"Isolate electrical circuit supplying the affected light and cease electricity use in the vicinity. Arrange emergency attendance by qualified electrician and plumber immediately.\",\"kind\":\"open\",\"title\":\"Emergency Repair: Water Leak on Live Ceiling Light Fitting\",\"description\":\"Water is leaking through a ceiling light fitting that is on and flickering. This poses immediate electrical hazard and property damage risk. Emergency repair required to isolate power and fix water ingress.\",\"urgency\":\"emergency\"}}",
+      "returnedModel": "openai/gpt-4.1-mini",
+      "elapsedMs": 2198,
+      "correctionSucceeded": false,
+      "provider": "openrouter",
+      "promptVersion": "triage-v3-user-policy-v1",
+      "schemaVersion": "assessment-v2",
+      "policy": {
+        "version": "user-maintenance-policy-v1",
+        "owner": "user",
+        "approvedOn": "2026-11-19",
+        "officialDwellyPolicy": false,
+        "purpose": "User-proposed prompt changes intended to improve accuracy; effectiveness is not yet established"
+      },
+      "schemaHash": "af0df44e4d3c1af415a97111a7a9ad7af98c21390bf9f2edfb94d7d7d54f6deb",
+      "settings": {
+        "responseFormat": "json_schema",
+        "timeoutMs": 45000,
+        "maxAttempts": 2
+      }
+    },
+    {
+      "model": "openai/gpt-4.1-mini",
+      "eventIds": [
+        "fresh-02-initial"
+      ],
+      "attempt": 1,
+      "stage": "accepted",
+      "status": 200,
+      "responseText": "{\"decision\":{\"evidenceIds\":[\"fresh-02-initial\"],\"reason\":\"The reported issue is a shallow, stable scratch inside a cupboard door with no functional defects or deterioration, matching a stable cosmetic condition with no risk. This aligns with low urgency cosmetic cases in guidance.\",\"humanAction\":null,\"kind\":\"wait\",\"urgency\":\"low\"}}",
+      "returnedModel": "openai/gpt-4.1-mini",
+      "elapsedMs": 1295,
+      "correctionSucceeded": false,
+      "provider": "openrouter",
+      "promptVersion": "triage-v3-user-policy-v1",
+      "schemaVersion": "assessment-v2",
+      "policy": {
+        "version": "user-maintenance-policy-v1",
+        "owner": "user",
+        "approvedOn": "2026-11-19",
+        "officialDwellyPolicy": false,
+        "purpose": "User-proposed prompt changes intended to improve accuracy; effectiveness is not yet established"
+      },
+      "schemaHash": "af0df44e4d3c1af415a97111a7a9ad7af98c21390bf9f2edfb94d7d7d54f6deb",
+      "settings": {
+        "responseFormat": "json_schema",
+        "timeoutMs": 45000,
+        "maxAttempts": 2
+      }
+    },
+    {
+      "model": "openai/gpt-4.1-mini",
+      "eventIds": [
+        "fresh-03-initial"
+      ],
+      "attempt": 1,
+      "stage": "accepted",
+      "status": 200,
+      "responseText": "{\"decision\":{\"evidenceIds\":[\"fresh-03-initial\"],\"reason\":\"The ground-floor flat's exterior door lock is broken, causing the door to not latch or lock and leaving the flat unsecured to the street. This is a physical defect compromising security at a ground-floor access point, similar to a ground-floor window that cannot be locked. According to guidance case-12, such defects constitute a high urgency issue because the flat is unsecured until repaired. There is no explicit evidence of immediate risk of harm beyond security vulnerability, so while the situation is urgent, it does not meet emergency criteria requiring immediate human intervention beyond normal repair processes.\",\"humanAction\":null,\"kind\":\"open\",\"title\":\"Repair broken ground-floor exterior door lock to restore security\",\"description\":\"The front door lock is broken and will not latch or lock. Repair is needed to secure the flat against unauthorized access from the street.\",\"urgency\":\"high\"}}",
+      "returnedModel": "openai/gpt-4.1-mini",
+      "elapsedMs": 3662,
+      "correctionSucceeded": false,
+      "provider": "openrouter",
+      "promptVersion": "triage-v3-user-policy-v1",
+      "schemaVersion": "assessment-v2",
+      "policy": {
+        "version": "user-maintenance-policy-v1",
+        "owner": "user",
+        "approvedOn": "2026-11-19",
+        "officialDwellyPolicy": false,
+        "purpose": "User-proposed prompt changes intended to improve accuracy; effectiveness is not yet established"
+      },
+      "schemaHash": "af0df44e4d3c1af415a97111a7a9ad7af98c21390bf9f2edfb94d7d7d54f6deb",
+      "settings": {
+        "responseFormat": "json_schema",
+        "timeoutMs": 45000,
+        "maxAttempts": 2
+      }
+    },
+    {
+      "model": "openai/gpt-4.1-mini",
+      "eventIds": [
+        "fresh-04-initial"
+      ],
+      "attempt": 1,
+      "stage": "accepted",
+      "status": 200,
+      "responseText": "{\"decision\":{\"evidenceIds\":[\"fresh-04-initial\"],\"reason\":\"The complaint concerns neighbour parking in the tenant's allocated space, but there is no physical defect, equipment failure, or damage to managed premises. This is a dispute over parking entitlement without identified physical maintenance issues, which is explicitly out of scope for property maintenance.\",\"humanAction\":\"Advise the tenant to pursue the parking dispute with the management office or local authorities as this is outside maintenance scope.\",\"kind\":\"outOfScope\",\"urgency\":\"low\"}}",
+      "returnedModel": "openai/gpt-4.1-mini",
+      "elapsedMs": 1580,
+      "correctionSucceeded": false,
+      "provider": "openrouter",
+      "promptVersion": "triage-v3-user-policy-v1",
+      "schemaVersion": "assessment-v2",
+      "policy": {
+        "version": "user-maintenance-policy-v1",
+        "owner": "user",
+        "approvedOn": "2026-11-19",
+        "officialDwellyPolicy": false,
+        "purpose": "User-proposed prompt changes intended to improve accuracy; effectiveness is not yet established"
+      },
+      "schemaHash": "af0df44e4d3c1af415a97111a7a9ad7af98c21390bf9f2edfb94d7d7d54f6deb",
+      "settings": {
+        "responseFormat": "json_schema",
+        "timeoutMs": 45000,
+        "maxAttempts": 2
+      }
+    }
+  ],
+  "replays": [
+    {
+      "caseId": "fresh-01",
+      "passed": true,
+      "expectedValidation": "accept",
+      "writes": [
+        {
+          "operation": "createCase",
+          "input": {
+            "title": "Emergency Repair: Water Leak on Live Ceiling Light Fitting",
+            "urgency": "emergency",
+            "description": "Water is leaking through a ceiling light fitting that is on and flickering. This poses immediate electrical hazard and property damage risk. Emergency repair required to isolate power and fix water ingress."
+          },
+          "id": "c61a5ffa-dbb9-4924-a5d5-a2e95ae0f293"
+        }
+      ],
+      "inspection": {
+        "issue": {
+          "id": "issue-781a8b06-8d96-4a9b-957a-692433603334",
+          "session": "model-replay",
+          "actorId": "eval-tenant",
+          "conversationId": "fresh-01",
+          "status": "active",
+          "evidence": [
+            {
+              "eventId": "fresh-01-initial",
+              "cursor": 1,
+              "actor": {
+                "id": "eval-tenant",
+                "name": "Synthetic Tenant A",
+                "role": "tenant"
+              },
+              "body": "Water has started running out of the hall ceiling light. The light is on and flickering and the water is pooling on the floor beneath it.",
+              "occurredAt": "2026-11-19T12:00:00Z"
+            }
+          ],
+          "humanAction": "Isolate electrical circuit supplying the affected light and cease electricity use in the vicinity. Arrange emergency attendance by qualified electrician and plumber immediately.",
+          "remoteCase": {
+            "id": "c61a5ffa-dbb9-4924-a5d5-a2e95ae0f293",
+            "title": "Emergency Repair: Water Leak on Live Ceiling Light Fitting",
+            "description": "Water is leaking through a ceiling light fitting that is on and flickering. This poses immediate electrical hazard and property damage risk. Emergency repair required to isolate power and fix water ingress.",
+            "urgency": "emergency",
+            "property_id": null,
+            "status": "open",
+            "created_at": "2026-11-19T16:41:52.109Z",
+            "updated_at": "2026-11-19T16:41:52.109Z"
+          },
+          "urgency": "emergency"
+        },
+        "events": [
+          {
+            "id": "fresh-01-initial",
+            "cursor": 1,
+            "type": "message.received",
+            "channel": "email",
+            "actor": {
+              "id": "eval-tenant",
+              "name": "Synthetic Tenant A",
+              "role": "tenant"
+            },
+            "sim_ms": 0,
+            "occurred_at": "2026-11-19T12:00:00Z",
+            "payload": {
+              "body": "Water has started running out of the hall ceiling light. The light is on and flickering and the water is pooling on the floor beneath it.",
+              "conversation_id": "fresh-01"
+            }
+          }
+        ],
+        "actions": [
+          {
+            "id": "action-26c6aeb0-3df4-4161-973c-d07af9e66c72",
+            "eventId": "fresh-01-initial",
+            "issueId": "issue-781a8b06-8d96-4a9b-957a-692433603334",
+            "decision": {
+              "evidenceIds": [
+                "fresh-01-initial"
+              ],
+              "reason": "Water actively leaking through a ceiling light fitting, which is on and flickering, presents a credible immediate danger of electric shock and fire hazard. This matches emergency guidance for active water ingress near electrics. Immediate human intervention is required to isolate electrical supply and stop water ingress.",
+              "humanAction": "Isolate electrical circuit supplying the affected light and cease electricity use in the vicinity. Arrange emergency attendance by qualified electrician and plumber immediately.",
+              "kind": "open",
+              "title": "Emergency Repair: Water Leak on Live Ceiling Light Fitting",
+              "description": "Water is leaking through a ceiling light fitting that is on and flickering. This poses immediate electrical hazard and property damage risk. Emergency repair required to isolate power and fix water ingress.",
+              "urgency": "emergency"
+            },
+            "state": "confirmed",
+            "attempts": 1,
+            "result": {
+              "id": "c61a5ffa-dbb9-4924-a5d5-a2e95ae0f293",
+              "title": "Emergency Repair: Water Leak on Live Ceiling Light Fitting",
+              "description": "Water is leaking through a ceiling light fitting that is on and flickering. This poses immediate electrical hazard and property damage risk. Emergency repair required to isolate power and fix water ingress.",
+              "urgency": "emergency",
+              "property_id": null,
+              "status": "open",
+              "created_at": "2026-11-19T16:41:52.109Z",
+              "updated_at": "2026-11-19T16:41:52.109Z"
+            }
+          }
+        ],
+        "trace": [
+          {
+            "session": "model-replay",
+            "eventId": "fresh-01-initial",
+            "cursor": 1,
+            "issueId": "issue-781a8b06-8d96-4a9b-957a-692433603334",
+            "node": "Route",
+            "edge": "Assess",
+            "evidenceIds": [
+              "fresh-01-initial"
+            ],
+            "reason": "Material observation linked"
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-01-initial",
+            "cursor": 1,
+            "issueId": "issue-781a8b06-8d96-4a9b-957a-692433603334",
+            "node": "Assess",
+            "edge": "Validate",
+            "evidenceIds": [
+              "fresh-01-initial"
+            ],
+            "reason": "Water actively leaking through a ceiling light fitting, which is on and flickering, presents a credible immediate danger of electric shock and fire hazard. This matches emergency guidance for active water ingress near electrics. Immediate human intervention is required to isolate electrical supply and stop water ingress."
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-01-initial",
+            "cursor": 1,
+            "issueId": "issue-781a8b06-8d96-4a9b-957a-692433603334",
+            "node": "Validate",
+            "edge": "Act",
+            "evidenceIds": [
+              "fresh-01-initial"
+            ],
+            "reason": "Water actively leaking through a ceiling light fitting, which is on and flickering, presents a credible immediate danger of electric shock and fire hazard. This matches emergency guidance for active water ingress near electrics. Immediate human intervention is required to isolate electrical supply and stop water ingress.",
+            "outcome": {
+              "evidenceIds": [
+                "fresh-01-initial"
+              ],
+              "reason": "Water actively leaking through a ceiling light fitting, which is on and flickering, presents a credible immediate danger of electric shock and fire hazard. This matches emergency guidance for active water ingress near electrics. Immediate human intervention is required to isolate electrical supply and stop water ingress.",
+              "humanAction": "Isolate electrical circuit supplying the affected light and cease electricity use in the vicinity. Arrange emergency attendance by qualified electrician and plumber immediately.",
+              "kind": "open",
+              "title": "Emergency Repair: Water Leak on Live Ceiling Light Fitting",
+              "description": "Water is leaking through a ceiling light fitting that is on and flickering. This poses immediate electrical hazard and property damage risk. Emergency repair required to isolate power and fix water ingress.",
+              "urgency": "emergency"
+            }
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-01-initial",
+            "cursor": 1,
+            "issueId": "issue-781a8b06-8d96-4a9b-957a-692433603334",
+            "node": "Act",
+            "edge": "dispatch",
+            "evidenceIds": [
+              "fresh-01-initial"
+            ],
+            "reason": "Water actively leaking through a ceiling light fitting, which is on and flickering, presents a credible immediate danger of electric shock and fire hazard. This matches emergency guidance for active water ingress near electrics. Immediate human intervention is required to isolate electrical supply and stop water ingress.",
+            "outcome": {
+              "actionId": "action-26c6aeb0-3df4-4161-973c-d07af9e66c72"
+            }
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-01-initial",
+            "cursor": 1,
+            "issueId": "issue-781a8b06-8d96-4a9b-957a-692433603334",
+            "remoteId": "c61a5ffa-dbb9-4924-a5d5-a2e95ae0f293",
+            "node": "Checkpoint",
+            "edge": "confirmed",
+            "evidenceIds": [
+              "fresh-01-initial"
+            ],
+            "reason": "Water actively leaking through a ceiling light fitting, which is on and flickering, presents a credible immediate danger of electric shock and fire hazard. This matches emergency guidance for active water ingress near electrics. Immediate human intervention is required to isolate electrical supply and stop water ingress.",
+            "outcome": {
+              "id": "c61a5ffa-dbb9-4924-a5d5-a2e95ae0f293",
+              "title": "Emergency Repair: Water Leak on Live Ceiling Light Fitting",
+              "description": "Water is leaking through a ceiling light fitting that is on and flickering. This poses immediate electrical hazard and property damage risk. Emergency repair required to isolate power and fix water ingress.",
+              "urgency": "emergency",
+              "property_id": null,
+              "status": "open",
+              "created_at": "2026-11-19T16:41:52.109Z",
+              "updated_at": "2026-11-19T16:41:52.109Z"
+            }
+          }
+        ]
+      },
+      "restartDuplicatePassed": true
+    },
+    {
+      "caseId": "fresh-02",
+      "passed": true,
+      "expectedValidation": "accept",
+      "writes": [],
+      "inspection": {
+        "issue": {
+          "id": "issue-a0d0512a-ee4b-457b-b7b5-c16b1bacf6f4",
+          "session": "model-replay",
+          "actorId": "eval-tenant",
+          "conversationId": "fresh-02",
+          "status": "waiting",
+          "evidence": [
+            {
+              "eventId": "fresh-02-initial",
+              "cursor": 1,
+              "actor": {
+                "id": "eval-tenant",
+                "name": "Synthetic Tenant B",
+                "role": "tenant"
+              },
+              "body": "There is a shallow scratch in the paint on the inside of a cupboard door. The door works normally, nothing is loose or sharp, and the mark has not changed for months.",
+              "occurredAt": "2026-11-19T12:01:00Z"
+            }
+          ],
+          "urgency": "low"
+        },
+        "events": [
+          {
+            "id": "fresh-02-initial",
+            "cursor": 1,
+            "type": "message.received",
+            "channel": "email",
+            "actor": {
+              "id": "eval-tenant",
+              "name": "Synthetic Tenant B",
+              "role": "tenant"
+            },
+            "sim_ms": 0,
+            "occurred_at": "2026-11-19T12:01:00Z",
+            "payload": {
+              "body": "There is a shallow scratch in the paint on the inside of a cupboard door. The door works normally, nothing is loose or sharp, and the mark has not changed for months.",
+              "conversation_id": "fresh-02"
+            }
+          }
+        ],
+        "actions": [],
+        "trace": [
+          {
+            "session": "model-replay",
+            "eventId": "fresh-02-initial",
+            "cursor": 1,
+            "issueId": "issue-a0d0512a-ee4b-457b-b7b5-c16b1bacf6f4",
+            "node": "Route",
+            "edge": "Assess",
+            "evidenceIds": [
+              "fresh-02-initial"
+            ],
+            "reason": "Material observation linked"
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-02-initial",
+            "cursor": 1,
+            "issueId": "issue-a0d0512a-ee4b-457b-b7b5-c16b1bacf6f4",
+            "node": "Assess",
+            "edge": "Validate",
+            "evidenceIds": [
+              "fresh-02-initial"
+            ],
+            "reason": "The reported issue is a shallow, stable scratch inside a cupboard door with no functional defects or deterioration, matching a stable cosmetic condition with no risk. This aligns with low urgency cosmetic cases in guidance."
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-02-initial",
+            "cursor": 1,
+            "issueId": "issue-a0d0512a-ee4b-457b-b7b5-c16b1bacf6f4",
+            "node": "Validate",
+            "edge": "Act",
+            "evidenceIds": [
+              "fresh-02-initial"
+            ],
+            "reason": "The reported issue is a shallow, stable scratch inside a cupboard door with no functional defects or deterioration, matching a stable cosmetic condition with no risk. This aligns with low urgency cosmetic cases in guidance.",
+            "outcome": {
+              "evidenceIds": [
+                "fresh-02-initial"
+              ],
+              "reason": "The reported issue is a shallow, stable scratch inside a cupboard door with no functional defects or deterioration, matching a stable cosmetic condition with no risk. This aligns with low urgency cosmetic cases in guidance.",
+              "kind": "wait",
+              "urgency": "low"
+            }
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-02-initial",
+            "cursor": 1,
+            "issueId": "issue-a0d0512a-ee4b-457b-b7b5-c16b1bacf6f4",
+            "node": "Checkpoint",
+            "edge": "done",
+            "evidenceIds": [
+              "fresh-02-initial"
+            ],
+            "reason": "The reported issue is a shallow, stable scratch inside a cupboard door with no functional defects or deterioration, matching a stable cosmetic condition with no risk. This aligns with low urgency cosmetic cases in guidance."
+          }
+        ]
+      },
+      "restartDuplicatePassed": true
+    },
+    {
+      "caseId": "fresh-03",
+      "passed": true,
+      "expectedValidation": "accept",
+      "writes": [
+        {
+          "operation": "createCase",
+          "input": {
+            "title": "Repair broken ground-floor exterior door lock to restore security",
+            "urgency": "high",
+            "description": "The front door lock is broken and will not latch or lock. Repair is needed to secure the flat against unauthorized access from the street."
+          },
+          "id": "79051144-4ba0-449a-aaeb-a79a601123fa"
+        }
+      ],
+      "inspection": {
+        "issue": {
+          "id": "issue-a3f13c0a-e8ea-4ad8-b6a9-aee585a7f612",
+          "session": "model-replay",
+          "actorId": "eval-tenant",
+          "conversationId": "fresh-03",
+          "status": "active",
+          "evidence": [
+            {
+              "eventId": "fresh-03-initial",
+              "cursor": 1,
+              "actor": {
+                "id": "eval-tenant",
+                "name": "Synthetic Tenant C",
+                "role": "tenant"
+              },
+              "body": "The ground-floor flat's exterior door lock has broken. The door will not latch or lock, and anyone in the street can push it open. There is no other working lock.",
+              "occurredAt": "2026-11-19T12:02:00Z"
+            }
+          ],
+          "remoteCase": {
+            "id": "79051144-4ba0-449a-aaeb-a79a601123fa",
+            "title": "Repair broken ground-floor exterior door lock to restore security",
+            "description": "The front door lock is broken and will not latch or lock. Repair is needed to secure the flat against unauthorized access from the street.",
+            "urgency": "high",
+            "property_id": null,
+            "status": "open",
+            "created_at": "2026-11-19T16:41:52.126Z",
+            "updated_at": "2026-11-19T16:41:52.126Z"
+          },
+          "urgency": "high"
+        },
+        "events": [
+          {
+            "id": "fresh-03-initial",
+            "cursor": 1,
+            "type": "message.received",
+            "channel": "email",
+            "actor": {
+              "id": "eval-tenant",
+              "name": "Synthetic Tenant C",
+              "role": "tenant"
+            },
+            "sim_ms": 0,
+            "occurred_at": "2026-11-19T12:02:00Z",
+            "payload": {
+              "body": "The ground-floor flat's exterior door lock has broken. The door will not latch or lock, and anyone in the street can push it open. There is no other working lock.",
+              "conversation_id": "fresh-03"
+            }
+          }
+        ],
+        "actions": [
+          {
+            "id": "action-46a17b62-9f85-4b96-a3c0-d012f7daa0cb",
+            "eventId": "fresh-03-initial",
+            "issueId": "issue-a3f13c0a-e8ea-4ad8-b6a9-aee585a7f612",
+            "decision": {
+              "evidenceIds": [
+                "fresh-03-initial"
+              ],
+              "reason": "The ground-floor flat's exterior door lock is broken, causing the door to not latch or lock and leaving the flat unsecured to the street. This is a physical defect compromising security at a ground-floor access point, similar to a ground-floor window that cannot be locked. According to guidance case-12, such defects constitute a high urgency issue because the flat is unsecured until repaired. There is no explicit evidence of immediate risk of harm beyond security vulnerability, so while the situation is urgent, it does not meet emergency criteria requiring immediate human intervention beyond normal repair processes.",
+              "kind": "open",
+              "title": "Repair broken ground-floor exterior door lock to restore security",
+              "description": "The front door lock is broken and will not latch or lock. Repair is needed to secure the flat against unauthorized access from the street.",
+              "urgency": "high"
+            },
+            "state": "confirmed",
+            "attempts": 1,
+            "result": {
+              "id": "79051144-4ba0-449a-aaeb-a79a601123fa",
+              "title": "Repair broken ground-floor exterior door lock to restore security",
+              "description": "The front door lock is broken and will not latch or lock. Repair is needed to secure the flat against unauthorized access from the street.",
+              "urgency": "high",
+              "property_id": null,
+              "status": "open",
+              "created_at": "2026-11-19T16:41:52.126Z",
+              "updated_at": "2026-11-19T16:41:52.126Z"
+            }
+          }
+        ],
+        "trace": [
+          {
+            "session": "model-replay",
+            "eventId": "fresh-03-initial",
+            "cursor": 1,
+            "issueId": "issue-a3f13c0a-e8ea-4ad8-b6a9-aee585a7f612",
+            "node": "Route",
+            "edge": "Assess",
+            "evidenceIds": [
+              "fresh-03-initial"
+            ],
+            "reason": "Material observation linked"
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-03-initial",
+            "cursor": 1,
+            "issueId": "issue-a3f13c0a-e8ea-4ad8-b6a9-aee585a7f612",
+            "node": "Assess",
+            "edge": "Validate",
+            "evidenceIds": [
+              "fresh-03-initial"
+            ],
+            "reason": "The ground-floor flat's exterior door lock is broken, causing the door to not latch or lock and leaving the flat unsecured to the street. This is a physical defect compromising security at a ground-floor access point, similar to a ground-floor window that cannot be locked. According to guidance case-12, such defects constitute a high urgency issue because the flat is unsecured until repaired. There is no explicit evidence of immediate risk of harm beyond security vulnerability, so while the situation is urgent, it does not meet emergency criteria requiring immediate human intervention beyond normal repair processes."
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-03-initial",
+            "cursor": 1,
+            "issueId": "issue-a3f13c0a-e8ea-4ad8-b6a9-aee585a7f612",
+            "node": "Validate",
+            "edge": "Act",
+            "evidenceIds": [
+              "fresh-03-initial"
+            ],
+            "reason": "The ground-floor flat's exterior door lock is broken, causing the door to not latch or lock and leaving the flat unsecured to the street. This is a physical defect compromising security at a ground-floor access point, similar to a ground-floor window that cannot be locked. According to guidance case-12, such defects constitute a high urgency issue because the flat is unsecured until repaired. There is no explicit evidence of immediate risk of harm beyond security vulnerability, so while the situation is urgent, it does not meet emergency criteria requiring immediate human intervention beyond normal repair processes.",
+            "outcome": {
+              "evidenceIds": [
+                "fresh-03-initial"
+              ],
+              "reason": "The ground-floor flat's exterior door lock is broken, causing the door to not latch or lock and leaving the flat unsecured to the street. This is a physical defect compromising security at a ground-floor access point, similar to a ground-floor window that cannot be locked. According to guidance case-12, such defects constitute a high urgency issue because the flat is unsecured until repaired. There is no explicit evidence of immediate risk of harm beyond security vulnerability, so while the situation is urgent, it does not meet emergency criteria requiring immediate human intervention beyond normal repair processes.",
+              "kind": "open",
+              "title": "Repair broken ground-floor exterior door lock to restore security",
+              "description": "The front door lock is broken and will not latch or lock. Repair is needed to secure the flat against unauthorized access from the street.",
+              "urgency": "high"
+            }
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-03-initial",
+            "cursor": 1,
+            "issueId": "issue-a3f13c0a-e8ea-4ad8-b6a9-aee585a7f612",
+            "node": "Act",
+            "edge": "dispatch",
+            "evidenceIds": [
+              "fresh-03-initial"
+            ],
+            "reason": "The ground-floor flat's exterior door lock is broken, causing the door to not latch or lock and leaving the flat unsecured to the street. This is a physical defect compromising security at a ground-floor access point, similar to a ground-floor window that cannot be locked. According to guidance case-12, such defects constitute a high urgency issue because the flat is unsecured until repaired. There is no explicit evidence of immediate risk of harm beyond security vulnerability, so while the situation is urgent, it does not meet emergency criteria requiring immediate human intervention beyond normal repair processes.",
+            "outcome": {
+              "actionId": "action-46a17b62-9f85-4b96-a3c0-d012f7daa0cb"
+            }
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-03-initial",
+            "cursor": 1,
+            "issueId": "issue-a3f13c0a-e8ea-4ad8-b6a9-aee585a7f612",
+            "remoteId": "79051144-4ba0-449a-aaeb-a79a601123fa",
+            "node": "Checkpoint",
+            "edge": "confirmed",
+            "evidenceIds": [
+              "fresh-03-initial"
+            ],
+            "reason": "The ground-floor flat's exterior door lock is broken, causing the door to not latch or lock and leaving the flat unsecured to the street. This is a physical defect compromising security at a ground-floor access point, similar to a ground-floor window that cannot be locked. According to guidance case-12, such defects constitute a high urgency issue because the flat is unsecured until repaired. There is no explicit evidence of immediate risk of harm beyond security vulnerability, so while the situation is urgent, it does not meet emergency criteria requiring immediate human intervention beyond normal repair processes.",
+            "outcome": {
+              "id": "79051144-4ba0-449a-aaeb-a79a601123fa",
+              "title": "Repair broken ground-floor exterior door lock to restore security",
+              "description": "The front door lock is broken and will not latch or lock. Repair is needed to secure the flat against unauthorized access from the street.",
+              "urgency": "high",
+              "property_id": null,
+              "status": "open",
+              "created_at": "2026-11-19T16:41:52.126Z",
+              "updated_at": "2026-11-19T16:41:52.126Z"
+            }
+          }
+        ]
+      },
+      "restartDuplicatePassed": true
+    },
+    {
+      "caseId": "fresh-04",
+      "passed": true,
+      "expectedValidation": "accept",
+      "writes": [],
+      "inspection": {
+        "issue": {
+          "id": "issue-dba61f70-2ea0-4079-9251-9071156e8c04",
+          "session": "model-replay",
+          "actorId": "eval-tenant",
+          "conversationId": "fresh-04",
+          "status": "outOfScope",
+          "evidence": [
+            {
+              "eventId": "fresh-04-initial",
+              "cursor": 1,
+              "actor": {
+                "id": "eval-tenant",
+                "name": "Synthetic Tenant D",
+                "role": "tenant"
+              },
+              "body": "A neighbour keeps parking in my allocated space. The surface, signs, gate and parking equipment are all working and undamaged. I want somebody to settle who may use the space.",
+              "occurredAt": "2026-11-19T12:03:00Z"
+            }
+          ],
+          "humanAction": "Advise the tenant to pursue the parking dispute with the management office or local authorities as this is outside maintenance scope.",
+          "urgency": "low"
+        },
+        "events": [
+          {
+            "id": "fresh-04-initial",
+            "cursor": 1,
+            "type": "message.received",
+            "channel": "email",
+            "actor": {
+              "id": "eval-tenant",
+              "name": "Synthetic Tenant D",
+              "role": "tenant"
+            },
+            "sim_ms": 0,
+            "occurred_at": "2026-11-19T12:03:00Z",
+            "payload": {
+              "body": "A neighbour keeps parking in my allocated space. The surface, signs, gate and parking equipment are all working and undamaged. I want somebody to settle who may use the space.",
+              "conversation_id": "fresh-04"
+            }
+          }
+        ],
+        "actions": [],
+        "trace": [
+          {
+            "session": "model-replay",
+            "eventId": "fresh-04-initial",
+            "cursor": 1,
+            "issueId": "issue-dba61f70-2ea0-4079-9251-9071156e8c04",
+            "node": "Route",
+            "edge": "Assess",
+            "evidenceIds": [
+              "fresh-04-initial"
+            ],
+            "reason": "Material observation linked"
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-04-initial",
+            "cursor": 1,
+            "issueId": "issue-dba61f70-2ea0-4079-9251-9071156e8c04",
+            "node": "Assess",
+            "edge": "Validate",
+            "evidenceIds": [
+              "fresh-04-initial"
+            ],
+            "reason": "The complaint concerns neighbour parking in the tenant's allocated space, but there is no physical defect, equipment failure, or damage to managed premises. This is a dispute over parking entitlement without identified physical maintenance issues, which is explicitly out of scope for property maintenance."
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-04-initial",
+            "cursor": 1,
+            "issueId": "issue-dba61f70-2ea0-4079-9251-9071156e8c04",
+            "node": "Validate",
+            "edge": "Act",
+            "evidenceIds": [
+              "fresh-04-initial"
+            ],
+            "reason": "The complaint concerns neighbour parking in the tenant's allocated space, but there is no physical defect, equipment failure, or damage to managed premises. This is a dispute over parking entitlement without identified physical maintenance issues, which is explicitly out of scope for property maintenance.",
+            "outcome": {
+              "evidenceIds": [
+                "fresh-04-initial"
+              ],
+              "reason": "The complaint concerns neighbour parking in the tenant's allocated space, but there is no physical defect, equipment failure, or damage to managed premises. This is a dispute over parking entitlement without identified physical maintenance issues, which is explicitly out of scope for property maintenance.",
+              "humanAction": "Advise the tenant to pursue the parking dispute with the management office or local authorities as this is outside maintenance scope.",
+              "kind": "outOfScope",
+              "urgency": "low"
+            }
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-04-initial",
+            "cursor": 1,
+            "issueId": "issue-dba61f70-2ea0-4079-9251-9071156e8c04",
+            "node": "Checkpoint",
+            "edge": "done",
+            "evidenceIds": [
+              "fresh-04-initial"
+            ],
+            "reason": "The complaint concerns neighbour parking in the tenant's allocated space, but there is no physical defect, equipment failure, or damage to managed premises. This is a dispute over parking entitlement without identified physical maintenance issues, which is explicitly out of scope for property maintenance."
+          }
+        ]
+      },
+      "restartDuplicatePassed": true
+    }
+  ]
+}

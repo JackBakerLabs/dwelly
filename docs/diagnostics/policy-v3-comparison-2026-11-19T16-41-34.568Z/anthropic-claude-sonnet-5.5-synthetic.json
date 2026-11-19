@@ -1,0 +1,823 @@
+{
+  "model": "anthropic/claude-sonnet-5.5",
+  "dataset": "synthetic",
+  "promptVersion": "triage-v3-user-policy-v1",
+  "evaluation": {
+    "provider": "real-or-injected",
+    "promptVersion": "triage-v3-user-policy-v1",
+    "policy": {
+      "version": "user-maintenance-policy-v1",
+      "owner": "user",
+      "approvedOn": "2026-11-19",
+      "officialDwellyPolicy": false,
+      "purpose": "User-proposed prompt changes intended to improve accuracy; effectiveness is not yet established"
+    },
+    "total": 4,
+    "passed": 3,
+    "underTriage": 0,
+    "providerFailures": 0,
+    "contractFailures": 0,
+    "unscoredUrgency": 0,
+    "results": [
+      {
+        "caseId": "fresh-01",
+        "eventIds": [
+          "fresh-01-initial"
+        ],
+        "expected": {
+          "urgency": "emergency",
+          "disposition": "escalated_externally"
+        },
+        "decision": {
+          "evidenceIds": [
+            "fresh-01-initial"
+          ],
+          "reason": "Tenant reports water running out of a hall ceiling light fitting that is switched on and flickering, with water pooling beneath it. This is water at a live fitting, which is a credible immediate danger (electric shock and fire risk) and meets the emergency criteria. No remote case exists, so a case must be opened and the emergency surfaced for human action. This does not authorise contractor dispatch; a qualified emergency response and human-reviewed safety communication are needed.",
+          "humanAction": "Urgently escalate to a qualified emergency response (electrician/emergency services as appropriate) and have a human send reviewed safety advice to the tenant. Confirm the source of the water, and whether the circuit can be safely isolated by a qualified person. Do not give improvised isolation instructions. Check whether other flats are affected.",
+          "kind": "open",
+          "title": "Emergency: water running from live hall ceiling light fitting, flickering",
+          "description": "Tenant reports water running out of the hall ceiling light, which is on and flickering, with water pooling on the floor beneath. Water at a live electrical fitting. Source of water, isolation status and any impact on other flats are unknown. Requires urgent human escalation and qualified emergency response.",
+          "urgency": "emergency"
+        },
+        "passed": true,
+        "underTriage": false,
+        "unscoredUrgency": false
+      },
+      {
+        "caseId": "fresh-02",
+        "eventIds": [
+          "fresh-02-initial"
+        ],
+        "expected": {
+          "urgency": "low",
+          "disposition": "resolved"
+        },
+        "decision": {
+          "evidenceIds": [
+            "fresh-02-initial"
+          ],
+          "reason": "Confirmed observation: a shallow cosmetic paint scratch inside a cupboard door. The door works normally, nothing is loose or sharp, and the mark has been stable for months. Policy classes this as low urgency and still in scope, and it can be recorded for planned attention without a contractor callout. No danger or deterioration is evidenced, so there is no need to open a case or ask a question now. Reassess if the condition changes.",
+          "kind": "wait",
+          "urgency": "low"
+        },
+        "passed": false,
+        "underTriage": false,
+        "unscoredUrgency": false
+      },
+      {
+        "caseId": "fresh-03",
+        "eventIds": [
+          "fresh-03-initial"
+        ],
+        "expected": {
+          "urgency": "high",
+          "disposition": "resolved"
+        },
+        "decision": {
+          "evidenceIds": [
+            "fresh-03-initial"
+          ],
+          "reason": "Tenant reports the ground-floor exterior door lock is broken: the door will not latch or lock, can be pushed open from the street, and no other lock works. Under the policy this is a broken accessible ground-floor door security defect, which is high urgency rather than emergency. No gas, fire, smoke or live-water hazard is reported, and no remote case exists, so a repair case is justified. Opening the case does not authorise contractor work, and the landlord is informed by case creation. Responsibility is provisionally in scope.",
+          "kind": "open",
+          "title": "Broken ground-floor exterior door lock - door will not latch or lock",
+          "description": "Tenant reports the ground-floor flat's exterior door lock has failed. The door will not latch or lock and can be pushed open from the street. There is no other working lock, so the flat is unsecured. Needs prompt assessment and a qualified repair or securing of the door. Contractor assignment, quotes and approvals are not yet evidenced.",
+          "urgency": "high"
+        },
+        "passed": true,
+        "underTriage": false,
+        "unscoredUrgency": false
+      },
+      {
+        "caseId": "fresh-04",
+        "eventIds": [
+          "fresh-04-initial"
+        ],
+        "expected": {
+          "urgency": "low",
+          "disposition": "closed_out_of_scope"
+        },
+        "decision": {
+          "evidenceIds": [
+            "fresh-04-initial"
+          ],
+          "reason": "The tenant reports a parking entitlement dispute with a neighbour. They explicitly say the surface, signs, gate and parking equipment are working and undamaged, so no physical defect is identified. Under policy, parking entitlement disputes without a physical defect are outside maintenance scope, so no repair case should be opened. No danger is indicated. A human should follow up on the entitlement question, since maintenance cannot settle it. Later evidence of a physical defect would allow reassessment.",
+          "humanAction": "Have a human tell the tenant that maintenance cannot decide who may use the allocated space, and direct them to the appropriate party (e.g. the managing agent or landlord) to review the parking allocation and address the neighbour's use.",
+          "kind": "outOfScope",
+          "urgency": "low"
+        },
+        "passed": true,
+        "underTriage": false,
+        "unscoredUrgency": false
+      }
+    ]
+  },
+  "diagnostics": [
+    {
+      "model": "anthropic/claude-sonnet-5.5",
+      "eventIds": [
+        "fresh-01-initial"
+      ],
+      "attempt": 1,
+      "stage": "accepted",
+      "status": 200,
+      "responseText": "{\"decision\":{\"evidenceIds\":[\"fresh-01-initial\"],\"reason\":\"Tenant reports water running out of a hall ceiling light fitting that is switched on and flickering, with water pooling beneath it. This is water at a live fitting, which is a credible immediate danger (electric shock and fire risk) and meets the emergency criteria. No remote case exists, so a case must be opened and the emergency surfaced for human action. This does not authorise contractor dispatch; a qualified emergency response and human-reviewed safety communication are needed.\",\"humanAction\":\"Urgently escalate to a qualified emergency response (electrician/emergency services as appropriate) and have a human send reviewed safety advice to the tenant. Confirm the source of the water, and whether the circuit can be safely isolated by a qualified person. Do not give improvised isolation instructions. Check whether other flats are affected.\",\"kind\":\"open\",\"title\":\"Emergency: water running from live hall ceiling light fitting, flickering\",\"description\":\"Tenant reports water running out of the hall ceiling light, which is on and flickering, with water pooling on the floor beneath. Water at a live electrical fitting. Source of water, isolation status and any impact on other flats are unknown. Requires urgent human escalation and qualified emergency response.\",\"urgency\":\"emergency\"}}",
+      "returnedModel": "anthropic/claude-sonnet-5.5",
+      "elapsedMs": 3988,
+      "correctionSucceeded": false,
+      "provider": "openrouter",
+      "promptVersion": "triage-v3-user-policy-v1",
+      "schemaVersion": "assessment-v2",
+      "policy": {
+        "version": "user-maintenance-policy-v1",
+        "owner": "user",
+        "approvedOn": "2026-11-19",
+        "officialDwellyPolicy": false,
+        "purpose": "User-proposed prompt changes intended to improve accuracy; effectiveness is not yet established"
+      },
+      "schemaHash": "af0df44e4d3c1af415a97111a7a9ad7af98c21390bf9f2edfb94d7d7d54f6deb",
+      "settings": {
+        "responseFormat": "json_schema",
+        "timeoutMs": 45000,
+        "maxAttempts": 2
+      }
+    },
+    {
+      "model": "anthropic/claude-sonnet-5.5",
+      "eventIds": [
+        "fresh-02-initial"
+      ],
+      "attempt": 1,
+      "stage": "accepted",
+      "status": 200,
+      "responseText": "{\"decision\":{\"evidenceIds\":[\"fresh-02-initial\"],\"reason\":\"Confirmed observation: a shallow cosmetic paint scratch inside a cupboard door. The door works normally, nothing is loose or sharp, and the mark has been stable for months. Policy classes this as low urgency and still in scope, and it can be recorded for planned attention without a contractor callout. No danger or deterioration is evidenced, so there is no need to open a case or ask a question now. Reassess if the condition changes.\",\"humanAction\":null,\"kind\":\"wait\",\"urgency\":\"low\"}}",
+      "returnedModel": "anthropic/claude-sonnet-5.5",
+      "elapsedMs": 2053,
+      "correctionSucceeded": false,
+      "provider": "openrouter",
+      "promptVersion": "triage-v3-user-policy-v1",
+      "schemaVersion": "assessment-v2",
+      "policy": {
+        "version": "user-maintenance-policy-v1",
+        "owner": "user",
+        "approvedOn": "2026-11-19",
+        "officialDwellyPolicy": false,
+        "purpose": "User-proposed prompt changes intended to improve accuracy; effectiveness is not yet established"
+      },
+      "schemaHash": "af0df44e4d3c1af415a97111a7a9ad7af98c21390bf9f2edfb94d7d7d54f6deb",
+      "settings": {
+        "responseFormat": "json_schema",
+        "timeoutMs": 45000,
+        "maxAttempts": 2
+      }
+    },
+    {
+      "model": "anthropic/claude-sonnet-5.5",
+      "eventIds": [
+        "fresh-03-initial"
+      ],
+      "attempt": 1,
+      "stage": "accepted",
+      "status": 200,
+      "responseText": "{\"decision\":{\"evidenceIds\":[\"fresh-03-initial\"],\"reason\":\"Tenant reports the ground-floor exterior door lock is broken: the door will not latch or lock, can be pushed open from the street, and no other lock works. Under the policy this is a broken accessible ground-floor door security defect, which is high urgency rather than emergency. No gas, fire, smoke or live-water hazard is reported, and no remote case exists, so a repair case is justified. Opening the case does not authorise contractor work, and the landlord is informed by case creation. Responsibility is provisionally in scope.\",\"humanAction\":null,\"kind\":\"open\",\"title\":\"Broken ground-floor exterior door lock - door will not latch or lock\",\"description\":\"Tenant reports the ground-floor flat's exterior door lock has failed. The door will not latch or lock and can be pushed open from the street. There is no other working lock, so the flat is unsecured. Needs prompt assessment and a qualified repair or securing of the door. Contractor assignment, quotes and approvals are not yet evidenced.\",\"urgency\":\"high\"}}",
+      "returnedModel": "anthropic/claude-sonnet-5.5",
+      "elapsedMs": 3350,
+      "correctionSucceeded": false,
+      "provider": "openrouter",
+      "promptVersion": "triage-v3-user-policy-v1",
+      "schemaVersion": "assessment-v2",
+      "policy": {
+        "version": "user-maintenance-policy-v1",
+        "owner": "user",
+        "approvedOn": "2026-11-19",
+        "officialDwellyPolicy": false,
+        "purpose": "User-proposed prompt changes intended to improve accuracy; effectiveness is not yet established"
+      },
+      "schemaHash": "af0df44e4d3c1af415a97111a7a9ad7af98c21390bf9f2edfb94d7d7d54f6deb",
+      "settings": {
+        "responseFormat": "json_schema",
+        "timeoutMs": 45000,
+        "maxAttempts": 2
+      }
+    },
+    {
+      "model": "anthropic/claude-sonnet-5.5",
+      "eventIds": [
+        "fresh-04-initial"
+      ],
+      "attempt": 1,
+      "stage": "accepted",
+      "status": 200,
+      "responseText": "{\"decision\":{\"evidenceIds\":[\"fresh-04-initial\"],\"reason\":\"The tenant reports a parking entitlement dispute with a neighbour. They explicitly say the surface, signs, gate and parking equipment are working and undamaged, so no physical defect is identified. Under policy, parking entitlement disputes without a physical defect are outside maintenance scope, so no repair case should be opened. No danger is indicated. A human should follow up on the entitlement question, since maintenance cannot settle it. Later evidence of a physical defect would allow reassessment.\",\"humanAction\":\"Have a human tell the tenant that maintenance cannot decide who may use the allocated space, and direct them to the appropriate party (e.g. the managing agent or landlord) to review the parking allocation and address the neighbour's use.\",\"kind\":\"outOfScope\",\"urgency\":\"low\"}}",
+      "returnedModel": "anthropic/claude-sonnet-5.5",
+      "elapsedMs": 2752,
+      "correctionSucceeded": false,
+      "provider": "openrouter",
+      "promptVersion": "triage-v3-user-policy-v1",
+      "schemaVersion": "assessment-v2",
+      "policy": {
+        "version": "user-maintenance-policy-v1",
+        "owner": "user",
+        "approvedOn": "2026-11-19",
+        "officialDwellyPolicy": false,
+        "purpose": "User-proposed prompt changes intended to improve accuracy; effectiveness is not yet established"
+      },
+      "schemaHash": "af0df44e4d3c1af415a97111a7a9ad7af98c21390bf9f2edfb94d7d7d54f6deb",
+      "settings": {
+        "responseFormat": "json_schema",
+        "timeoutMs": 45000,
+        "maxAttempts": 2
+      }
+    }
+  ],
+  "replays": [
+    {
+      "caseId": "fresh-01",
+      "passed": true,
+      "expectedValidation": "accept",
+      "writes": [
+        {
+          "operation": "createCase",
+          "input": {
+            "title": "Emergency: water running from live hall ceiling light fitting, flickering",
+            "urgency": "emergency",
+            "description": "Tenant reports water running out of the hall ceiling light, which is on and flickering, with water pooling on the floor beneath. Water at a live electrical fitting. Source of water, isolation status and any impact on other flats are unknown. Requires urgent human escalation and qualified emergency response."
+          },
+          "id": "e061f6de-a5a7-45d1-a7ed-6156b928d813"
+        }
+      ],
+      "inspection": {
+        "issue": {
+          "id": "issue-8ef6d6ec-8a1f-4ea6-bff8-8e9847adeb1e",
+          "session": "model-replay",
+          "actorId": "eval-tenant",
+          "conversationId": "fresh-01",
+          "status": "active",
+          "evidence": [
+            {
+              "eventId": "fresh-01-initial",
+              "cursor": 1,
+              "actor": {
+                "id": "eval-tenant",
+                "name": "Synthetic Tenant A",
+                "role": "tenant"
+              },
+              "body": "Water has started running out of the hall ceiling light. The light is on and flickering and the water is pooling on the floor beneath it.",
+              "occurredAt": "2026-11-19T12:00:00Z"
+            }
+          ],
+          "humanAction": "Urgently escalate to a qualified emergency response (electrician/emergency services as appropriate) and have a human send reviewed safety advice to the tenant. Confirm the source of the water, and whether the circuit can be safely isolated by a qualified person. Do not give improvised isolation instructions. Check whether other flats are affected.",
+          "remoteCase": {
+            "id": "e061f6de-a5a7-45d1-a7ed-6156b928d813",
+            "title": "Emergency: water running from live hall ceiling light fitting, flickering",
+            "description": "Tenant reports water running out of the hall ceiling light, which is on and flickering, with water pooling on the floor beneath. Water at a live electrical fitting. Source of water, isolation status and any impact on other flats are unknown. Requires urgent human escalation and qualified emergency response.",
+            "urgency": "emergency",
+            "property_id": null,
+            "status": "open",
+            "created_at": "2026-11-19T16:42:03.827Z",
+            "updated_at": "2026-11-19T16:42:03.827Z"
+          },
+          "urgency": "emergency"
+        },
+        "events": [
+          {
+            "id": "fresh-01-initial",
+            "cursor": 1,
+            "type": "message.received",
+            "channel": "email",
+            "actor": {
+              "id": "eval-tenant",
+              "name": "Synthetic Tenant A",
+              "role": "tenant"
+            },
+            "sim_ms": 0,
+            "occurred_at": "2026-11-19T12:00:00Z",
+            "payload": {
+              "body": "Water has started running out of the hall ceiling light. The light is on and flickering and the water is pooling on the floor beneath it.",
+              "conversation_id": "fresh-01"
+            }
+          }
+        ],
+        "actions": [
+          {
+            "id": "action-a80f9a0e-2647-4886-9079-f19c4dc79cef",
+            "eventId": "fresh-01-initial",
+            "issueId": "issue-8ef6d6ec-8a1f-4ea6-bff8-8e9847adeb1e",
+            "decision": {
+              "evidenceIds": [
+                "fresh-01-initial"
+              ],
+              "reason": "Tenant reports water running out of a hall ceiling light fitting that is switched on and flickering, with water pooling beneath it. This is water at a live fitting, which is a credible immediate danger (electric shock and fire risk) and meets the emergency criteria. No remote case exists, so a case must be opened and the emergency surfaced for human action. This does not authorise contractor dispatch; a qualified emergency response and human-reviewed safety communication are needed.",
+              "humanAction": "Urgently escalate to a qualified emergency response (electrician/emergency services as appropriate) and have a human send reviewed safety advice to the tenant. Confirm the source of the water, and whether the circuit can be safely isolated by a qualified person. Do not give improvised isolation instructions. Check whether other flats are affected.",
+              "kind": "open",
+              "title": "Emergency: water running from live hall ceiling light fitting, flickering",
+              "description": "Tenant reports water running out of the hall ceiling light, which is on and flickering, with water pooling on the floor beneath. Water at a live electrical fitting. Source of water, isolation status and any impact on other flats are unknown. Requires urgent human escalation and qualified emergency response.",
+              "urgency": "emergency"
+            },
+            "state": "confirmed",
+            "attempts": 1,
+            "result": {
+              "id": "e061f6de-a5a7-45d1-a7ed-6156b928d813",
+              "title": "Emergency: water running from live hall ceiling light fitting, flickering",
+              "description": "Tenant reports water running out of the hall ceiling light, which is on and flickering, with water pooling on the floor beneath. Water at a live electrical fitting. Source of water, isolation status and any impact on other flats are unknown. Requires urgent human escalation and qualified emergency response.",
+              "urgency": "emergency",
+              "property_id": null,
+              "status": "open",
+              "created_at": "2026-11-19T16:42:03.827Z",
+              "updated_at": "2026-11-19T16:42:03.827Z"
+            }
+          }
+        ],
+        "trace": [
+          {
+            "session": "model-replay",
+            "eventId": "fresh-01-initial",
+            "cursor": 1,
+            "issueId": "issue-8ef6d6ec-8a1f-4ea6-bff8-8e9847adeb1e",
+            "node": "Route",
+            "edge": "Assess",
+            "evidenceIds": [
+              "fresh-01-initial"
+            ],
+            "reason": "Material observation linked"
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-01-initial",
+            "cursor": 1,
+            "issueId": "issue-8ef6d6ec-8a1f-4ea6-bff8-8e9847adeb1e",
+            "node": "Assess",
+            "edge": "Validate",
+            "evidenceIds": [
+              "fresh-01-initial"
+            ],
+            "reason": "Tenant reports water running out of a hall ceiling light fitting that is switched on and flickering, with water pooling beneath it. This is water at a live fitting, which is a credible immediate danger (electric shock and fire risk) and meets the emergency criteria. No remote case exists, so a case must be opened and the emergency surfaced for human action. This does not authorise contractor dispatch; a qualified emergency response and human-reviewed safety communication are needed."
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-01-initial",
+            "cursor": 1,
+            "issueId": "issue-8ef6d6ec-8a1f-4ea6-bff8-8e9847adeb1e",
+            "node": "Validate",
+            "edge": "Act",
+            "evidenceIds": [
+              "fresh-01-initial"
+            ],
+            "reason": "Tenant reports water running out of a hall ceiling light fitting that is switched on and flickering, with water pooling beneath it. This is water at a live fitting, which is a credible immediate danger (electric shock and fire risk) and meets the emergency criteria. No remote case exists, so a case must be opened and the emergency surfaced for human action. This does not authorise contractor dispatch; a qualified emergency response and human-reviewed safety communication are needed.",
+            "outcome": {
+              "evidenceIds": [
+                "fresh-01-initial"
+              ],
+              "reason": "Tenant reports water running out of a hall ceiling light fitting that is switched on and flickering, with water pooling beneath it. This is water at a live fitting, which is a credible immediate danger (electric shock and fire risk) and meets the emergency criteria. No remote case exists, so a case must be opened and the emergency surfaced for human action. This does not authorise contractor dispatch; a qualified emergency response and human-reviewed safety communication are needed.",
+              "humanAction": "Urgently escalate to a qualified emergency response (electrician/emergency services as appropriate) and have a human send reviewed safety advice to the tenant. Confirm the source of the water, and whether the circuit can be safely isolated by a qualified person. Do not give improvised isolation instructions. Check whether other flats are affected.",
+              "kind": "open",
+              "title": "Emergency: water running from live hall ceiling light fitting, flickering",
+              "description": "Tenant reports water running out of the hall ceiling light, which is on and flickering, with water pooling on the floor beneath. Water at a live electrical fitting. Source of water, isolation status and any impact on other flats are unknown. Requires urgent human escalation and qualified emergency response.",
+              "urgency": "emergency"
+            }
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-01-initial",
+            "cursor": 1,
+            "issueId": "issue-8ef6d6ec-8a1f-4ea6-bff8-8e9847adeb1e",
+            "node": "Act",
+            "edge": "dispatch",
+            "evidenceIds": [
+              "fresh-01-initial"
+            ],
+            "reason": "Tenant reports water running out of a hall ceiling light fitting that is switched on and flickering, with water pooling beneath it. This is water at a live fitting, which is a credible immediate danger (electric shock and fire risk) and meets the emergency criteria. No remote case exists, so a case must be opened and the emergency surfaced for human action. This does not authorise contractor dispatch; a qualified emergency response and human-reviewed safety communication are needed.",
+            "outcome": {
+              "actionId": "action-a80f9a0e-2647-4886-9079-f19c4dc79cef"
+            }
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-01-initial",
+            "cursor": 1,
+            "issueId": "issue-8ef6d6ec-8a1f-4ea6-bff8-8e9847adeb1e",
+            "remoteId": "e061f6de-a5a7-45d1-a7ed-6156b928d813",
+            "node": "Checkpoint",
+            "edge": "confirmed",
+            "evidenceIds": [
+              "fresh-01-initial"
+            ],
+            "reason": "Tenant reports water running out of a hall ceiling light fitting that is switched on and flickering, with water pooling beneath it. This is water at a live fitting, which is a credible immediate danger (electric shock and fire risk) and meets the emergency criteria. No remote case exists, so a case must be opened and the emergency surfaced for human action. This does not authorise contractor dispatch; a qualified emergency response and human-reviewed safety communication are needed.",
+            "outcome": {
+              "id": "e061f6de-a5a7-45d1-a7ed-6156b928d813",
+              "title": "Emergency: water running from live hall ceiling light fitting, flickering",
+              "description": "Tenant reports water running out of the hall ceiling light, which is on and flickering, with water pooling on the floor beneath. Water at a live electrical fitting. Source of water, isolation status and any impact on other flats are unknown. Requires urgent human escalation and qualified emergency response.",
+              "urgency": "emergency",
+              "property_id": null,
+              "status": "open",
+              "created_at": "2026-11-19T16:42:03.827Z",
+              "updated_at": "2026-11-19T16:42:03.827Z"
+            }
+          }
+        ]
+      },
+      "restartDuplicatePassed": true
+    },
+    {
+      "caseId": "fresh-02",
+      "passed": true,
+      "expectedValidation": "accept",
+      "writes": [],
+      "inspection": {
+        "issue": {
+          "id": "issue-a7f7d59c-6eaf-4e03-b1bc-64dba762be44",
+          "session": "model-replay",
+          "actorId": "eval-tenant",
+          "conversationId": "fresh-02",
+          "status": "waiting",
+          "evidence": [
+            {
+              "eventId": "fresh-02-initial",
+              "cursor": 1,
+              "actor": {
+                "id": "eval-tenant",
+                "name": "Synthetic Tenant B",
+                "role": "tenant"
+              },
+              "body": "There is a shallow scratch in the paint on the inside of a cupboard door. The door works normally, nothing is loose or sharp, and the mark has not changed for months.",
+              "occurredAt": "2026-11-19T12:01:00Z"
+            }
+          ],
+          "urgency": "low"
+        },
+        "events": [
+          {
+            "id": "fresh-02-initial",
+            "cursor": 1,
+            "type": "message.received",
+            "channel": "email",
+            "actor": {
+              "id": "eval-tenant",
+              "name": "Synthetic Tenant B",
+              "role": "tenant"
+            },
+            "sim_ms": 0,
+            "occurred_at": "2026-11-19T12:01:00Z",
+            "payload": {
+              "body": "There is a shallow scratch in the paint on the inside of a cupboard door. The door works normally, nothing is loose or sharp, and the mark has not changed for months.",
+              "conversation_id": "fresh-02"
+            }
+          }
+        ],
+        "actions": [],
+        "trace": [
+          {
+            "session": "model-replay",
+            "eventId": "fresh-02-initial",
+            "cursor": 1,
+            "issueId": "issue-a7f7d59c-6eaf-4e03-b1bc-64dba762be44",
+            "node": "Route",
+            "edge": "Assess",
+            "evidenceIds": [
+              "fresh-02-initial"
+            ],
+            "reason": "Material observation linked"
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-02-initial",
+            "cursor": 1,
+            "issueId": "issue-a7f7d59c-6eaf-4e03-b1bc-64dba762be44",
+            "node": "Assess",
+            "edge": "Validate",
+            "evidenceIds": [
+              "fresh-02-initial"
+            ],
+            "reason": "Confirmed observation: a shallow cosmetic paint scratch inside a cupboard door. The door works normally, nothing is loose or sharp, and the mark has been stable for months. Policy classes this as low urgency and still in scope, and it can be recorded for planned attention without a contractor callout. No danger or deterioration is evidenced, so there is no need to open a case or ask a question now. Reassess if the condition changes."
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-02-initial",
+            "cursor": 1,
+            "issueId": "issue-a7f7d59c-6eaf-4e03-b1bc-64dba762be44",
+            "node": "Validate",
+            "edge": "Act",
+            "evidenceIds": [
+              "fresh-02-initial"
+            ],
+            "reason": "Confirmed observation: a shallow cosmetic paint scratch inside a cupboard door. The door works normally, nothing is loose or sharp, and the mark has been stable for months. Policy classes this as low urgency and still in scope, and it can be recorded for planned attention without a contractor callout. No danger or deterioration is evidenced, so there is no need to open a case or ask a question now. Reassess if the condition changes.",
+            "outcome": {
+              "evidenceIds": [
+                "fresh-02-initial"
+              ],
+              "reason": "Confirmed observation: a shallow cosmetic paint scratch inside a cupboard door. The door works normally, nothing is loose or sharp, and the mark has been stable for months. Policy classes this as low urgency and still in scope, and it can be recorded for planned attention without a contractor callout. No danger or deterioration is evidenced, so there is no need to open a case or ask a question now. Reassess if the condition changes.",
+              "kind": "wait",
+              "urgency": "low"
+            }
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-02-initial",
+            "cursor": 1,
+            "issueId": "issue-a7f7d59c-6eaf-4e03-b1bc-64dba762be44",
+            "node": "Checkpoint",
+            "edge": "done",
+            "evidenceIds": [
+              "fresh-02-initial"
+            ],
+            "reason": "Confirmed observation: a shallow cosmetic paint scratch inside a cupboard door. The door works normally, nothing is loose or sharp, and the mark has been stable for months. Policy classes this as low urgency and still in scope, and it can be recorded for planned attention without a contractor callout. No danger or deterioration is evidenced, so there is no need to open a case or ask a question now. Reassess if the condition changes."
+          }
+        ]
+      },
+      "restartDuplicatePassed": true
+    },
+    {
+      "caseId": "fresh-03",
+      "passed": true,
+      "expectedValidation": "accept",
+      "writes": [
+        {
+          "operation": "createCase",
+          "input": {
+            "title": "Broken ground-floor exterior door lock - door will not latch or lock",
+            "urgency": "high",
+            "description": "Tenant reports the ground-floor flat's exterior door lock has failed. The door will not latch or lock and can be pushed open from the street. There is no other working lock, so the flat is unsecured. Needs prompt assessment and a qualified repair or securing of the door. Contractor assignment, quotes and approvals are not yet evidenced."
+          },
+          "id": "94ceef11-04e6-4934-94b4-81c73e95037e"
+        }
+      ],
+      "inspection": {
+        "issue": {
+          "id": "issue-69731516-d1d8-4245-b285-ef145f9caf2a",
+          "session": "model-replay",
+          "actorId": "eval-tenant",
+          "conversationId": "fresh-03",
+          "status": "active",
+          "evidence": [
+            {
+              "eventId": "fresh-03-initial",
+              "cursor": 1,
+              "actor": {
+                "id": "eval-tenant",
+                "name": "Synthetic Tenant C",
+                "role": "tenant"
+              },
+              "body": "The ground-floor flat's exterior door lock has broken. The door will not latch or lock, and anyone in the street can push it open. There is no other working lock.",
+              "occurredAt": "2026-11-19T12:02:00Z"
+            }
+          ],
+          "remoteCase": {
+            "id": "94ceef11-04e6-4934-94b4-81c73e95037e",
+            "title": "Broken ground-floor exterior door lock - door will not latch or lock",
+            "description": "Tenant reports the ground-floor flat's exterior door lock has failed. The door will not latch or lock and can be pushed open from the street. There is no other working lock, so the flat is unsecured. Needs prompt assessment and a qualified repair or securing of the door. Contractor assignment, quotes and approvals are not yet evidenced.",
+            "urgency": "high",
+            "property_id": null,
+            "status": "open",
+            "created_at": "2026-11-19T16:42:03.860Z",
+            "updated_at": "2026-11-19T16:42:03.860Z"
+          },
+          "urgency": "high"
+        },
+        "events": [
+          {
+            "id": "fresh-03-initial",
+            "cursor": 1,
+            "type": "message.received",
+            "channel": "email",
+            "actor": {
+              "id": "eval-tenant",
+              "name": "Synthetic Tenant C",
+              "role": "tenant"
+            },
+            "sim_ms": 0,
+            "occurred_at": "2026-11-19T12:02:00Z",
+            "payload": {
+              "body": "The ground-floor flat's exterior door lock has broken. The door will not latch or lock, and anyone in the street can push it open. There is no other working lock.",
+              "conversation_id": "fresh-03"
+            }
+          }
+        ],
+        "actions": [
+          {
+            "id": "action-c519c84c-400b-4b4c-9657-d08074ddef98",
+            "eventId": "fresh-03-initial",
+            "issueId": "issue-69731516-d1d8-4245-b285-ef145f9caf2a",
+            "decision": {
+              "evidenceIds": [
+                "fresh-03-initial"
+              ],
+              "reason": "Tenant reports the ground-floor exterior door lock is broken: the door will not latch or lock, can be pushed open from the street, and no other lock works. Under the policy this is a broken accessible ground-floor door security defect, which is high urgency rather than emergency. No gas, fire, smoke or live-water hazard is reported, and no remote case exists, so a repair case is justified. Opening the case does not authorise contractor work, and the landlord is informed by case creation. Responsibility is provisionally in scope.",
+              "kind": "open",
+              "title": "Broken ground-floor exterior door lock - door will not latch or lock",
+              "description": "Tenant reports the ground-floor flat's exterior door lock has failed. The door will not latch or lock and can be pushed open from the street. There is no other working lock, so the flat is unsecured. Needs prompt assessment and a qualified repair or securing of the door. Contractor assignment, quotes and approvals are not yet evidenced.",
+              "urgency": "high"
+            },
+            "state": "confirmed",
+            "attempts": 1,
+            "result": {
+              "id": "94ceef11-04e6-4934-94b4-81c73e95037e",
+              "title": "Broken ground-floor exterior door lock - door will not latch or lock",
+              "description": "Tenant reports the ground-floor flat's exterior door lock has failed. The door will not latch or lock and can be pushed open from the street. There is no other working lock, so the flat is unsecured. Needs prompt assessment and a qualified repair or securing of the door. Contractor assignment, quotes and approvals are not yet evidenced.",
+              "urgency": "high",
+              "property_id": null,
+              "status": "open",
+              "created_at": "2026-11-19T16:42:03.860Z",
+              "updated_at": "2026-11-19T16:42:03.860Z"
+            }
+          }
+        ],
+        "trace": [
+          {
+            "session": "model-replay",
+            "eventId": "fresh-03-initial",
+            "cursor": 1,
+            "issueId": "issue-69731516-d1d8-4245-b285-ef145f9caf2a",
+            "node": "Route",
+            "edge": "Assess",
+            "evidenceIds": [
+              "fresh-03-initial"
+            ],
+            "reason": "Material observation linked"
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-03-initial",
+            "cursor": 1,
+            "issueId": "issue-69731516-d1d8-4245-b285-ef145f9caf2a",
+            "node": "Assess",
+            "edge": "Validate",
+            "evidenceIds": [
+              "fresh-03-initial"
+            ],
+            "reason": "Tenant reports the ground-floor exterior door lock is broken: the door will not latch or lock, can be pushed open from the street, and no other lock works. Under the policy this is a broken accessible ground-floor door security defect, which is high urgency rather than emergency. No gas, fire, smoke or live-water hazard is reported, and no remote case exists, so a repair case is justified. Opening the case does not authorise contractor work, and the landlord is informed by case creation. Responsibility is provisionally in scope."
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-03-initial",
+            "cursor": 1,
+            "issueId": "issue-69731516-d1d8-4245-b285-ef145f9caf2a",
+            "node": "Validate",
+            "edge": "Act",
+            "evidenceIds": [
+              "fresh-03-initial"
+            ],
+            "reason": "Tenant reports the ground-floor exterior door lock is broken: the door will not latch or lock, can be pushed open from the street, and no other lock works. Under the policy this is a broken accessible ground-floor door security defect, which is high urgency rather than emergency. No gas, fire, smoke or live-water hazard is reported, and no remote case exists, so a repair case is justified. Opening the case does not authorise contractor work, and the landlord is informed by case creation. Responsibility is provisionally in scope.",
+            "outcome": {
+              "evidenceIds": [
+                "fresh-03-initial"
+              ],
+              "reason": "Tenant reports the ground-floor exterior door lock is broken: the door will not latch or lock, can be pushed open from the street, and no other lock works. Under the policy this is a broken accessible ground-floor door security defect, which is high urgency rather than emergency. No gas, fire, smoke or live-water hazard is reported, and no remote case exists, so a repair case is justified. Opening the case does not authorise contractor work, and the landlord is informed by case creation. Responsibility is provisionally in scope.",
+              "kind": "open",
+              "title": "Broken ground-floor exterior door lock - door will not latch or lock",
+              "description": "Tenant reports the ground-floor flat's exterior door lock has failed. The door will not latch or lock and can be pushed open from the street. There is no other working lock, so the flat is unsecured. Needs prompt assessment and a qualified repair or securing of the door. Contractor assignment, quotes and approvals are not yet evidenced.",
+              "urgency": "high"
+            }
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-03-initial",
+            "cursor": 1,
+            "issueId": "issue-69731516-d1d8-4245-b285-ef145f9caf2a",
+            "node": "Act",
+            "edge": "dispatch",
+            "evidenceIds": [
+              "fresh-03-initial"
+            ],
+            "reason": "Tenant reports the ground-floor exterior door lock is broken: the door will not latch or lock, can be pushed open from the street, and no other lock works. Under the policy this is a broken accessible ground-floor door security defect, which is high urgency rather than emergency. No gas, fire, smoke or live-water hazard is reported, and no remote case exists, so a repair case is justified. Opening the case does not authorise contractor work, and the landlord is informed by case creation. Responsibility is provisionally in scope.",
+            "outcome": {
+              "actionId": "action-c519c84c-400b-4b4c-9657-d08074ddef98"
+            }
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-03-initial",
+            "cursor": 1,
+            "issueId": "issue-69731516-d1d8-4245-b285-ef145f9caf2a",
+            "remoteId": "94ceef11-04e6-4934-94b4-81c73e95037e",
+            "node": "Checkpoint",
+            "edge": "confirmed",
+            "evidenceIds": [
+              "fresh-03-initial"
+            ],
+            "reason": "Tenant reports the ground-floor exterior door lock is broken: the door will not latch or lock, can be pushed open from the street, and no other lock works. Under the policy this is a broken accessible ground-floor door security defect, which is high urgency rather than emergency. No gas, fire, smoke or live-water hazard is reported, and no remote case exists, so a repair case is justified. Opening the case does not authorise contractor work, and the landlord is informed by case creation. Responsibility is provisionally in scope.",
+            "outcome": {
+              "id": "94ceef11-04e6-4934-94b4-81c73e95037e",
+              "title": "Broken ground-floor exterior door lock - door will not latch or lock",
+              "description": "Tenant reports the ground-floor flat's exterior door lock has failed. The door will not latch or lock and can be pushed open from the street. There is no other working lock, so the flat is unsecured. Needs prompt assessment and a qualified repair or securing of the door. Contractor assignment, quotes and approvals are not yet evidenced.",
+              "urgency": "high",
+              "property_id": null,
+              "status": "open",
+              "created_at": "2026-11-19T16:42:03.860Z",
+              "updated_at": "2026-11-19T16:42:03.860Z"
+            }
+          }
+        ]
+      },
+      "restartDuplicatePassed": true
+    },
+    {
+      "caseId": "fresh-04",
+      "passed": true,
+      "expectedValidation": "accept",
+      "writes": [],
+      "inspection": {
+        "issue": {
+          "id": "issue-a7a08407-f44d-49e1-ac17-c723b6fc2252",
+          "session": "model-replay",
+          "actorId": "eval-tenant",
+          "conversationId": "fresh-04",
+          "status": "outOfScope",
+          "evidence": [
+            {
+              "eventId": "fresh-04-initial",
+              "cursor": 1,
+              "actor": {
+                "id": "eval-tenant",
+                "name": "Synthetic Tenant D",
+                "role": "tenant"
+              },
+              "body": "A neighbour keeps parking in my allocated space. The surface, signs, gate and parking equipment are all working and undamaged. I want somebody to settle who may use the space.",
+              "occurredAt": "2026-11-19T12:03:00Z"
+            }
+          ],
+          "humanAction": "Have a human tell the tenant that maintenance cannot decide who may use the allocated space, and direct them to the appropriate party (e.g. the managing agent or landlord) to review the parking allocation and address the neighbour's use.",
+          "urgency": "low"
+        },
+        "events": [
+          {
+            "id": "fresh-04-initial",
+            "cursor": 1,
+            "type": "message.received",
+            "channel": "email",
+            "actor": {
+              "id": "eval-tenant",
+              "name": "Synthetic Tenant D",
+              "role": "tenant"
+            },
+            "sim_ms": 0,
+            "occurred_at": "2026-11-19T12:03:00Z",
+            "payload": {
+              "body": "A neighbour keeps parking in my allocated space. The surface, signs, gate and parking equipment are all working and undamaged. I want somebody to settle who may use the space.",
+              "conversation_id": "fresh-04"
+            }
+          }
+        ],
+        "actions": [],
+        "trace": [
+          {
+            "session": "model-replay",
+            "eventId": "fresh-04-initial",
+            "cursor": 1,
+            "issueId": "issue-a7a08407-f44d-49e1-ac17-c723b6fc2252",
+            "node": "Route",
+            "edge": "Assess",
+            "evidenceIds": [
+              "fresh-04-initial"
+            ],
+            "reason": "Material observation linked"
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-04-initial",
+            "cursor": 1,
+            "issueId": "issue-a7a08407-f44d-49e1-ac17-c723b6fc2252",
+            "node": "Assess",
+            "edge": "Validate",
+            "evidenceIds": [
+              "fresh-04-initial"
+            ],
+            "reason": "The tenant reports a parking entitlement dispute with a neighbour. They explicitly say the surface, signs, gate and parking equipment are working and undamaged, so no physical defect is identified. Under policy, parking entitlement disputes without a physical defect are outside maintenance scope, so no repair case should be opened. No danger is indicated. A human should follow up on the entitlement question, since maintenance cannot settle it. Later evidence of a physical defect would allow reassessment."
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-04-initial",
+            "cursor": 1,
+            "issueId": "issue-a7a08407-f44d-49e1-ac17-c723b6fc2252",
+            "node": "Validate",
+            "edge": "Act",
+            "evidenceIds": [
+              "fresh-04-initial"
+            ],
+            "reason": "The tenant reports a parking entitlement dispute with a neighbour. They explicitly say the surface, signs, gate and parking equipment are working and undamaged, so no physical defect is identified. Under policy, parking entitlement disputes without a physical defect are outside maintenance scope, so no repair case should be opened. No danger is indicated. A human should follow up on the entitlement question, since maintenance cannot settle it. Later evidence of a physical defect would allow reassessment.",
+            "outcome": {
+              "evidenceIds": [
+                "fresh-04-initial"
+              ],
+              "reason": "The tenant reports a parking entitlement dispute with a neighbour. They explicitly say the surface, signs, gate and parking equipment are working and undamaged, so no physical defect is identified. Under policy, parking entitlement disputes without a physical defect are outside maintenance scope, so no repair case should be opened. No danger is indicated. A human should follow up on the entitlement question, since maintenance cannot settle it. Later evidence of a physical defect would allow reassessment.",
+              "humanAction": "Have a human tell the tenant that maintenance cannot decide who may use the allocated space, and direct them to the appropriate party (e.g. the managing agent or landlord) to review the parking allocation and address the neighbour's use.",
+              "kind": "outOfScope",
+              "urgency": "low"
+            }
+          },
+          {
+            "session": "model-replay",
+            "eventId": "fresh-04-initial",
+            "cursor": 1,
+            "issueId": "issue-a7a08407-f44d-49e1-ac17-c723b6fc2252",
+            "node": "Checkpoint",
+            "edge": "done",
+            "evidenceIds": [
+              "fresh-04-initial"
+            ],
+            "reason": "The tenant reports a parking entitlement dispute with a neighbour. They explicitly say the surface, signs, gate and parking equipment are working and undamaged, so no physical defect is identified. Under policy, parking entitlement disputes without a physical defect are outside maintenance scope, so no repair case should be opened. No danger is indicated. A human should follow up on the entitlement question, since maintenance cannot settle it. Later evidence of a physical defect would allow reassessment."
+          }
+        ]
+      },
+      "restartDuplicatePassed": true
+    }
+  ]
+}

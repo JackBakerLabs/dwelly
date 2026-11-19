@@ -105,3 +105,9 @@ The model now returns schema-constrained proposals without case or recipient IDs
 `npm run eval` separates provider failures, contract failures, actual under-triage and cases without scored urgency. `npm run eval-fresh` evaluates the frozen new synthetic scenarios with the same configured provider/model. `diagnose` now writes timestamped version directories under `docs/diagnostics/` rather than overwriting previous evidence.
 
 See [assessment-v2.md](docs/assessment-v2.md) for the implementation, 103 passing offline tests and real-model results: 24/24 responses passed contract validation and graph replay; judgment still varied by model. Archive cases are regression tests, and the fresh synthetic set is not an independent external assessment.
+
+## User-approved policy revision
+
+The active prompt is now `triage-v3-user-policy-v1`. These are **the user's prompt-policy changes, developed with the coding assistant in an attempt to improve accuracy—not an official Dwelly policy, instruction or endorsement**. See [the approval record](docs/policy/maintenance-policy-v1-approved.md) and `src/triage/policy.ts`. Attribution and policy version are recorded in evaluation reports and diagnostics.
+
+The original archive cases and previously inspected synthetic scenarios are policy-conformance/regression tests, not independent hold-outs. The 24/24 contract results and model judgment scores above were obtained with v2; they do not establish accuracy for this new prompt. The revision passes 104 offline tests. Its real-model accuracy must be measured separately.

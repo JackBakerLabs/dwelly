@@ -1,0 +1,6 @@
+[
+  {"id":"fresh-01","body":"Water has started running out of the hall ceiling light. The light is on and flickering and the water is pooling on the floor beneath it.","occurredAt":"2026-11-19T12:00:00Z","tenantName":"Synthetic Tenant A","expected":{"urgency":"emergency","disposition":"escalated_externally"}},
+  {"id":"fresh-02","body":"There is a shallow scratch in the paint on the inside of a cupboard door. The door works normally, nothing is loose or sharp, and the mark has not changed for months.","occurredAt":"2026-11-19T12:01:00Z","tenantName":"Synthetic Tenant B","expected":{"urgency":"low","disposition":"resolved"}},
+  {"id":"fresh-03","body":"The ground-floor flat's exterior door lock has broken. The door will not latch or lock, and anyone in the street can push it open. There is no other working lock.","occurredAt":"2026-11-19T12:02:00Z","tenantName":"Synthetic Tenant C","expected":{"urgency":"high","disposition":"resolved"}},
+  {"id":"fresh-04","body":"A neighbour keeps parking in my allocated space. The surface, signs, gate and parking equipment are all working and undamaged. I want somebody to settle who may use the space.","occurredAt":"2026-11-19T12:03:00Z","tenantName":"Synthetic Tenant D","expected":{"urgency":"low","disposition":"closed_out_of_scope"}}
+]

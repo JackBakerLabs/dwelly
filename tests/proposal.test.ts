@@ -62,3 +62,10 @@ test('model proposal graph resumes clarification then opens and updates the same
  const event=(n:number,body:string):WorldEvent=>({id:'event'+n,cursor:n*3,type:'message.received',channel:'email',actor:issue.evidence[0]!.actor,sim_ms:n,occurred_at:'2026-11-19T00:00:00Z',payload:{body,conversation_id:'thread'}});
  try{await new Graph({store,world,assess}).processEvent(event(1,'A problem with water'));store.close();store=new Store({path,session:'s'});const graph=new Graph({store,world,assess});await graph.processEvent(event(2,'Contained leak from kitchen waste pipe'));const id=store.issues()[0]!.remoteCase!.id;await graph.processEvent(event(3,'Water now damaging flat below'));await graph.processEvent(event(3,'Water now damaging flat below'));assert.equal(calls,3);assert.equal(store.issues().length,1);assert.equal(store.issues()[0]!.remoteCase!.id,id);assert.equal(store.issues()[0]!.urgency,'high');assert.deepEqual(world.writes.map(w=>w.operation),['sendMessage','createCase','patchCase']);}finally{store.close();rmSync(dir,{recursive:true,force:true});}
 });
+test('fresh fixture labels and other fixture texts stay outside model context; malformed output is not under-triage',async()=>{
+ const history=JSON.parse(readFileSync('snapshots/2026-11-19/history.json','utf8')).cases as HistoryCase[];
+ const fixtures=JSON.parse(readFileSync('fixtures/assessment-v2-fresh.json','utf8'));
+ let calls=0;
+ const assess=createModelAssessor({apiKey:'fake',fetch:async(_url,init)=>{calls++;const c=JSON.parse(JSON.parse(String(init!.body)).messages[1].content);assert.equal('expected' in c,false);assert.equal(c.currentObservations.length,1);assert.ok(!JSON.stringify(c.guidance).includes('fresh-'));return response({...open,reason:undefined});}});
+ const report=await runEvaluation(history,assess,fixtures);assert.equal(calls,8);assert.equal(report.contractFailures,4);assert.equal(report.providerFailures,0);assert.equal(report.underTriage,0);assert.equal(report.unscoredUrgency,4);
+});

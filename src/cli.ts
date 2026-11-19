@@ -74,10 +74,10 @@ export async function main(args = process.argv.slice(2)): Promise<void> {
         const models=args.slice(1).filter(a=>a!=='--saved');
         await diagnose(models,models.length?required('OPENROUTER_API_KEY'):undefined);
     }
-    else if (command === 'eval') {
+    else if (command === 'eval' || command === 'eval-fresh') {
         const modelConfig = modelConfiguration();
         const diagnostics: AssessmentDiagnostic[] = [];
-        const report = await runEvaluation(archive(), createModelAssessor({...modelConfig,onDiagnostic:d=>diagnostics.push(d)}));
+        const report = await runEvaluation(archive(), createModelAssessor({...modelConfig,onDiagnostic:d=>diagnostics.push(d)}),command==='eval-fresh'?JSON.parse(readFileSync(new URL('../../fixtures/assessment-v2-fresh.json',import.meta.url),'utf8')):undefined);
         console.log(JSON.stringify({ ...report, provider: modelConfig.provider, model: modelConfig.model, diagnostics }, null, 2));
         if (report.passed !== report.total)
             process.exitCode = 1;

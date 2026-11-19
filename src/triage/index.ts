@@ -109,18 +109,21 @@ export interface EvalReport {
     contractFailures: number;
     unscoredUrgency: number;
 }
-export async function runEvaluation(history: HistoryCase[], assessor: Assessor): Promise<EvalReport> {
+export const evaluationFixtureSchema=z.object({id:z.string().min(1),body:z.string().min(1),occurredAt:z.string().datetime(),tenantName:z.string().min(1),expected:z.object({urgency:z.enum(['low','medium','high','emergency']),disposition:z.enum(['resolved','closed_out_of_scope','escalated_externally'])}).strict()}).strict();
+export type EvaluationFixture=z.infer<typeof evaluationFixtureSchema>;
+export async function runEvaluation(history: HistoryCase[], assessor: Assessor, suppliedFixtures?:EvaluationFixture[]): Promise<EvalReport> {
     const results: EvalResult[] = [];
     const rank = { low: 0, medium: 1, high: 2, emergency: 3 };
-    for (const id of RESERVED_CASE_IDS) {
-        const c = history.find(c => c.id === id);
-        if (!c)
-            throw new Error(`Missing held-out archive ${id}`);
-        // Initial report only: no manager decisions, later exchanges or final label in assessment.
-        const m = c.messages.find(m => m.from === 'tenant')!;
-        const observation: Observation = { eventId: `${id}-initial`, cursor: 1, actor: { id: 'eval-tenant', role: 'tenant', name: m.name }, body: m.body, occurredAt: m.sent_at };
+    const fixtures=suppliedFixtures ? z.array(evaluationFixtureSchema).parse(suppliedFixtures) : RESERVED_CASE_IDS.map(id=>{
+        const c=history.find(c=>c.id===id);if(!c)throw new Error(`Missing held-out archive ${id}`);
+        const m=c.messages.find(m=>m.from==='tenant')!;
+        return {id,body:m.body,occurredAt:m.sent_at,tenantName:m.name,expected:{urgency:c.classification.urgency,disposition:c.resolution.status}};
+    });
+    for (const fixture of fixtures) {
+        const id=fixture.id;
+        const observation: Observation = { eventId: `${id}-initial`, cursor: 1, actor: { id: 'eval-tenant', role: 'tenant', name: fixture.tenantName }, body: fixture.body, occurredAt: fixture.occurredAt };
         const issue: Issue = { id: `eval-${id}`, session: 'read-only-eval', actorId: 'eval-tenant', conversationId: id, status: 'active', evidence: [observation] };
-        const expected = { urgency: c.classification.urgency, disposition: c.resolution.status };
+        const expected = fixture.expected;
         try {
             const assessed = await assessor(issue, issue.evidence, history.filter(h => !reserved.has(h.id)));
             const failureCategory=assessmentFailure(assessed);

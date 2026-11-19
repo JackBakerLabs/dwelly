@@ -43,7 +43,7 @@ test('case04 observations are chronological and scripted decisions use only obse
 });
 test('model has one correction then review, no writes', async () => {
     let calls = 0;
-    const assessor = createModelAssessor({ apiKey: 'fake', fetch: async () => { calls++; return new Response(JSON.stringify({ choices: [{ message: { content: JSON.stringify({ ...open, evidenceIds: ['invented'] }) } }] })); } });
+    const assessor = createModelAssessor({ apiKey: 'fake', fetch: async () => { calls++; return new Response(JSON.stringify({ choices: [{ message: { content: JSON.stringify({decision:{ ...open,description:null,humanAction:null, evidenceIds: ['invented'] }}) } }] })); } });
     const result = await assessor(issue, issue.evidence, history);
     assert.equal(calls, 2);
     assert.equal(result.kind, 'review');
@@ -87,8 +87,8 @@ test('OpenRouter uses its own endpoint, bearer credential, explicit model and JS
         assert.equal(init?.redirect,'error');
         const body=JSON.parse(String(init?.body));
         assert.equal(body.model,'organization/test-model');
-        assert.deepEqual(body.response_format,{type:'json_object'});
-        return new Response(JSON.stringify({choices:[{message:{content:JSON.stringify(open)}}]}));
+        assert.equal(body.response_format.type,'json_schema');assert.equal(body.response_format.json_schema.strict,true);assert.equal(body.provider.require_parameters,true);
+        return new Response(JSON.stringify({choices:[{message:{content:JSON.stringify({decision:{...open,description:null,humanAction:null}})}}]}));
     }});
     assert.equal((await assessor(issue,issue.evidence,[])).kind,'open');
     assert.equal(called,true);

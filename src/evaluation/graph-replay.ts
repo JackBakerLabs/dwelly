@@ -1,3 +1,4 @@
+import {bindProposal} from '../triage/proposal.js';
 import assert from 'node:assert/strict';
 import {mkdtempSync,rmSync} from 'node:fs';
 import {join} from 'node:path';
@@ -8,17 +9,18 @@ import {ReplayWorldClient} from '../world/index.js';
 import type {HistoryCase,Decision,WorldEvent} from '../types.js';
 
 /** Inject the exact captured decision: no model calls and no repair of malformed output. */
-export async function replayDecision(history:HistoryCase[],caseId:string,decision:unknown,expectValid=true) {
+export async function replayDecision(history:HistoryCase[],caseId:string,decision:unknown,expectValid=true,proposal=false) {
  const c=history.find(c=>c.id===caseId)!;const m=c.messages.find(m=>m.from==='tenant')!;
  const event:WorldEvent={id:caseId+'-initial',cursor:1,type:'message.received',channel:'email',actor:{id:'eval-tenant',name:m.name,role:'tenant'},sim_ms:0,occurred_at:m.sent_at,payload:{body:m.body,conversation_id:caseId}};
  const dir=mkdtempSync(join(tmpdir(),'dwelly-model-replay-'));const path=join(dir,'state.sqlite');
  let store=new Store({path,session:'model-replay'});const world=new ReplayWorldClient();let calls=0;
- const assess=async()=>{calls++;return decision as Decision;};
+ let executable:Decision|undefined;
+ const assess=async(current:import('../types.js').Issue)=>{calls++;executable=proposal?bindProposal(current,decision):decision as Decision;return executable;};
  try {
   await new Graph({store,world,assess}).processEvent(event);
   const issue=store.issues()[0]!;assert.ok(issue);assert.equal(store.status(event.id),'done');
   if(!expectValid){assert.equal(world.writes.length,0);assert.equal(issue.status,'review');}
-  else {const d=decision as Decision;
+  else {const d=executable!;
    if(d.kind==='open'){assert.equal(world.writes.length,1);assert.equal(world.writes[0]!.operation,'createCase');assert.deepEqual(world.writes[0]!.input,{title:d.title,urgency:d.urgency,...(d.description?{description:d.description}:{})});assert.equal(issue.remoteCase!.id,world.writes[0]!.id);assert.equal(issue.urgency,d.urgency);}
    else if(d.kind==='ask'){assert.equal(world.writes.length,1);assert.equal(world.writes[0]!.operation,'sendMessage');assert.equal(issue.outstandingQuestion,d.question);assert.equal(issue.status,'awaitingReply');}
    else {assert.equal(world.writes.length,0);assert.equal(issue.status,d.kind==='wait'?'waiting':d.kind);}

@@ -67,3 +67,5 @@ New diagnose reports are stored in timestamped version directories; earlier evid
 ## Remaining limits
 
 No live Dwelly feed/token verification was performed. Contractor natural-language extraction and other previously documented extension gaps remain. Schema compliance cannot prevent a valid but wrong urgency or scope decision, nor validate detailed safety advice. Existing closure-evidence checks remain conservative heuristics. Review holds are intentional; they require operator resolution rather than automatic retries.
+
+Final clean-source rehearsal: exported commit `57785ca` into an empty temporary directory, ran cached `npm ci`, strict build, all **103 tests**, case-04 replay, saved-decision replay (**14/14**) and CLI inspection. All passed. Inspection confirmed high urgency on the same linked case and two confirmed actions. No workspace database or installed dependencies were reused.

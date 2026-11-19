@@ -1,0 +1,964 @@
+{
+  "model": "anthropic/claude-sonnet-5.5",
+  "promptVersion": "triage-v2",
+  "evaluation": {
+    "provider": "real-or-injected",
+    "total": 4,
+    "passed": 4,
+    "underTriage": 0,
+    "providerFailures": 0,
+    "contractFailures": 0,
+    "unscoredUrgency": 0,
+    "results": [
+      {
+        "caseId": "case-02",
+        "eventIds": [
+          "case-02-initial"
+        ],
+        "expected": {
+          "urgency": "medium",
+          "disposition": "resolved"
+        },
+        "decision": {
+          "evidenceIds": [
+            "case-02-initial"
+          ],
+          "reason": "Tenant reports a dripping kitchen tap, about one drip every couple of seconds. It is a contained leak that wastes water and causes noise. There is no reported damage to other flats, no electrics involved, and no loss of service. It is a routine repair with a deteriorating washer or seal as the likely cause. No remote case exists, so a new one should be opened. Urgency is low because the drip is minor and contained. Guidance gives medium for contained leaks, but that guidance is tied to appliance leaks that put a machine out of use. A tap drip that leaves the tap fully usable is closer to cosmetic nuisance, though it does waste water, so low-to-medium applies. I choose medium to follow the contained-leak rule.",
+          "kind": "open",
+          "title": "Dripping kitchen tap",
+          "description": "Tenant reports the kitchen tap has begun dripping about once every couple of seconds. The drip is audible from the bedroom at night with the door closed, and water is being wasted. Please arrange a routine plumber visit to repair or replace the tap washer or cartridge. No damage to other areas has been reported.",
+          "urgency": "medium"
+        },
+        "passed": true,
+        "underTriage": false,
+        "unscoredUrgency": false
+      },
+      {
+        "caseId": "case-05",
+        "eventIds": [
+          "case-05-initial"
+        ],
+        "expected": {
+          "urgency": "emergency",
+          "disposition": "escalated_externally"
+        },
+        "decision": {
+          "evidenceIds": [
+            "case-05-initial"
+          ],
+          "reason": "Tenant reports a strong smell of gas, described as eggy and strongest near the meter cupboards in the shared entrance hall. This is an immediate life-safety hazard (fire, explosion, poisoning risk) for all occupants. An emergency must not wait for secondary details. No remote case exists, so open one. No evidence yet that anyone has been contacted or that the gas has been made safe.",
+          "humanAction": "Immediately escalate to the gas emergency service and the on-call responsible person. Advise occupants to leave the building, avoid switches, flames and electrical devices, open doors and windows if safe, and call the National Gas Emergency line from outside. Send an engineer to make the installation safe and confirm the all-clear before re-entry.",
+          "kind": "open",
+          "title": "Suspected gas leak in building entrance hall near meter cupboards",
+          "description": "Tenant reported a strong smell of gas (eggy odour) in the communal entrance hall, strongest near the meter cupboards by the stairs, noticed at about 17:04 UTC on 2025-12-09. Needs an immediate emergency response by the gas emergency service and a gas-safe engineer. No external call or repair has been confirmed yet.",
+          "urgency": "emergency"
+        },
+        "passed": true,
+        "underTriage": false,
+        "unscoredUrgency": false
+      },
+      {
+        "caseId": "case-09",
+        "eventIds": [
+          "case-09-initial"
+        ],
+        "expected": {
+          "urgency": "medium",
+          "disposition": "resolved"
+        },
+        "decision": {
+          "evidenceIds": [
+            "case-09-initial"
+          ],
+          "reason": "A double socket has lost power while the same devices work in another room, and nothing has tripped. This points to a fault in the socket or its circuit, which needs an electrician to diagnose. There is no reported burning smell, arcing, heat or water, so it is not an emergency or high urgency. Loss of power to one socket is a usable-but-faulty electrical issue, so medium priority fits. A remote case does not exist yet, so one should be opened. No further question is needed to take the next action.",
+          "kind": "open",
+          "title": "Bedroom double socket has no power",
+          "description": "Tenant reports the double socket on the left side of the bed has stopped working. A phone charger and bedside lamp both work in another room, and nothing has tripped at the fuse box. Needs an electrician to inspect the socket and circuit. Advise the tenant not to use the socket and to report any burning smell, scorching, heat or arcing immediately.",
+          "urgency": "medium"
+        },
+        "passed": true,
+        "underTriage": false,
+        "unscoredUrgency": false
+      },
+      {
+        "caseId": "case-11",
+        "eventIds": [
+          "case-11-initial"
+        ],
+        "expected": {
+          "urgency": "low",
+          "disposition": "closed_out_of_scope"
+        },
+        "decision": {
+          "evidenceIds": [
+            "case-11-initial"
+          ],
+          "reason": "The tenant reports recurring night-time noise from neighbours upstairs (furniture dragging, pacing) over about three weeks. This is a neighbour or anti-social behaviour matter, not a physical property defect, deterioration risk or repair. No guidance covers it and there is no evidence of building damage. It is outside the maintenance scope, so it should be redirected to the appropriate neighbour-nuisance or tenancy management route. Urgency is low because there is no safety hazard, though the sleep disruption is ongoing.",
+          "humanAction": "Direct the tenant to the landlord's neighbour nuisance or tenancy management process, and suggest they keep a log of dates and times. A housing officer could check whether the upstairs flooring or sound insulation meets requirements if that is suspected.",
+          "kind": "outOfScope",
+          "urgency": "low"
+        },
+        "passed": true,
+        "underTriage": false,
+        "unscoredUrgency": false
+      }
+    ]
+  },
+  "diagnostics": [
+    {
+      "model": "anthropic/claude-sonnet-5.5",
+      "eventIds": [
+        "case-02-initial"
+      ],
+      "attempt": 1,
+      "stage": "accepted",
+      "status": 200,
+      "responseText": "{\"decision\":{\"evidenceIds\":[\"case-02-initial\"],\"reason\":\"Tenant reports a dripping kitchen tap, about one drip every couple of seconds. It is a contained leak that wastes water and causes noise. There is no reported damage to other flats, no electrics involved, and no loss of service. It is a routine repair with a deteriorating washer or seal as the likely cause. No remote case exists, so a new one should be opened. Urgency is low because the drip is minor and contained. Guidance gives medium for contained leaks, but that guidance is tied to appliance leaks that put a machine out of use. A tap drip that leaves the tap fully usable is closer to cosmetic nuisance, though it does waste water, so low-to-medium applies. I choose medium to follow the contained-leak rule.\",\"humanAction\":null,\"kind\":\"open\",\"title\":\"Dripping kitchen tap\",\"description\":\"Tenant reports the kitchen tap has begun dripping about once every couple of seconds. The drip is audible from the bedroom at night with the door closed, and water is being wasted. Please arrange a routine plumber visit to repair or replace the tap washer or cartridge. No damage to other areas has been reported.\",\"urgency\":\"medium\"}}",
+      "returnedModel": "anthropic/claude-sonnet-5.5",
+      "elapsedMs": 5411,
+      "correctionSucceeded": false,
+      "provider": "openrouter",
+      "promptVersion": "triage-v2",
+      "schemaVersion": "assessment-v2",
+      "schemaHash": "af0df44e4d3c1af415a97111a7a9ad7af98c21390bf9f2edfb94d7d7d54f6deb",
+      "settings": {
+        "responseFormat": "json_schema",
+        "timeoutMs": 45000,
+        "maxAttempts": 2
+      }
+    },
+    {
+      "model": "anthropic/claude-sonnet-5.5",
+      "eventIds": [
+        "case-05-initial"
+      ],
+      "attempt": 1,
+      "stage": "accepted",
+      "status": 200,
+      "responseText": "{\"decision\":{\"evidenceIds\":[\"case-05-initial\"],\"reason\":\"Tenant reports a strong smell of gas, described as eggy and strongest near the meter cupboards in the shared entrance hall. This is an immediate life-safety hazard (fire, explosion, poisoning risk) for all occupants. An emergency must not wait for secondary details. No remote case exists, so open one. No evidence yet that anyone has been contacted or that the gas has been made safe.\",\"humanAction\":\"Immediately escalate to the gas emergency service and the on-call responsible person. Advise occupants to leave the building, avoid switches, flames and electrical devices, open doors and windows if safe, and call the National Gas Emergency line from outside. Send an engineer to make the installation safe and confirm the all-clear before re-entry.\",\"kind\":\"open\",\"title\":\"Suspected gas leak in building entrance hall near meter cupboards\",\"description\":\"Tenant reported a strong smell of gas (eggy odour) in the communal entrance hall, strongest near the meter cupboards by the stairs, noticed at about 17:04 UTC on 2025-12-09. Needs an immediate emergency response by the gas emergency service and a gas-safe engineer. No external call or repair has been confirmed yet.\",\"urgency\":\"emergency\"}}",
+      "returnedModel": "anthropic/claude-sonnet-5.5",
+      "elapsedMs": 4559,
+      "correctionSucceeded": false,
+      "provider": "openrouter",
+      "promptVersion": "triage-v2",
+      "schemaVersion": "assessment-v2",
+      "schemaHash": "af0df44e4d3c1af415a97111a7a9ad7af98c21390bf9f2edfb94d7d7d54f6deb",
+      "settings": {
+        "responseFormat": "json_schema",
+        "timeoutMs": 45000,
+        "maxAttempts": 2
+      }
+    },
+    {
+      "model": "anthropic/claude-sonnet-5.5",
+      "eventIds": [
+        "case-09-initial"
+      ],
+      "attempt": 1,
+      "stage": "accepted",
+      "status": 200,
+      "responseText": "{\"decision\":{\"evidenceIds\":[\"case-09-initial\"],\"reason\":\"A double socket has lost power while the same devices work in another room, and nothing has tripped. This points to a fault in the socket or its circuit, which needs an electrician to diagnose. There is no reported burning smell, arcing, heat or water, so it is not an emergency or high urgency. Loss of power to one socket is a usable-but-faulty electrical issue, so medium priority fits. A remote case does not exist yet, so one should be opened. No further question is needed to take the next action.\",\"humanAction\":null,\"kind\":\"open\",\"title\":\"Bedroom double socket has no power\",\"description\":\"Tenant reports the double socket on the left side of the bed has stopped working. A phone charger and bedside lamp both work in another room, and nothing has tripped at the fuse box. Needs an electrician to inspect the socket and circuit. Advise the tenant not to use the socket and to report any burning smell, scorching, heat or arcing immediately.\",\"urgency\":\"medium\"}}",
+      "returnedModel": "anthropic/claude-sonnet-5.5",
+      "elapsedMs": 4283,
+      "correctionSucceeded": false,
+      "provider": "openrouter",
+      "promptVersion": "triage-v2",
+      "schemaVersion": "assessment-v2",
+      "schemaHash": "af0df44e4d3c1af415a97111a7a9ad7af98c21390bf9f2edfb94d7d7d54f6deb",
+      "settings": {
+        "responseFormat": "json_schema",
+        "timeoutMs": 45000,
+        "maxAttempts": 2
+      }
+    },
+    {
+      "model": "anthropic/claude-sonnet-5.5",
+      "eventIds": [
+        "case-11-initial"
+      ],
+      "attempt": 1,
+      "stage": "accepted",
+      "status": 200,
+      "responseText": "{\"decision\":{\"evidenceIds\":[\"case-11-initial\"],\"reason\":\"The tenant reports recurring night-time noise from neighbours upstairs (furniture dragging, pacing) over about three weeks. This is a neighbour or anti-social behaviour matter, not a physical property defect, deterioration risk or repair. No guidance covers it and there is no evidence of building damage. It is outside the maintenance scope, so it should be redirected to the appropriate neighbour-nuisance or tenancy management route. Urgency is low because there is no safety hazard, though the sleep disruption is ongoing.\",\"humanAction\":\"Direct the tenant to the landlord's neighbour nuisance or tenancy management process, and suggest they keep a log of dates and times. A housing officer could check whether the upstairs flooring or sound insulation meets requirements if that is suspected.\",\"kind\":\"outOfScope\",\"urgency\":\"low\"}}",
+      "returnedModel": "anthropic/claude-sonnet-5.5",
+      "elapsedMs": 3823,
+      "correctionSucceeded": false,
+      "provider": "openrouter",
+      "promptVersion": "triage-v2",
+      "schemaVersion": "assessment-v2",
+      "schemaHash": "af0df44e4d3c1af415a97111a7a9ad7af98c21390bf9f2edfb94d7d7d54f6deb",
+      "settings": {
+        "responseFormat": "json_schema",
+        "timeoutMs": 45000,
+        "maxAttempts": 2
+      }
+    }
+  ],
+  "rows": [
+    {
+      "caseId": "case-02",
+      "eventIds": [
+        "case-02-initial"
+      ],
+      "expected": {
+        "urgency": "medium",
+        "disposition": "resolved"
+      },
+      "decision": {
+        "evidenceIds": [
+          "case-02-initial"
+        ],
+        "reason": "Tenant reports a dripping kitchen tap, about one drip every couple of seconds. It is a contained leak that wastes water and causes noise. There is no reported damage to other flats, no electrics involved, and no loss of service. It is a routine repair with a deteriorating washer or seal as the likely cause. No remote case exists, so a new one should be opened. Urgency is low because the drip is minor and contained. Guidance gives medium for contained leaks, but that guidance is tied to appliance leaks that put a machine out of use. A tap drip that leaves the tap fully usable is closer to cosmetic nuisance, though it does waste water, so low-to-medium applies. I choose medium to follow the contained-leak rule.",
+        "kind": "open",
+        "title": "Dripping kitchen tap",
+        "description": "Tenant reports the kitchen tap has begun dripping about once every couple of seconds. The drip is audible from the bedroom at night with the door closed, and water is being wasted. Please arrange a routine plumber visit to repair or replace the tap washer or cartridge. No damage to other areas has been reported.",
+        "urgency": "medium"
+      },
+      "passed": true,
+      "underTriage": false,
+      "unscoredUrgency": false,
+      "category": "pass",
+      "graph": {
+        "caseId": "case-02",
+        "passed": true,
+        "expectedValidation": "accept",
+        "writes": [
+          {
+            "operation": "createCase",
+            "input": {
+              "title": "Dripping kitchen tap",
+              "urgency": "medium",
+              "description": "Tenant reports the kitchen tap has begun dripping about once every couple of seconds. The drip is audible from the bedroom at night with the door closed, and water is being wasted. Please arrange a routine plumber visit to repair or replace the tap washer or cartridge. No damage to other areas has been reported."
+            },
+            "id": "ce02e709-8be2-43a0-bb5b-72e70294572a"
+          }
+        ],
+        "inspection": {
+          "issue": {
+            "id": "issue-ef413287-0c3d-4364-95b3-cedf705c86d0",
+            "session": "model-replay",
+            "actorId": "eval-tenant",
+            "conversationId": "case-02",
+            "status": "active",
+            "evidence": [
+              {
+                "eventId": "case-02-initial",
+                "cursor": 1,
+                "actor": {
+                  "id": "eval-tenant",
+                  "name": "Priya Shah",
+                  "role": "tenant"
+                },
+                "body": "Hi, the kitchen tap has started dripping and it's surprisingly loud at night - I can hear it from the bedroom with the door shut. It's maybe a drip every couple of seconds. Not urgent exactly but it's driving me a bit mad and I assume it's wasting water too.",
+                "occurredAt": "2025-09-16T21:38:00Z"
+              }
+            ],
+            "remoteCase": {
+              "id": "ce02e709-8be2-43a0-bb5b-72e70294572a",
+              "title": "Dripping kitchen tap",
+              "description": "Tenant reports the kitchen tap has begun dripping about once every couple of seconds. The drip is audible from the bedroom at night with the door closed, and water is being wasted. Please arrange a routine plumber visit to repair or replace the tap washer or cartridge. No damage to other areas has been reported.",
+              "urgency": "medium",
+              "property_id": null,
+              "status": "open",
+              "created_at": "2026-11-19T16:17:48.216Z",
+              "updated_at": "2026-11-19T16:17:48.216Z"
+            },
+            "urgency": "medium"
+          },
+          "events": [
+            {
+              "id": "case-02-initial",
+              "cursor": 1,
+              "type": "message.received",
+              "channel": "email",
+              "actor": {
+                "id": "eval-tenant",
+                "name": "Priya Shah",
+                "role": "tenant"
+              },
+              "sim_ms": 0,
+              "occurred_at": "2025-09-16T21:38:00Z",
+              "payload": {
+                "body": "Hi, the kitchen tap has started dripping and it's surprisingly loud at night - I can hear it from the bedroom with the door shut. It's maybe a drip every couple of seconds. Not urgent exactly but it's driving me a bit mad and I assume it's wasting water too.",
+                "conversation_id": "case-02"
+              }
+            }
+          ],
+          "actions": [
+            {
+              "id": "action-9cf7f03b-11eb-4d18-8b47-ad12560aa05e",
+              "eventId": "case-02-initial",
+              "issueId": "issue-ef413287-0c3d-4364-95b3-cedf705c86d0",
+              "decision": {
+                "evidenceIds": [
+                  "case-02-initial"
+                ],
+                "reason": "Tenant reports a dripping kitchen tap, about one drip every couple of seconds. It is a contained leak that wastes water and causes noise. There is no reported damage to other flats, no electrics involved, and no loss of service. It is a routine repair with a deteriorating washer or seal as the likely cause. No remote case exists, so a new one should be opened. Urgency is low because the drip is minor and contained. Guidance gives medium for contained leaks, but that guidance is tied to appliance leaks that put a machine out of use. A tap drip that leaves the tap fully usable is closer to cosmetic nuisance, though it does waste water, so low-to-medium applies. I choose medium to follow the contained-leak rule.",
+                "kind": "open",
+                "title": "Dripping kitchen tap",
+                "description": "Tenant reports the kitchen tap has begun dripping about once every couple of seconds. The drip is audible from the bedroom at night with the door closed, and water is being wasted. Please arrange a routine plumber visit to repair or replace the tap washer or cartridge. No damage to other areas has been reported.",
+                "urgency": "medium"
+              },
+              "state": "confirmed",
+              "attempts": 1,
+              "result": {
+                "id": "ce02e709-8be2-43a0-bb5b-72e70294572a",
+                "title": "Dripping kitchen tap",
+                "description": "Tenant reports the kitchen tap has begun dripping about once every couple of seconds. The drip is audible from the bedroom at night with the door closed, and water is being wasted. Please arrange a routine plumber visit to repair or replace the tap washer or cartridge. No damage to other areas has been reported.",
+                "urgency": "medium",
+                "property_id": null,
+                "status": "open",
+                "created_at": "2026-11-19T16:17:48.216Z",
+                "updated_at": "2026-11-19T16:17:48.216Z"
+              }
+            }
+          ],
+          "trace": [
+            {
+              "session": "model-replay",
+              "eventId": "case-02-initial",
+              "cursor": 1,
+              "issueId": "issue-ef413287-0c3d-4364-95b3-cedf705c86d0",
+              "node": "Route",
+              "edge": "Assess",
+              "evidenceIds": [
+                "case-02-initial"
+              ],
+              "reason": "Material observation linked"
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-02-initial",
+              "cursor": 1,
+              "issueId": "issue-ef413287-0c3d-4364-95b3-cedf705c86d0",
+              "node": "Assess",
+              "edge": "Validate",
+              "evidenceIds": [
+                "case-02-initial"
+              ],
+              "reason": "Tenant reports a dripping kitchen tap, about one drip every couple of seconds. It is a contained leak that wastes water and causes noise. There is no reported damage to other flats, no electrics involved, and no loss of service. It is a routine repair with a deteriorating washer or seal as the likely cause. No remote case exists, so a new one should be opened. Urgency is low because the drip is minor and contained. Guidance gives medium for contained leaks, but that guidance is tied to appliance leaks that put a machine out of use. A tap drip that leaves the tap fully usable is closer to cosmetic nuisance, though it does waste water, so low-to-medium applies. I choose medium to follow the contained-leak rule."
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-02-initial",
+              "cursor": 1,
+              "issueId": "issue-ef413287-0c3d-4364-95b3-cedf705c86d0",
+              "node": "Validate",
+              "edge": "Act",
+              "evidenceIds": [
+                "case-02-initial"
+              ],
+              "reason": "Tenant reports a dripping kitchen tap, about one drip every couple of seconds. It is a contained leak that wastes water and causes noise. There is no reported damage to other flats, no electrics involved, and no loss of service. It is a routine repair with a deteriorating washer or seal as the likely cause. No remote case exists, so a new one should be opened. Urgency is low because the drip is minor and contained. Guidance gives medium for contained leaks, but that guidance is tied to appliance leaks that put a machine out of use. A tap drip that leaves the tap fully usable is closer to cosmetic nuisance, though it does waste water, so low-to-medium applies. I choose medium to follow the contained-leak rule.",
+              "outcome": {
+                "evidenceIds": [
+                  "case-02-initial"
+                ],
+                "reason": "Tenant reports a dripping kitchen tap, about one drip every couple of seconds. It is a contained leak that wastes water and causes noise. There is no reported damage to other flats, no electrics involved, and no loss of service. It is a routine repair with a deteriorating washer or seal as the likely cause. No remote case exists, so a new one should be opened. Urgency is low because the drip is minor and contained. Guidance gives medium for contained leaks, but that guidance is tied to appliance leaks that put a machine out of use. A tap drip that leaves the tap fully usable is closer to cosmetic nuisance, though it does waste water, so low-to-medium applies. I choose medium to follow the contained-leak rule.",
+                "kind": "open",
+                "title": "Dripping kitchen tap",
+                "description": "Tenant reports the kitchen tap has begun dripping about once every couple of seconds. The drip is audible from the bedroom at night with the door closed, and water is being wasted. Please arrange a routine plumber visit to repair or replace the tap washer or cartridge. No damage to other areas has been reported.",
+                "urgency": "medium"
+              }
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-02-initial",
+              "cursor": 1,
+              "issueId": "issue-ef413287-0c3d-4364-95b3-cedf705c86d0",
+              "node": "Act",
+              "edge": "dispatch",
+              "evidenceIds": [
+                "case-02-initial"
+              ],
+              "reason": "Tenant reports a dripping kitchen tap, about one drip every couple of seconds. It is a contained leak that wastes water and causes noise. There is no reported damage to other flats, no electrics involved, and no loss of service. It is a routine repair with a deteriorating washer or seal as the likely cause. No remote case exists, so a new one should be opened. Urgency is low because the drip is minor and contained. Guidance gives medium for contained leaks, but that guidance is tied to appliance leaks that put a machine out of use. A tap drip that leaves the tap fully usable is closer to cosmetic nuisance, though it does waste water, so low-to-medium applies. I choose medium to follow the contained-leak rule.",
+              "outcome": {
+                "actionId": "action-9cf7f03b-11eb-4d18-8b47-ad12560aa05e"
+              }
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-02-initial",
+              "cursor": 1,
+              "issueId": "issue-ef413287-0c3d-4364-95b3-cedf705c86d0",
+              "remoteId": "ce02e709-8be2-43a0-bb5b-72e70294572a",
+              "node": "Checkpoint",
+              "edge": "confirmed",
+              "evidenceIds": [
+                "case-02-initial"
+              ],
+              "reason": "Tenant reports a dripping kitchen tap, about one drip every couple of seconds. It is a contained leak that wastes water and causes noise. There is no reported damage to other flats, no electrics involved, and no loss of service. It is a routine repair with a deteriorating washer or seal as the likely cause. No remote case exists, so a new one should be opened. Urgency is low because the drip is minor and contained. Guidance gives medium for contained leaks, but that guidance is tied to appliance leaks that put a machine out of use. A tap drip that leaves the tap fully usable is closer to cosmetic nuisance, though it does waste water, so low-to-medium applies. I choose medium to follow the contained-leak rule.",
+              "outcome": {
+                "id": "ce02e709-8be2-43a0-bb5b-72e70294572a",
+                "title": "Dripping kitchen tap",
+                "description": "Tenant reports the kitchen tap has begun dripping about once every couple of seconds. The drip is audible from the bedroom at night with the door closed, and water is being wasted. Please arrange a routine plumber visit to repair or replace the tap washer or cartridge. No damage to other areas has been reported.",
+                "urgency": "medium",
+                "property_id": null,
+                "status": "open",
+                "created_at": "2026-11-19T16:17:48.216Z",
+                "updated_at": "2026-11-19T16:17:48.216Z"
+              }
+            }
+          ]
+        },
+        "restartDuplicatePassed": true
+      },
+      "rejected": []
+    },
+    {
+      "caseId": "case-05",
+      "eventIds": [
+        "case-05-initial"
+      ],
+      "expected": {
+        "urgency": "emergency",
+        "disposition": "escalated_externally"
+      },
+      "decision": {
+        "evidenceIds": [
+          "case-05-initial"
+        ],
+        "reason": "Tenant reports a strong smell of gas, described as eggy and strongest near the meter cupboards in the shared entrance hall. This is an immediate life-safety hazard (fire, explosion, poisoning risk) for all occupants. An emergency must not wait for secondary details. No remote case exists, so open one. No evidence yet that anyone has been contacted or that the gas has been made safe.",
+        "humanAction": "Immediately escalate to the gas emergency service and the on-call responsible person. Advise occupants to leave the building, avoid switches, flames and electrical devices, open doors and windows if safe, and call the National Gas Emergency line from outside. Send an engineer to make the installation safe and confirm the all-clear before re-entry.",
+        "kind": "open",
+        "title": "Suspected gas leak in building entrance hall near meter cupboards",
+        "description": "Tenant reported a strong smell of gas (eggy odour) in the communal entrance hall, strongest near the meter cupboards by the stairs, noticed at about 17:04 UTC on 2025-12-09. Needs an immediate emergency response by the gas emergency service and a gas-safe engineer. No external call or repair has been confirmed yet.",
+        "urgency": "emergency"
+      },
+      "passed": true,
+      "underTriage": false,
+      "unscoredUrgency": false,
+      "category": "pass",
+      "graph": {
+        "caseId": "case-05",
+        "passed": true,
+        "expectedValidation": "accept",
+        "writes": [
+          {
+            "operation": "createCase",
+            "input": {
+              "title": "Suspected gas leak in building entrance hall near meter cupboards",
+              "urgency": "emergency",
+              "description": "Tenant reported a strong smell of gas (eggy odour) in the communal entrance hall, strongest near the meter cupboards by the stairs, noticed at about 17:04 UTC on 2025-12-09. Needs an immediate emergency response by the gas emergency service and a gas-safe engineer. No external call or repair has been confirmed yet."
+            },
+            "id": "21b31e26-c5d4-4c55-a26e-4f80c67b8781"
+          }
+        ],
+        "inspection": {
+          "issue": {
+            "id": "issue-6d8c673c-1605-43f2-b5b4-07c408ae01fb",
+            "session": "model-replay",
+            "actorId": "eval-tenant",
+            "conversationId": "case-05",
+            "status": "active",
+            "evidence": [
+              {
+                "eventId": "case-05-initial",
+                "cursor": 1,
+                "actor": {
+                  "id": "eval-tenant",
+                  "name": "Nadia Ferreira",
+                  "role": "tenant"
+                },
+                "body": "Hi - there's a strong smell of gas in the entrance hall of the building. I noticed it as soon as I came in from work just now. It's definitely gas, that eggy smell, strongest near the meter cupboards by the stairs.",
+                "occurredAt": "2025-12-09T17:04:00Z"
+              }
+            ],
+            "humanAction": "Immediately escalate to the gas emergency service and the on-call responsible person. Advise occupants to leave the building, avoid switches, flames and electrical devices, open doors and windows if safe, and call the National Gas Emergency line from outside. Send an engineer to make the installation safe and confirm the all-clear before re-entry.",
+            "remoteCase": {
+              "id": "21b31e26-c5d4-4c55-a26e-4f80c67b8781",
+              "title": "Suspected gas leak in building entrance hall near meter cupboards",
+              "description": "Tenant reported a strong smell of gas (eggy odour) in the communal entrance hall, strongest near the meter cupboards by the stairs, noticed at about 17:04 UTC on 2025-12-09. Needs an immediate emergency response by the gas emergency service and a gas-safe engineer. No external call or repair has been confirmed yet.",
+              "urgency": "emergency",
+              "property_id": null,
+              "status": "open",
+              "created_at": "2026-11-19T16:17:48.231Z",
+              "updated_at": "2026-11-19T16:17:48.231Z"
+            },
+            "urgency": "emergency"
+          },
+          "events": [
+            {
+              "id": "case-05-initial",
+              "cursor": 1,
+              "type": "message.received",
+              "channel": "email",
+              "actor": {
+                "id": "eval-tenant",
+                "name": "Nadia Ferreira",
+                "role": "tenant"
+              },
+              "sim_ms": 0,
+              "occurred_at": "2025-12-09T17:04:00Z",
+              "payload": {
+                "body": "Hi - there's a strong smell of gas in the entrance hall of the building. I noticed it as soon as I came in from work just now. It's definitely gas, that eggy smell, strongest near the meter cupboards by the stairs.",
+                "conversation_id": "case-05"
+              }
+            }
+          ],
+          "actions": [
+            {
+              "id": "action-bb61ae7b-97f1-4368-bbd4-4d514c629b41",
+              "eventId": "case-05-initial",
+              "issueId": "issue-6d8c673c-1605-43f2-b5b4-07c408ae01fb",
+              "decision": {
+                "evidenceIds": [
+                  "case-05-initial"
+                ],
+                "reason": "Tenant reports a strong smell of gas, described as eggy and strongest near the meter cupboards in the shared entrance hall. This is an immediate life-safety hazard (fire, explosion, poisoning risk) for all occupants. An emergency must not wait for secondary details. No remote case exists, so open one. No evidence yet that anyone has been contacted or that the gas has been made safe.",
+                "humanAction": "Immediately escalate to the gas emergency service and the on-call responsible person. Advise occupants to leave the building, avoid switches, flames and electrical devices, open doors and windows if safe, and call the National Gas Emergency line from outside. Send an engineer to make the installation safe and confirm the all-clear before re-entry.",
+                "kind": "open",
+                "title": "Suspected gas leak in building entrance hall near meter cupboards",
+                "description": "Tenant reported a strong smell of gas (eggy odour) in the communal entrance hall, strongest near the meter cupboards by the stairs, noticed at about 17:04 UTC on 2025-12-09. Needs an immediate emergency response by the gas emergency service and a gas-safe engineer. No external call or repair has been confirmed yet.",
+                "urgency": "emergency"
+              },
+              "state": "confirmed",
+              "attempts": 1,
+              "result": {
+                "id": "21b31e26-c5d4-4c55-a26e-4f80c67b8781",
+                "title": "Suspected gas leak in building entrance hall near meter cupboards",
+                "description": "Tenant reported a strong smell of gas (eggy odour) in the communal entrance hall, strongest near the meter cupboards by the stairs, noticed at about 17:04 UTC on 2025-12-09. Needs an immediate emergency response by the gas emergency service and a gas-safe engineer. No external call or repair has been confirmed yet.",
+                "urgency": "emergency",
+                "property_id": null,
+                "status": "open",
+                "created_at": "2026-11-19T16:17:48.231Z",
+                "updated_at": "2026-11-19T16:17:48.231Z"
+              }
+            }
+          ],
+          "trace": [
+            {
+              "session": "model-replay",
+              "eventId": "case-05-initial",
+              "cursor": 1,
+              "issueId": "issue-6d8c673c-1605-43f2-b5b4-07c408ae01fb",
+              "node": "Route",
+              "edge": "Assess",
+              "evidenceIds": [
+                "case-05-initial"
+              ],
+              "reason": "Material observation linked"
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-05-initial",
+              "cursor": 1,
+              "issueId": "issue-6d8c673c-1605-43f2-b5b4-07c408ae01fb",
+              "node": "Assess",
+              "edge": "Validate",
+              "evidenceIds": [
+                "case-05-initial"
+              ],
+              "reason": "Tenant reports a strong smell of gas, described as eggy and strongest near the meter cupboards in the shared entrance hall. This is an immediate life-safety hazard (fire, explosion, poisoning risk) for all occupants. An emergency must not wait for secondary details. No remote case exists, so open one. No evidence yet that anyone has been contacted or that the gas has been made safe."
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-05-initial",
+              "cursor": 1,
+              "issueId": "issue-6d8c673c-1605-43f2-b5b4-07c408ae01fb",
+              "node": "Validate",
+              "edge": "Act",
+              "evidenceIds": [
+                "case-05-initial"
+              ],
+              "reason": "Tenant reports a strong smell of gas, described as eggy and strongest near the meter cupboards in the shared entrance hall. This is an immediate life-safety hazard (fire, explosion, poisoning risk) for all occupants. An emergency must not wait for secondary details. No remote case exists, so open one. No evidence yet that anyone has been contacted or that the gas has been made safe.",
+              "outcome": {
+                "evidenceIds": [
+                  "case-05-initial"
+                ],
+                "reason": "Tenant reports a strong smell of gas, described as eggy and strongest near the meter cupboards in the shared entrance hall. This is an immediate life-safety hazard (fire, explosion, poisoning risk) for all occupants. An emergency must not wait for secondary details. No remote case exists, so open one. No evidence yet that anyone has been contacted or that the gas has been made safe.",
+                "humanAction": "Immediately escalate to the gas emergency service and the on-call responsible person. Advise occupants to leave the building, avoid switches, flames and electrical devices, open doors and windows if safe, and call the National Gas Emergency line from outside. Send an engineer to make the installation safe and confirm the all-clear before re-entry.",
+                "kind": "open",
+                "title": "Suspected gas leak in building entrance hall near meter cupboards",
+                "description": "Tenant reported a strong smell of gas (eggy odour) in the communal entrance hall, strongest near the meter cupboards by the stairs, noticed at about 17:04 UTC on 2025-12-09. Needs an immediate emergency response by the gas emergency service and a gas-safe engineer. No external call or repair has been confirmed yet.",
+                "urgency": "emergency"
+              }
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-05-initial",
+              "cursor": 1,
+              "issueId": "issue-6d8c673c-1605-43f2-b5b4-07c408ae01fb",
+              "node": "Act",
+              "edge": "dispatch",
+              "evidenceIds": [
+                "case-05-initial"
+              ],
+              "reason": "Tenant reports a strong smell of gas, described as eggy and strongest near the meter cupboards in the shared entrance hall. This is an immediate life-safety hazard (fire, explosion, poisoning risk) for all occupants. An emergency must not wait for secondary details. No remote case exists, so open one. No evidence yet that anyone has been contacted or that the gas has been made safe.",
+              "outcome": {
+                "actionId": "action-bb61ae7b-97f1-4368-bbd4-4d514c629b41"
+              }
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-05-initial",
+              "cursor": 1,
+              "issueId": "issue-6d8c673c-1605-43f2-b5b4-07c408ae01fb",
+              "remoteId": "21b31e26-c5d4-4c55-a26e-4f80c67b8781",
+              "node": "Checkpoint",
+              "edge": "confirmed",
+              "evidenceIds": [
+                "case-05-initial"
+              ],
+              "reason": "Tenant reports a strong smell of gas, described as eggy and strongest near the meter cupboards in the shared entrance hall. This is an immediate life-safety hazard (fire, explosion, poisoning risk) for all occupants. An emergency must not wait for secondary details. No remote case exists, so open one. No evidence yet that anyone has been contacted or that the gas has been made safe.",
+              "outcome": {
+                "id": "21b31e26-c5d4-4c55-a26e-4f80c67b8781",
+                "title": "Suspected gas leak in building entrance hall near meter cupboards",
+                "description": "Tenant reported a strong smell of gas (eggy odour) in the communal entrance hall, strongest near the meter cupboards by the stairs, noticed at about 17:04 UTC on 2025-12-09. Needs an immediate emergency response by the gas emergency service and a gas-safe engineer. No external call or repair has been confirmed yet.",
+                "urgency": "emergency",
+                "property_id": null,
+                "status": "open",
+                "created_at": "2026-11-19T16:17:48.231Z",
+                "updated_at": "2026-11-19T16:17:48.231Z"
+              }
+            }
+          ]
+        },
+        "restartDuplicatePassed": true
+      },
+      "rejected": []
+    },
+    {
+      "caseId": "case-09",
+      "eventIds": [
+        "case-09-initial"
+      ],
+      "expected": {
+        "urgency": "medium",
+        "disposition": "resolved"
+      },
+      "decision": {
+        "evidenceIds": [
+          "case-09-initial"
+        ],
+        "reason": "A double socket has lost power while the same devices work in another room, and nothing has tripped. This points to a fault in the socket or its circuit, which needs an electrician to diagnose. There is no reported burning smell, arcing, heat or water, so it is not an emergency or high urgency. Loss of power to one socket is a usable-but-faulty electrical issue, so medium priority fits. A remote case does not exist yet, so one should be opened. No further question is needed to take the next action.",
+        "kind": "open",
+        "title": "Bedroom double socket has no power",
+        "description": "Tenant reports the double socket on the left side of the bed has stopped working. A phone charger and bedside lamp both work in another room, and nothing has tripped at the fuse box. Needs an electrician to inspect the socket and circuit. Advise the tenant not to use the socket and to report any burning smell, scorching, heat or arcing immediately.",
+        "urgency": "medium"
+      },
+      "passed": true,
+      "underTriage": false,
+      "unscoredUrgency": false,
+      "category": "pass",
+      "graph": {
+        "caseId": "case-09",
+        "passed": true,
+        "expectedValidation": "accept",
+        "writes": [
+          {
+            "operation": "createCase",
+            "input": {
+              "title": "Bedroom double socket has no power",
+              "urgency": "medium",
+              "description": "Tenant reports the double socket on the left side of the bed has stopped working. A phone charger and bedside lamp both work in another room, and nothing has tripped at the fuse box. Needs an electrician to inspect the socket and circuit. Advise the tenant not to use the socket and to report any burning smell, scorching, heat or arcing immediately."
+            },
+            "id": "bd13a63a-4b0a-4bff-9d39-dc760653b979"
+          }
+        ],
+        "inspection": {
+          "issue": {
+            "id": "issue-80cde7a0-8e5a-4b81-9a3b-a6b34987c86f",
+            "session": "model-replay",
+            "actorId": "eval-tenant",
+            "conversationId": "case-09",
+            "status": "active",
+            "evidence": [
+              {
+                "eventId": "case-09-initial",
+                "cursor": 1,
+                "actor": {
+                  "id": "eval-tenant",
+                  "name": "Sophie Lennox",
+                  "role": "tenant"
+                },
+                "body": "Morning - the double socket on the left side of the bed has stopped working. My phone didn't charge overnight and I thought the charger had died, but the bedside lamp is dead in that socket too and both work fine when I plug them in across the room. Nothing has tripped at the fuse box as far as I can see.",
+                "occurredAt": "2025-10-07T08:15:00Z"
+              }
+            ],
+            "remoteCase": {
+              "id": "bd13a63a-4b0a-4bff-9d39-dc760653b979",
+              "title": "Bedroom double socket has no power",
+              "description": "Tenant reports the double socket on the left side of the bed has stopped working. A phone charger and bedside lamp both work in another room, and nothing has tripped at the fuse box. Needs an electrician to inspect the socket and circuit. Advise the tenant not to use the socket and to report any burning smell, scorching, heat or arcing immediately.",
+              "urgency": "medium",
+              "property_id": null,
+              "status": "open",
+              "created_at": "2026-11-19T16:17:48.244Z",
+              "updated_at": "2026-11-19T16:17:48.244Z"
+            },
+            "urgency": "medium"
+          },
+          "events": [
+            {
+              "id": "case-09-initial",
+              "cursor": 1,
+              "type": "message.received",
+              "channel": "email",
+              "actor": {
+                "id": "eval-tenant",
+                "name": "Sophie Lennox",
+                "role": "tenant"
+              },
+              "sim_ms": 0,
+              "occurred_at": "2025-10-07T08:15:00Z",
+              "payload": {
+                "body": "Morning - the double socket on the left side of the bed has stopped working. My phone didn't charge overnight and I thought the charger had died, but the bedside lamp is dead in that socket too and both work fine when I plug them in across the room. Nothing has tripped at the fuse box as far as I can see.",
+                "conversation_id": "case-09"
+              }
+            }
+          ],
+          "actions": [
+            {
+              "id": "action-403a36c6-efbf-4340-ae1d-e5ffb77585c6",
+              "eventId": "case-09-initial",
+              "issueId": "issue-80cde7a0-8e5a-4b81-9a3b-a6b34987c86f",
+              "decision": {
+                "evidenceIds": [
+                  "case-09-initial"
+                ],
+                "reason": "A double socket has lost power while the same devices work in another room, and nothing has tripped. This points to a fault in the socket or its circuit, which needs an electrician to diagnose. There is no reported burning smell, arcing, heat or water, so it is not an emergency or high urgency. Loss of power to one socket is a usable-but-faulty electrical issue, so medium priority fits. A remote case does not exist yet, so one should be opened. No further question is needed to take the next action.",
+                "kind": "open",
+                "title": "Bedroom double socket has no power",
+                "description": "Tenant reports the double socket on the left side of the bed has stopped working. A phone charger and bedside lamp both work in another room, and nothing has tripped at the fuse box. Needs an electrician to inspect the socket and circuit. Advise the tenant not to use the socket and to report any burning smell, scorching, heat or arcing immediately.",
+                "urgency": "medium"
+              },
+              "state": "confirmed",
+              "attempts": 1,
+              "result": {
+                "id": "bd13a63a-4b0a-4bff-9d39-dc760653b979",
+                "title": "Bedroom double socket has no power",
+                "description": "Tenant reports the double socket on the left side of the bed has stopped working. A phone charger and bedside lamp both work in another room, and nothing has tripped at the fuse box. Needs an electrician to inspect the socket and circuit. Advise the tenant not to use the socket and to report any burning smell, scorching, heat or arcing immediately.",
+                "urgency": "medium",
+                "property_id": null,
+                "status": "open",
+                "created_at": "2026-11-19T16:17:48.244Z",
+                "updated_at": "2026-11-19T16:17:48.244Z"
+              }
+            }
+          ],
+          "trace": [
+            {
+              "session": "model-replay",
+              "eventId": "case-09-initial",
+              "cursor": 1,
+              "issueId": "issue-80cde7a0-8e5a-4b81-9a3b-a6b34987c86f",
+              "node": "Route",
+              "edge": "Assess",
+              "evidenceIds": [
+                "case-09-initial"
+              ],
+              "reason": "Material observation linked"
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-09-initial",
+              "cursor": 1,
+              "issueId": "issue-80cde7a0-8e5a-4b81-9a3b-a6b34987c86f",
+              "node": "Assess",
+              "edge": "Validate",
+              "evidenceIds": [
+                "case-09-initial"
+              ],
+              "reason": "A double socket has lost power while the same devices work in another room, and nothing has tripped. This points to a fault in the socket or its circuit, which needs an electrician to diagnose. There is no reported burning smell, arcing, heat or water, so it is not an emergency or high urgency. Loss of power to one socket is a usable-but-faulty electrical issue, so medium priority fits. A remote case does not exist yet, so one should be opened. No further question is needed to take the next action."
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-09-initial",
+              "cursor": 1,
+              "issueId": "issue-80cde7a0-8e5a-4b81-9a3b-a6b34987c86f",
+              "node": "Validate",
+              "edge": "Act",
+              "evidenceIds": [
+                "case-09-initial"
+              ],
+              "reason": "A double socket has lost power while the same devices work in another room, and nothing has tripped. This points to a fault in the socket or its circuit, which needs an electrician to diagnose. There is no reported burning smell, arcing, heat or water, so it is not an emergency or high urgency. Loss of power to one socket is a usable-but-faulty electrical issue, so medium priority fits. A remote case does not exist yet, so one should be opened. No further question is needed to take the next action.",
+              "outcome": {
+                "evidenceIds": [
+                  "case-09-initial"
+                ],
+                "reason": "A double socket has lost power while the same devices work in another room, and nothing has tripped. This points to a fault in the socket or its circuit, which needs an electrician to diagnose. There is no reported burning smell, arcing, heat or water, so it is not an emergency or high urgency. Loss of power to one socket is a usable-but-faulty electrical issue, so medium priority fits. A remote case does not exist yet, so one should be opened. No further question is needed to take the next action.",
+                "kind": "open",
+                "title": "Bedroom double socket has no power",
+                "description": "Tenant reports the double socket on the left side of the bed has stopped working. A phone charger and bedside lamp both work in another room, and nothing has tripped at the fuse box. Needs an electrician to inspect the socket and circuit. Advise the tenant not to use the socket and to report any burning smell, scorching, heat or arcing immediately.",
+                "urgency": "medium"
+              }
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-09-initial",
+              "cursor": 1,
+              "issueId": "issue-80cde7a0-8e5a-4b81-9a3b-a6b34987c86f",
+              "node": "Act",
+              "edge": "dispatch",
+              "evidenceIds": [
+                "case-09-initial"
+              ],
+              "reason": "A double socket has lost power while the same devices work in another room, and nothing has tripped. This points to a fault in the socket or its circuit, which needs an electrician to diagnose. There is no reported burning smell, arcing, heat or water, so it is not an emergency or high urgency. Loss of power to one socket is a usable-but-faulty electrical issue, so medium priority fits. A remote case does not exist yet, so one should be opened. No further question is needed to take the next action.",
+              "outcome": {
+                "actionId": "action-403a36c6-efbf-4340-ae1d-e5ffb77585c6"
+              }
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-09-initial",
+              "cursor": 1,
+              "issueId": "issue-80cde7a0-8e5a-4b81-9a3b-a6b34987c86f",
+              "remoteId": "bd13a63a-4b0a-4bff-9d39-dc760653b979",
+              "node": "Checkpoint",
+              "edge": "confirmed",
+              "evidenceIds": [
+                "case-09-initial"
+              ],
+              "reason": "A double socket has lost power while the same devices work in another room, and nothing has tripped. This points to a fault in the socket or its circuit, which needs an electrician to diagnose. There is no reported burning smell, arcing, heat or water, so it is not an emergency or high urgency. Loss of power to one socket is a usable-but-faulty electrical issue, so medium priority fits. A remote case does not exist yet, so one should be opened. No further question is needed to take the next action.",
+              "outcome": {
+                "id": "bd13a63a-4b0a-4bff-9d39-dc760653b979",
+                "title": "Bedroom double socket has no power",
+                "description": "Tenant reports the double socket on the left side of the bed has stopped working. A phone charger and bedside lamp both work in another room, and nothing has tripped at the fuse box. Needs an electrician to inspect the socket and circuit. Advise the tenant not to use the socket and to report any burning smell, scorching, heat or arcing immediately.",
+                "urgency": "medium",
+                "property_id": null,
+                "status": "open",
+                "created_at": "2026-11-19T16:17:48.244Z",
+                "updated_at": "2026-11-19T16:17:48.244Z"
+              }
+            }
+          ]
+        },
+        "restartDuplicatePassed": true
+      },
+      "rejected": []
+    },
+    {
+      "caseId": "case-11",
+      "eventIds": [
+        "case-11-initial"
+      ],
+      "expected": {
+        "urgency": "low",
+        "disposition": "closed_out_of_scope"
+      },
+      "decision": {
+        "evidenceIds": [
+          "case-11-initial"
+        ],
+        "reason": "The tenant reports recurring night-time noise from neighbours upstairs (furniture dragging, pacing) over about three weeks. This is a neighbour or anti-social behaviour matter, not a physical property defect, deterioration risk or repair. No guidance covers it and there is no evidence of building damage. It is outside the maintenance scope, so it should be redirected to the appropriate neighbour-nuisance or tenancy management route. Urgency is low because there is no safety hazard, though the sleep disruption is ongoing.",
+        "humanAction": "Direct the tenant to the landlord's neighbour nuisance or tenancy management process, and suggest they keep a log of dates and times. A housing officer could check whether the upstairs flooring or sound insulation meets requirements if that is suspected.",
+        "kind": "outOfScope",
+        "urgency": "low"
+      },
+      "passed": true,
+      "underTriage": false,
+      "unscoredUrgency": false,
+      "category": "pass",
+      "graph": {
+        "caseId": "case-11",
+        "passed": true,
+        "expectedValidation": "accept",
+        "writes": [],
+        "inspection": {
+          "issue": {
+            "id": "issue-d028abd7-b0d0-4d25-8289-90ac39a62fc2",
+            "session": "model-replay",
+            "actorId": "eval-tenant",
+            "conversationId": "case-11",
+            "status": "outOfScope",
+            "evidence": [
+              {
+                "eventId": "case-11-initial",
+                "cursor": 1,
+                "actor": {
+                  "id": "eval-tenant",
+                  "name": "Aisha Rahman",
+                  "role": "tenant"
+                },
+                "body": "It's ten past two in the morning and the people upstairs are stomping around again - it sounds like furniture being dragged and someone pacing in boots. This has been happening most nights for about three weeks now and I'm barely sleeping. Can you please do something about it?",
+                "occurredAt": "2025-07-21T02:12:00Z"
+              }
+            ],
+            "humanAction": "Direct the tenant to the landlord's neighbour nuisance or tenancy management process, and suggest they keep a log of dates and times. A housing officer could check whether the upstairs flooring or sound insulation meets requirements if that is suspected.",
+            "urgency": "low"
+          },
+          "events": [
+            {
+              "id": "case-11-initial",
+              "cursor": 1,
+              "type": "message.received",
+              "channel": "email",
+              "actor": {
+                "id": "eval-tenant",
+                "name": "Aisha Rahman",
+                "role": "tenant"
+              },
+              "sim_ms": 0,
+              "occurred_at": "2025-07-21T02:12:00Z",
+              "payload": {
+                "body": "It's ten past two in the morning and the people upstairs are stomping around again - it sounds like furniture being dragged and someone pacing in boots. This has been happening most nights for about three weeks now and I'm barely sleeping. Can you please do something about it?",
+                "conversation_id": "case-11"
+              }
+            }
+          ],
+          "actions": [],
+          "trace": [
+            {
+              "session": "model-replay",
+              "eventId": "case-11-initial",
+              "cursor": 1,
+              "issueId": "issue-d028abd7-b0d0-4d25-8289-90ac39a62fc2",
+              "node": "Route",
+              "edge": "Assess",
+              "evidenceIds": [
+                "case-11-initial"
+              ],
+              "reason": "Material observation linked"
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-11-initial",
+              "cursor": 1,
+              "issueId": "issue-d028abd7-b0d0-4d25-8289-90ac39a62fc2",
+              "node": "Assess",
+              "edge": "Validate",
+              "evidenceIds": [
+                "case-11-initial"
+              ],
+              "reason": "The tenant reports recurring night-time noise from neighbours upstairs (furniture dragging, pacing) over about three weeks. This is a neighbour or anti-social behaviour matter, not a physical property defect, deterioration risk or repair. No guidance covers it and there is no evidence of building damage. It is outside the maintenance scope, so it should be redirected to the appropriate neighbour-nuisance or tenancy management route. Urgency is low because there is no safety hazard, though the sleep disruption is ongoing."
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-11-initial",
+              "cursor": 1,
+              "issueId": "issue-d028abd7-b0d0-4d25-8289-90ac39a62fc2",
+              "node": "Validate",
+              "edge": "Act",
+              "evidenceIds": [
+                "case-11-initial"
+              ],
+              "reason": "The tenant reports recurring night-time noise from neighbours upstairs (furniture dragging, pacing) over about three weeks. This is a neighbour or anti-social behaviour matter, not a physical property defect, deterioration risk or repair. No guidance covers it and there is no evidence of building damage. It is outside the maintenance scope, so it should be redirected to the appropriate neighbour-nuisance or tenancy management route. Urgency is low because there is no safety hazard, though the sleep disruption is ongoing.",
+              "outcome": {
+                "evidenceIds": [
+                  "case-11-initial"
+                ],
+                "reason": "The tenant reports recurring night-time noise from neighbours upstairs (furniture dragging, pacing) over about three weeks. This is a neighbour or anti-social behaviour matter, not a physical property defect, deterioration risk or repair. No guidance covers it and there is no evidence of building damage. It is outside the maintenance scope, so it should be redirected to the appropriate neighbour-nuisance or tenancy management route. Urgency is low because there is no safety hazard, though the sleep disruption is ongoing.",
+                "humanAction": "Direct the tenant to the landlord's neighbour nuisance or tenancy management process, and suggest they keep a log of dates and times. A housing officer could check whether the upstairs flooring or sound insulation meets requirements if that is suspected.",
+                "kind": "outOfScope",
+                "urgency": "low"
+              }
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-11-initial",
+              "cursor": 1,
+              "issueId": "issue-d028abd7-b0d0-4d25-8289-90ac39a62fc2",
+              "node": "Checkpoint",
+              "edge": "done",
+              "evidenceIds": [
+                "case-11-initial"
+              ],
+              "reason": "The tenant reports recurring night-time noise from neighbours upstairs (furniture dragging, pacing) over about three weeks. This is a neighbour or anti-social behaviour matter, not a physical property defect, deterioration risk or repair. No guidance covers it and there is no evidence of building damage. It is outside the maintenance scope, so it should be redirected to the appropriate neighbour-nuisance or tenancy management route. Urgency is low because there is no safety hazard, though the sleep disruption is ongoing."
+            }
+          ]
+        },
+        "restartDuplicatePassed": true
+      },
+      "rejected": []
+    }
+  ]
+}

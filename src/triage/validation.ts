@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import {allowedActions} from './permissions.js';
-import type { Decision,Issue } from '../types.js';
+import { allowedActions } from './permissions.js';
+import type { Decision, Issue } from '../types.js';
 const urgency = z.enum(['low', 'medium', 'high', 'emergency']);
 const base = { evidenceIds: z.array(z.string().min(1)).min(1), reason: z.string().min(1).max(2000), humanAction: z.string().min(1).max(2000).optional() };
 const patch = z.object({ title: z.string().min(1).max(300).optional(), description: z.string().max(10000).optional(), urgency: urgency.optional(), status: z.enum(['open', 'in_progress', 'resolved', 'closed']).optional() }).strict().refine(v => Object.keys(v).length > 0, 'Empty patch');
@@ -14,7 +14,8 @@ export const decisionSchema = z.discriminatedUnion('kind', [
 ]);
 export function validateDecision(issue: Issue, input: unknown): Decision {
     const d = decisionSchema.parse(input) as Decision;
-    if(!allowedActions(issue).includes(d.kind))throw new Error('Action unavailable in current issue state');
+    if (!allowedActions(issue).includes(d.kind))
+        throw new Error('Action unavailable in current issue state');
     const superseded = new Set(issue.evidence.flatMap(e => e.supersedes ? [e.supersedes] : []));
     const ids = new Set(issue.evidence.map(e => e.eventId));
     if (d.evidenceIds.some(id => !ids.has(id) || superseded.has(id)))

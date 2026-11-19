@@ -19,3 +19,7 @@ MVP checkpoint: 62500df. Contractor extension adds fixture-verified selection, r
 Review fixes include preserving the stable local issue across a crash after routing, separating an unrelated report while another question awaits reply, refusing unsupported closure/emergency output, validating correction references, and replaying confirmed coordination effects without duplicate writes.
 
 Clean committed-source verification: exported commit `1056d26` with `git archive` into an empty temporary directory, then ran cached `npm ci`, strict build, the full test suite and `npm run replay -- case-04`. Result: **52/52 tests passed and replay passed**, with no workspace files or existing database reused.
+
+## Assessment v2 follow-up
+
+See `assessment-v2.md` for the newer implementation and evidence. Strict schema generation, application-bound execution IDs, exact bounded correction and separated failure scoring are implemented. **103 deterministic tests pass.** Three models were evaluated on four archive and four fresh synthetic cases each: all 24 responses passed contract validation and graph replay; judgment scores are reported separately. Earlier missing-credential statements above describe the original build only. Live Dwelly verification remains unperformed.

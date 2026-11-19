@@ -13,8 +13,12 @@ import type { AssessmentDiagnostic } from './triage/index.js';
 import { modelConfiguration } from './triage/config.js';
 import type { HistoryCase } from './types.js';
 const archive = (): HistoryCase[] => JSON.parse(readFileSync(new URL('../../snapshots/2026-11-19/history.json', import.meta.url), 'utf8')).cases as HistoryCase[];
-function required(name: string): string { const value = process.env[name]; if (!value)
-    throw new Error(`Missing ${name}. See README.md for configuration.`); return value; }
+function required(name: string): string {
+    const value = process.env[name];
+    if (!value)
+        throw new Error(`Missing ${name}. See README.md for configuration.`);
+    return value;
+}
 function dataPath(session: string): string { mkdirSync('.data', { recursive: true }); return resolve('.data', `${createHash('sha256').update(session).digest('hex').slice(0, 20)}.sqlite`); }
 export async function main(args = process.argv.slice(2)): Promise<void> {
     const [command, arg] = args;
@@ -71,13 +75,13 @@ export async function main(args = process.argv.slice(2)): Promise<void> {
         }
     }
     else if (command === 'diagnose') {
-        const models=args.slice(1).filter(a=>a!=='--saved');
-        await diagnose(models,models.length?required('OPENROUTER_API_KEY'):undefined);
+        const models = args.slice(1).filter(a => a !== '--saved');
+        await diagnose(models, models.length ? required('OPENROUTER_API_KEY') : undefined);
     }
     else if (command === 'eval' || command === 'eval-fresh') {
         const modelConfig = modelConfiguration();
         const diagnostics: AssessmentDiagnostic[] = [];
-        const report = await runEvaluation(archive(), createModelAssessor({...modelConfig,onDiagnostic:d=>diagnostics.push(d)}),command==='eval-fresh'?JSON.parse(readFileSync(new URL('../../fixtures/assessment-v2-fresh.json',import.meta.url),'utf8')):undefined);
+        const report = await runEvaluation(archive(), createModelAssessor({ ...modelConfig, onDiagnostic: d => diagnostics.push(d) }), command === 'eval-fresh' ? JSON.parse(readFileSync(new URL('../../fixtures/assessment-v2-fresh.json', import.meta.url), 'utf8')) : undefined);
         console.log(JSON.stringify({ ...report, provider: modelConfig.provider, model: modelConfig.model, diagnostics }, null, 2));
         if (report.passed !== report.total)
             process.exitCode = 1;

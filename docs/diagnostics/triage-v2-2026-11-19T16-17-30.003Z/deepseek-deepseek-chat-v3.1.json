@@ -1,0 +1,1040 @@
+{
+  "model": "deepseek/deepseek-chat-v3.1",
+  "promptVersion": "triage-v2",
+  "evaluation": {
+    "provider": "real-or-injected",
+    "total": 4,
+    "passed": 2,
+    "underTriage": 1,
+    "providerFailures": 0,
+    "contractFailures": 0,
+    "unscoredUrgency": 0,
+    "results": [
+      {
+        "caseId": "case-02",
+        "eventIds": [
+          "case-02-initial"
+        ],
+        "expected": {
+          "urgency": "medium",
+          "disposition": "resolved"
+        },
+        "decision": {
+          "evidenceIds": [
+            "case-02-initial"
+          ],
+          "reason": "A dripping tap with audible noise at night, wasting water but contained and not causing damage or deterioration. No active water escape, electrical hazard, or security risk.",
+          "kind": "open",
+          "title": "Dripping kitchen tap",
+          "description": "Tenant reports a dripping kitchen tap that is audible from the bedroom at night and wasting water.",
+          "urgency": "low"
+        },
+        "passed": false,
+        "underTriage": true,
+        "unscoredUrgency": false
+      },
+      {
+        "caseId": "case-05",
+        "eventIds": [
+          "case-05-initial"
+        ],
+        "expected": {
+          "urgency": "emergency",
+          "disposition": "escalated_externally"
+        },
+        "decision": {
+          "evidenceIds": [
+            "case-05-initial"
+          ],
+          "reason": "Tenant reports a strong smell of gas in the entrance hall, strongest near meter cupboards. Gas leaks pose an immediate explosion and health hazard, requiring urgent evacuation and professional intervention.",
+          "humanAction": "Immediately evacuate the building if not already done, contact gas emergency services, and do not operate electrical switches or create sparks. A qualified gas engineer must inspect and repair the leak before re-entry is allowed.",
+          "kind": "open",
+          "title": "Gas leak in building entrance hall",
+          "description": "Strong smell of gas reported near meter cupboards, requiring emergency gas safe intervention.",
+          "urgency": "emergency"
+        },
+        "passed": true,
+        "underTriage": false,
+        "unscoredUrgency": false
+      },
+      {
+        "caseId": "case-09",
+        "eventIds": [
+          "case-09-initial"
+        ],
+        "expected": {
+          "urgency": "medium",
+          "disposition": "resolved"
+        },
+        "decision": {
+          "evidenceIds": [
+            "case-09-initial"
+          ],
+          "reason": "Single double socket failure with no tripped fuses indicates a localised electrical fault. No immediate safety hazard (no arcing, burning smell, or water involvement) but requires investigation to prevent potential future issues. Tenant has alternative working sockets available.",
+          "kind": "open",
+          "title": "Electrical socket failure - bedroom left side",
+          "description": "Double socket on left side of bed not working. Two devices (phone charger and lamp) confirmed dead in this socket but functional elsewhere. No tripped fuses observed.",
+          "urgency": "medium"
+        },
+        "passed": true,
+        "underTriage": false,
+        "unscoredUrgency": false
+      },
+      {
+        "caseId": "case-11",
+        "eventIds": [
+          "case-11-initial"
+        ],
+        "expected": {
+          "urgency": "low",
+          "disposition": "closed_out_of_scope"
+        },
+        "decision": {
+          "evidenceIds": [
+            "case-11-initial"
+          ],
+          "reason": "Noise complaint regarding persistent nighttime disturbance from upstairs neighbors (furniture dragging, pacing in boots) reported over three weeks, impacting tenant sleep. No immediate property damage, deterioration risk, or safety hazard observed.",
+          "kind": "open",
+          "title": "Noise disturbance complaint - upstairs neighbors",
+          "description": "Tenant reports recurring nighttime noise (fragmented sleep over three weeks) from upstairs unit, described as furniture dragging and pacing in boots.",
+          "urgency": "low"
+        },
+        "passed": false,
+        "underTriage": false,
+        "unscoredUrgency": false
+      }
+    ]
+  },
+  "diagnostics": [
+    {
+      "model": "deepseek/deepseek-chat-v3.1",
+      "eventIds": [
+        "case-02-initial"
+      ],
+      "attempt": 1,
+      "stage": "accepted",
+      "status": 200,
+      "responseText": "{\n  \"decision\": {\n    \"evidenceIds\": [\"case-02-initial\"],\n    \"reason\": \"A dripping tap with audible noise at night, wasting water but contained and not causing damage or deterioration. No active water escape, electrical hazard, or security risk.\",\n    \"humanAction\": null,\n    \"kind\": \"open\",\n    \"title\": \"Dripping kitchen tap\",\n    \"description\": \"Tenant reports a dripping kitchen tap that is audible from the bedroom at night and wasting water.\",\n    \"urgency\": \"low\"\n  }\n}",
+      "returnedModel": "deepseek/deepseek-chat-v3.1",
+      "elapsedMs": 6091,
+      "correctionSucceeded": false,
+      "provider": "openrouter",
+      "promptVersion": "triage-v2",
+      "schemaVersion": "assessment-v2",
+      "schemaHash": "af0df44e4d3c1af415a97111a7a9ad7af98c21390bf9f2edfb94d7d7d54f6deb",
+      "settings": {
+        "responseFormat": "json_schema",
+        "timeoutMs": 45000,
+        "maxAttempts": 2
+      }
+    },
+    {
+      "model": "deepseek/deepseek-chat-v3.1",
+      "eventIds": [
+        "case-05-initial"
+      ],
+      "attempt": 1,
+      "stage": "accepted",
+      "status": 200,
+      "responseText": "{\n  \"decision\": {\n    \"evidenceIds\": [\"case-05-initial\"],\n    \"reason\": \"Tenant reports a strong smell of gas in the entrance hall, strongest near meter cupboards. Gas leaks pose an immediate explosion and health hazard, requiring urgent evacuation and professional intervention.\",\n    \"humanAction\": \"Immediately evacuate the building if not already done, contact gas emergency services, and do not operate electrical switches or create sparks. A qualified gas engineer must inspect and repair the leak before re-entry is allowed.\",\n    \"kind\": \"open\",\n    \"title\": \"Gas leak in building entrance hall\",\n    \"description\": \"Strong smell of gas reported near meter cupboards, requiring emergency gas safe intervention.\",\n    \"urgency\": \"emergency\"\n  }\n}",
+      "returnedModel": "deepseek/deepseek-chat-v3.1",
+      "elapsedMs": 6851,
+      "correctionSucceeded": false,
+      "provider": "openrouter",
+      "promptVersion": "triage-v2",
+      "schemaVersion": "assessment-v2",
+      "schemaHash": "af0df44e4d3c1af415a97111a7a9ad7af98c21390bf9f2edfb94d7d7d54f6deb",
+      "settings": {
+        "responseFormat": "json_schema",
+        "timeoutMs": 45000,
+        "maxAttempts": 2
+      }
+    },
+    {
+      "model": "deepseek/deepseek-chat-v3.1",
+      "eventIds": [
+        "case-09-initial"
+      ],
+      "attempt": 1,
+      "stage": "accepted",
+      "status": 200,
+      "responseText": "{\n  \"decision\": {\n    \"evidenceIds\": [\"case-09-initial\"],\n    \"reason\": \"Single double socket failure with no tripped fuses indicates a localised electrical fault. No immediate safety hazard (no arcing, burning smell, or water involvement) but requires investigation to prevent potential future issues. Tenant has alternative working sockets available.\",\n    \"humanAction\": null,\n    \"kind\": \"open\",\n    \"title\": \"Electrical socket failure - bedroom left side\",\n    \"description\": \"Double socket on left side of bed not working. Two devices (phone charger and lamp) confirmed dead in this socket but functional elsewhere. No tripped fuses observed.\",\n    \"urgency\": \"medium\"\n  }\n}",
+      "returnedModel": "deepseek/deepseek-chat-v3.1",
+      "elapsedMs": 1987,
+      "correctionSucceeded": false,
+      "provider": "openrouter",
+      "promptVersion": "triage-v2",
+      "schemaVersion": "assessment-v2",
+      "schemaHash": "af0df44e4d3c1af415a97111a7a9ad7af98c21390bf9f2edfb94d7d7d54f6deb",
+      "settings": {
+        "responseFormat": "json_schema",
+        "timeoutMs": 45000,
+        "maxAttempts": 2
+      }
+    },
+    {
+      "model": "deepseek/deepseek-chat-v3.1",
+      "eventIds": [
+        "case-11-initial"
+      ],
+      "attempt": 1,
+      "stage": "accepted",
+      "status": 200,
+      "responseText": "{\n  \"decision\": {\n    \"evidenceIds\": [\"case-11-initial\"],\n    \"reason\": \"Noise complaint regarding persistent nighttime disturbance from upstairs neighbors (furniture dragging, pacing in boots) reported over three weeks, impacting tenant sleep. No immediate property damage, deterioration risk, or safety hazard observed.\",\n    \"humanAction\": null,\n    \"kind\": \"open\",\n    \"title\": \"Noise disturbance complaint - upstairs neighbors\",\n    \"description\": \"Tenant reports recurring nighttime noise (fragmented sleep over three weeks) from upstairs unit, described as furniture dragging and pacing in boots.\",\n    \"urgency\": \"low\"\n  }\n}",
+      "returnedModel": "deepseek/deepseek-chat-v3.1",
+      "elapsedMs": 5740,
+      "correctionSucceeded": false,
+      "provider": "openrouter",
+      "promptVersion": "triage-v2",
+      "schemaVersion": "assessment-v2",
+      "schemaHash": "af0df44e4d3c1af415a97111a7a9ad7af98c21390bf9f2edfb94d7d7d54f6deb",
+      "settings": {
+        "responseFormat": "json_schema",
+        "timeoutMs": 45000,
+        "maxAttempts": 2
+      }
+    }
+  ],
+  "rows": [
+    {
+      "caseId": "case-02",
+      "eventIds": [
+        "case-02-initial"
+      ],
+      "expected": {
+        "urgency": "medium",
+        "disposition": "resolved"
+      },
+      "decision": {
+        "evidenceIds": [
+          "case-02-initial"
+        ],
+        "reason": "A dripping tap with audible noise at night, wasting water but contained and not causing damage or deterioration. No active water escape, electrical hazard, or security risk.",
+        "kind": "open",
+        "title": "Dripping kitchen tap",
+        "description": "Tenant reports a dripping kitchen tap that is audible from the bedroom at night and wasting water.",
+        "urgency": "low"
+      },
+      "passed": false,
+      "underTriage": true,
+      "unscoredUrgency": false,
+      "category": "judgment",
+      "graph": {
+        "caseId": "case-02",
+        "passed": true,
+        "expectedValidation": "accept",
+        "writes": [
+          {
+            "operation": "createCase",
+            "input": {
+              "title": "Dripping kitchen tap",
+              "urgency": "low",
+              "description": "Tenant reports a dripping kitchen tap that is audible from the bedroom at night and wasting water."
+            },
+            "id": "733d1455-efd8-4dc1-b951-2b68cc72b3d7"
+          }
+        ],
+        "inspection": {
+          "issue": {
+            "id": "issue-cb0480c4-861d-4a90-b231-6915c49d76d1",
+            "session": "model-replay",
+            "actorId": "eval-tenant",
+            "conversationId": "case-02",
+            "status": "active",
+            "evidence": [
+              {
+                "eventId": "case-02-initial",
+                "cursor": 1,
+                "actor": {
+                  "id": "eval-tenant",
+                  "name": "Priya Shah",
+                  "role": "tenant"
+                },
+                "body": "Hi, the kitchen tap has started dripping and it's surprisingly loud at night - I can hear it from the bedroom with the door shut. It's maybe a drip every couple of seconds. Not urgent exactly but it's driving me a bit mad and I assume it's wasting water too.",
+                "occurredAt": "2025-09-16T21:38:00Z"
+              }
+            ],
+            "remoteCase": {
+              "id": "733d1455-efd8-4dc1-b951-2b68cc72b3d7",
+              "title": "Dripping kitchen tap",
+              "description": "Tenant reports a dripping kitchen tap that is audible from the bedroom at night and wasting water.",
+              "urgency": "low",
+              "property_id": null,
+              "status": "open",
+              "created_at": "2026-11-19T16:17:50.819Z",
+              "updated_at": "2026-11-19T16:17:50.819Z"
+            },
+            "urgency": "low"
+          },
+          "events": [
+            {
+              "id": "case-02-initial",
+              "cursor": 1,
+              "type": "message.received",
+              "channel": "email",
+              "actor": {
+                "id": "eval-tenant",
+                "name": "Priya Shah",
+                "role": "tenant"
+              },
+              "sim_ms": 0,
+              "occurred_at": "2025-09-16T21:38:00Z",
+              "payload": {
+                "body": "Hi, the kitchen tap has started dripping and it's surprisingly loud at night - I can hear it from the bedroom with the door shut. It's maybe a drip every couple of seconds. Not urgent exactly but it's driving me a bit mad and I assume it's wasting water too.",
+                "conversation_id": "case-02"
+              }
+            }
+          ],
+          "actions": [
+            {
+              "id": "action-c0d66ac3-09cc-4118-801d-c2be47d492cb",
+              "eventId": "case-02-initial",
+              "issueId": "issue-cb0480c4-861d-4a90-b231-6915c49d76d1",
+              "decision": {
+                "evidenceIds": [
+                  "case-02-initial"
+                ],
+                "reason": "A dripping tap with audible noise at night, wasting water but contained and not causing damage or deterioration. No active water escape, electrical hazard, or security risk.",
+                "kind": "open",
+                "title": "Dripping kitchen tap",
+                "description": "Tenant reports a dripping kitchen tap that is audible from the bedroom at night and wasting water.",
+                "urgency": "low"
+              },
+              "state": "confirmed",
+              "attempts": 1,
+              "result": {
+                "id": "733d1455-efd8-4dc1-b951-2b68cc72b3d7",
+                "title": "Dripping kitchen tap",
+                "description": "Tenant reports a dripping kitchen tap that is audible from the bedroom at night and wasting water.",
+                "urgency": "low",
+                "property_id": null,
+                "status": "open",
+                "created_at": "2026-11-19T16:17:50.819Z",
+                "updated_at": "2026-11-19T16:17:50.819Z"
+              }
+            }
+          ],
+          "trace": [
+            {
+              "session": "model-replay",
+              "eventId": "case-02-initial",
+              "cursor": 1,
+              "issueId": "issue-cb0480c4-861d-4a90-b231-6915c49d76d1",
+              "node": "Route",
+              "edge": "Assess",
+              "evidenceIds": [
+                "case-02-initial"
+              ],
+              "reason": "Material observation linked"
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-02-initial",
+              "cursor": 1,
+              "issueId": "issue-cb0480c4-861d-4a90-b231-6915c49d76d1",
+              "node": "Assess",
+              "edge": "Validate",
+              "evidenceIds": [
+                "case-02-initial"
+              ],
+              "reason": "A dripping tap with audible noise at night, wasting water but contained and not causing damage or deterioration. No active water escape, electrical hazard, or security risk."
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-02-initial",
+              "cursor": 1,
+              "issueId": "issue-cb0480c4-861d-4a90-b231-6915c49d76d1",
+              "node": "Validate",
+              "edge": "Act",
+              "evidenceIds": [
+                "case-02-initial"
+              ],
+              "reason": "A dripping tap with audible noise at night, wasting water but contained and not causing damage or deterioration. No active water escape, electrical hazard, or security risk.",
+              "outcome": {
+                "evidenceIds": [
+                  "case-02-initial"
+                ],
+                "reason": "A dripping tap with audible noise at night, wasting water but contained and not causing damage or deterioration. No active water escape, electrical hazard, or security risk.",
+                "kind": "open",
+                "title": "Dripping kitchen tap",
+                "description": "Tenant reports a dripping kitchen tap that is audible from the bedroom at night and wasting water.",
+                "urgency": "low"
+              }
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-02-initial",
+              "cursor": 1,
+              "issueId": "issue-cb0480c4-861d-4a90-b231-6915c49d76d1",
+              "node": "Act",
+              "edge": "dispatch",
+              "evidenceIds": [
+                "case-02-initial"
+              ],
+              "reason": "A dripping tap with audible noise at night, wasting water but contained and not causing damage or deterioration. No active water escape, electrical hazard, or security risk.",
+              "outcome": {
+                "actionId": "action-c0d66ac3-09cc-4118-801d-c2be47d492cb"
+              }
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-02-initial",
+              "cursor": 1,
+              "issueId": "issue-cb0480c4-861d-4a90-b231-6915c49d76d1",
+              "remoteId": "733d1455-efd8-4dc1-b951-2b68cc72b3d7",
+              "node": "Checkpoint",
+              "edge": "confirmed",
+              "evidenceIds": [
+                "case-02-initial"
+              ],
+              "reason": "A dripping tap with audible noise at night, wasting water but contained and not causing damage or deterioration. No active water escape, electrical hazard, or security risk.",
+              "outcome": {
+                "id": "733d1455-efd8-4dc1-b951-2b68cc72b3d7",
+                "title": "Dripping kitchen tap",
+                "description": "Tenant reports a dripping kitchen tap that is audible from the bedroom at night and wasting water.",
+                "urgency": "low",
+                "property_id": null,
+                "status": "open",
+                "created_at": "2026-11-19T16:17:50.819Z",
+                "updated_at": "2026-11-19T16:17:50.819Z"
+              }
+            }
+          ]
+        },
+        "restartDuplicatePassed": true
+      },
+      "rejected": []
+    },
+    {
+      "caseId": "case-05",
+      "eventIds": [
+        "case-05-initial"
+      ],
+      "expected": {
+        "urgency": "emergency",
+        "disposition": "escalated_externally"
+      },
+      "decision": {
+        "evidenceIds": [
+          "case-05-initial"
+        ],
+        "reason": "Tenant reports a strong smell of gas in the entrance hall, strongest near meter cupboards. Gas leaks pose an immediate explosion and health hazard, requiring urgent evacuation and professional intervention.",
+        "humanAction": "Immediately evacuate the building if not already done, contact gas emergency services, and do not operate electrical switches or create sparks. A qualified gas engineer must inspect and repair the leak before re-entry is allowed.",
+        "kind": "open",
+        "title": "Gas leak in building entrance hall",
+        "description": "Strong smell of gas reported near meter cupboards, requiring emergency gas safe intervention.",
+        "urgency": "emergency"
+      },
+      "passed": true,
+      "underTriage": false,
+      "unscoredUrgency": false,
+      "category": "pass",
+      "graph": {
+        "caseId": "case-05",
+        "passed": true,
+        "expectedValidation": "accept",
+        "writes": [
+          {
+            "operation": "createCase",
+            "input": {
+              "title": "Gas leak in building entrance hall",
+              "urgency": "emergency",
+              "description": "Strong smell of gas reported near meter cupboards, requiring emergency gas safe intervention."
+            },
+            "id": "4b0d42bb-a1a8-405e-8a34-cdb210392a45"
+          }
+        ],
+        "inspection": {
+          "issue": {
+            "id": "issue-fbe9ff39-981e-46de-a693-91c501e470ca",
+            "session": "model-replay",
+            "actorId": "eval-tenant",
+            "conversationId": "case-05",
+            "status": "active",
+            "evidence": [
+              {
+                "eventId": "case-05-initial",
+                "cursor": 1,
+                "actor": {
+                  "id": "eval-tenant",
+                  "name": "Nadia Ferreira",
+                  "role": "tenant"
+                },
+                "body": "Hi - there's a strong smell of gas in the entrance hall of the building. I noticed it as soon as I came in from work just now. It's definitely gas, that eggy smell, strongest near the meter cupboards by the stairs.",
+                "occurredAt": "2025-12-09T17:04:00Z"
+              }
+            ],
+            "humanAction": "Immediately evacuate the building if not already done, contact gas emergency services, and do not operate electrical switches or create sparks. A qualified gas engineer must inspect and repair the leak before re-entry is allowed.",
+            "remoteCase": {
+              "id": "4b0d42bb-a1a8-405e-8a34-cdb210392a45",
+              "title": "Gas leak in building entrance hall",
+              "description": "Strong smell of gas reported near meter cupboards, requiring emergency gas safe intervention.",
+              "urgency": "emergency",
+              "property_id": null,
+              "status": "open",
+              "created_at": "2026-11-19T16:17:50.833Z",
+              "updated_at": "2026-11-19T16:17:50.833Z"
+            },
+            "urgency": "emergency"
+          },
+          "events": [
+            {
+              "id": "case-05-initial",
+              "cursor": 1,
+              "type": "message.received",
+              "channel": "email",
+              "actor": {
+                "id": "eval-tenant",
+                "name": "Nadia Ferreira",
+                "role": "tenant"
+              },
+              "sim_ms": 0,
+              "occurred_at": "2025-12-09T17:04:00Z",
+              "payload": {
+                "body": "Hi - there's a strong smell of gas in the entrance hall of the building. I noticed it as soon as I came in from work just now. It's definitely gas, that eggy smell, strongest near the meter cupboards by the stairs.",
+                "conversation_id": "case-05"
+              }
+            }
+          ],
+          "actions": [
+            {
+              "id": "action-cb74bfd4-af6a-4c7b-a0a4-9c4212d25708",
+              "eventId": "case-05-initial",
+              "issueId": "issue-fbe9ff39-981e-46de-a693-91c501e470ca",
+              "decision": {
+                "evidenceIds": [
+                  "case-05-initial"
+                ],
+                "reason": "Tenant reports a strong smell of gas in the entrance hall, strongest near meter cupboards. Gas leaks pose an immediate explosion and health hazard, requiring urgent evacuation and professional intervention.",
+                "humanAction": "Immediately evacuate the building if not already done, contact gas emergency services, and do not operate electrical switches or create sparks. A qualified gas engineer must inspect and repair the leak before re-entry is allowed.",
+                "kind": "open",
+                "title": "Gas leak in building entrance hall",
+                "description": "Strong smell of gas reported near meter cupboards, requiring emergency gas safe intervention.",
+                "urgency": "emergency"
+              },
+              "state": "confirmed",
+              "attempts": 1,
+              "result": {
+                "id": "4b0d42bb-a1a8-405e-8a34-cdb210392a45",
+                "title": "Gas leak in building entrance hall",
+                "description": "Strong smell of gas reported near meter cupboards, requiring emergency gas safe intervention.",
+                "urgency": "emergency",
+                "property_id": null,
+                "status": "open",
+                "created_at": "2026-11-19T16:17:50.833Z",
+                "updated_at": "2026-11-19T16:17:50.833Z"
+              }
+            }
+          ],
+          "trace": [
+            {
+              "session": "model-replay",
+              "eventId": "case-05-initial",
+              "cursor": 1,
+              "issueId": "issue-fbe9ff39-981e-46de-a693-91c501e470ca",
+              "node": "Route",
+              "edge": "Assess",
+              "evidenceIds": [
+                "case-05-initial"
+              ],
+              "reason": "Material observation linked"
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-05-initial",
+              "cursor": 1,
+              "issueId": "issue-fbe9ff39-981e-46de-a693-91c501e470ca",
+              "node": "Assess",
+              "edge": "Validate",
+              "evidenceIds": [
+                "case-05-initial"
+              ],
+              "reason": "Tenant reports a strong smell of gas in the entrance hall, strongest near meter cupboards. Gas leaks pose an immediate explosion and health hazard, requiring urgent evacuation and professional intervention."
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-05-initial",
+              "cursor": 1,
+              "issueId": "issue-fbe9ff39-981e-46de-a693-91c501e470ca",
+              "node": "Validate",
+              "edge": "Act",
+              "evidenceIds": [
+                "case-05-initial"
+              ],
+              "reason": "Tenant reports a strong smell of gas in the entrance hall, strongest near meter cupboards. Gas leaks pose an immediate explosion and health hazard, requiring urgent evacuation and professional intervention.",
+              "outcome": {
+                "evidenceIds": [
+                  "case-05-initial"
+                ],
+                "reason": "Tenant reports a strong smell of gas in the entrance hall, strongest near meter cupboards. Gas leaks pose an immediate explosion and health hazard, requiring urgent evacuation and professional intervention.",
+                "humanAction": "Immediately evacuate the building if not already done, contact gas emergency services, and do not operate electrical switches or create sparks. A qualified gas engineer must inspect and repair the leak before re-entry is allowed.",
+                "kind": "open",
+                "title": "Gas leak in building entrance hall",
+                "description": "Strong smell of gas reported near meter cupboards, requiring emergency gas safe intervention.",
+                "urgency": "emergency"
+              }
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-05-initial",
+              "cursor": 1,
+              "issueId": "issue-fbe9ff39-981e-46de-a693-91c501e470ca",
+              "node": "Act",
+              "edge": "dispatch",
+              "evidenceIds": [
+                "case-05-initial"
+              ],
+              "reason": "Tenant reports a strong smell of gas in the entrance hall, strongest near meter cupboards. Gas leaks pose an immediate explosion and health hazard, requiring urgent evacuation and professional intervention.",
+              "outcome": {
+                "actionId": "action-cb74bfd4-af6a-4c7b-a0a4-9c4212d25708"
+              }
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-05-initial",
+              "cursor": 1,
+              "issueId": "issue-fbe9ff39-981e-46de-a693-91c501e470ca",
+              "remoteId": "4b0d42bb-a1a8-405e-8a34-cdb210392a45",
+              "node": "Checkpoint",
+              "edge": "confirmed",
+              "evidenceIds": [
+                "case-05-initial"
+              ],
+              "reason": "Tenant reports a strong smell of gas in the entrance hall, strongest near meter cupboards. Gas leaks pose an immediate explosion and health hazard, requiring urgent evacuation and professional intervention.",
+              "outcome": {
+                "id": "4b0d42bb-a1a8-405e-8a34-cdb210392a45",
+                "title": "Gas leak in building entrance hall",
+                "description": "Strong smell of gas reported near meter cupboards, requiring emergency gas safe intervention.",
+                "urgency": "emergency",
+                "property_id": null,
+                "status": "open",
+                "created_at": "2026-11-19T16:17:50.833Z",
+                "updated_at": "2026-11-19T16:17:50.833Z"
+              }
+            }
+          ]
+        },
+        "restartDuplicatePassed": true
+      },
+      "rejected": []
+    },
+    {
+      "caseId": "case-09",
+      "eventIds": [
+        "case-09-initial"
+      ],
+      "expected": {
+        "urgency": "medium",
+        "disposition": "resolved"
+      },
+      "decision": {
+        "evidenceIds": [
+          "case-09-initial"
+        ],
+        "reason": "Single double socket failure with no tripped fuses indicates a localised electrical fault. No immediate safety hazard (no arcing, burning smell, or water involvement) but requires investigation to prevent potential future issues. Tenant has alternative working sockets available.",
+        "kind": "open",
+        "title": "Electrical socket failure - bedroom left side",
+        "description": "Double socket on left side of bed not working. Two devices (phone charger and lamp) confirmed dead in this socket but functional elsewhere. No tripped fuses observed.",
+        "urgency": "medium"
+      },
+      "passed": true,
+      "underTriage": false,
+      "unscoredUrgency": false,
+      "category": "pass",
+      "graph": {
+        "caseId": "case-09",
+        "passed": true,
+        "expectedValidation": "accept",
+        "writes": [
+          {
+            "operation": "createCase",
+            "input": {
+              "title": "Electrical socket failure - bedroom left side",
+              "urgency": "medium",
+              "description": "Double socket on left side of bed not working. Two devices (phone charger and lamp) confirmed dead in this socket but functional elsewhere. No tripped fuses observed."
+            },
+            "id": "2f4adcac-b810-4268-a736-c23b273e8cc2"
+          }
+        ],
+        "inspection": {
+          "issue": {
+            "id": "issue-b03787c4-21da-4d84-94cd-a6df2e7f1d98",
+            "session": "model-replay",
+            "actorId": "eval-tenant",
+            "conversationId": "case-09",
+            "status": "active",
+            "evidence": [
+              {
+                "eventId": "case-09-initial",
+                "cursor": 1,
+                "actor": {
+                  "id": "eval-tenant",
+                  "name": "Sophie Lennox",
+                  "role": "tenant"
+                },
+                "body": "Morning - the double socket on the left side of the bed has stopped working. My phone didn't charge overnight and I thought the charger had died, but the bedside lamp is dead in that socket too and both work fine when I plug them in across the room. Nothing has tripped at the fuse box as far as I can see.",
+                "occurredAt": "2025-10-07T08:15:00Z"
+              }
+            ],
+            "remoteCase": {
+              "id": "2f4adcac-b810-4268-a736-c23b273e8cc2",
+              "title": "Electrical socket failure - bedroom left side",
+              "description": "Double socket on left side of bed not working. Two devices (phone charger and lamp) confirmed dead in this socket but functional elsewhere. No tripped fuses observed.",
+              "urgency": "medium",
+              "property_id": null,
+              "status": "open",
+              "created_at": "2026-11-19T16:17:50.845Z",
+              "updated_at": "2026-11-19T16:17:50.845Z"
+            },
+            "urgency": "medium"
+          },
+          "events": [
+            {
+              "id": "case-09-initial",
+              "cursor": 1,
+              "type": "message.received",
+              "channel": "email",
+              "actor": {
+                "id": "eval-tenant",
+                "name": "Sophie Lennox",
+                "role": "tenant"
+              },
+              "sim_ms": 0,
+              "occurred_at": "2025-10-07T08:15:00Z",
+              "payload": {
+                "body": "Morning - the double socket on the left side of the bed has stopped working. My phone didn't charge overnight and I thought the charger had died, but the bedside lamp is dead in that socket too and both work fine when I plug them in across the room. Nothing has tripped at the fuse box as far as I can see.",
+                "conversation_id": "case-09"
+              }
+            }
+          ],
+          "actions": [
+            {
+              "id": "action-5292af79-01c0-4260-9e51-dc0cba47bc1d",
+              "eventId": "case-09-initial",
+              "issueId": "issue-b03787c4-21da-4d84-94cd-a6df2e7f1d98",
+              "decision": {
+                "evidenceIds": [
+                  "case-09-initial"
+                ],
+                "reason": "Single double socket failure with no tripped fuses indicates a localised electrical fault. No immediate safety hazard (no arcing, burning smell, or water involvement) but requires investigation to prevent potential future issues. Tenant has alternative working sockets available.",
+                "kind": "open",
+                "title": "Electrical socket failure - bedroom left side",
+                "description": "Double socket on left side of bed not working. Two devices (phone charger and lamp) confirmed dead in this socket but functional elsewhere. No tripped fuses observed.",
+                "urgency": "medium"
+              },
+              "state": "confirmed",
+              "attempts": 1,
+              "result": {
+                "id": "2f4adcac-b810-4268-a736-c23b273e8cc2",
+                "title": "Electrical socket failure - bedroom left side",
+                "description": "Double socket on left side of bed not working. Two devices (phone charger and lamp) confirmed dead in this socket but functional elsewhere. No tripped fuses observed.",
+                "urgency": "medium",
+                "property_id": null,
+                "status": "open",
+                "created_at": "2026-11-19T16:17:50.845Z",
+                "updated_at": "2026-11-19T16:17:50.845Z"
+              }
+            }
+          ],
+          "trace": [
+            {
+              "session": "model-replay",
+              "eventId": "case-09-initial",
+              "cursor": 1,
+              "issueId": "issue-b03787c4-21da-4d84-94cd-a6df2e7f1d98",
+              "node": "Route",
+              "edge": "Assess",
+              "evidenceIds": [
+                "case-09-initial"
+              ],
+              "reason": "Material observation linked"
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-09-initial",
+              "cursor": 1,
+              "issueId": "issue-b03787c4-21da-4d84-94cd-a6df2e7f1d98",
+              "node": "Assess",
+              "edge": "Validate",
+              "evidenceIds": [
+                "case-09-initial"
+              ],
+              "reason": "Single double socket failure with no tripped fuses indicates a localised electrical fault. No immediate safety hazard (no arcing, burning smell, or water involvement) but requires investigation to prevent potential future issues. Tenant has alternative working sockets available."
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-09-initial",
+              "cursor": 1,
+              "issueId": "issue-b03787c4-21da-4d84-94cd-a6df2e7f1d98",
+              "node": "Validate",
+              "edge": "Act",
+              "evidenceIds": [
+                "case-09-initial"
+              ],
+              "reason": "Single double socket failure with no tripped fuses indicates a localised electrical fault. No immediate safety hazard (no arcing, burning smell, or water involvement) but requires investigation to prevent potential future issues. Tenant has alternative working sockets available.",
+              "outcome": {
+                "evidenceIds": [
+                  "case-09-initial"
+                ],
+                "reason": "Single double socket failure with no tripped fuses indicates a localised electrical fault. No immediate safety hazard (no arcing, burning smell, or water involvement) but requires investigation to prevent potential future issues. Tenant has alternative working sockets available.",
+                "kind": "open",
+                "title": "Electrical socket failure - bedroom left side",
+                "description": "Double socket on left side of bed not working. Two devices (phone charger and lamp) confirmed dead in this socket but functional elsewhere. No tripped fuses observed.",
+                "urgency": "medium"
+              }
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-09-initial",
+              "cursor": 1,
+              "issueId": "issue-b03787c4-21da-4d84-94cd-a6df2e7f1d98",
+              "node": "Act",
+              "edge": "dispatch",
+              "evidenceIds": [
+                "case-09-initial"
+              ],
+              "reason": "Single double socket failure with no tripped fuses indicates a localised electrical fault. No immediate safety hazard (no arcing, burning smell, or water involvement) but requires investigation to prevent potential future issues. Tenant has alternative working sockets available.",
+              "outcome": {
+                "actionId": "action-5292af79-01c0-4260-9e51-dc0cba47bc1d"
+              }
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-09-initial",
+              "cursor": 1,
+              "issueId": "issue-b03787c4-21da-4d84-94cd-a6df2e7f1d98",
+              "remoteId": "2f4adcac-b810-4268-a736-c23b273e8cc2",
+              "node": "Checkpoint",
+              "edge": "confirmed",
+              "evidenceIds": [
+                "case-09-initial"
+              ],
+              "reason": "Single double socket failure with no tripped fuses indicates a localised electrical fault. No immediate safety hazard (no arcing, burning smell, or water involvement) but requires investigation to prevent potential future issues. Tenant has alternative working sockets available.",
+              "outcome": {
+                "id": "2f4adcac-b810-4268-a736-c23b273e8cc2",
+                "title": "Electrical socket failure - bedroom left side",
+                "description": "Double socket on left side of bed not working. Two devices (phone charger and lamp) confirmed dead in this socket but functional elsewhere. No tripped fuses observed.",
+                "urgency": "medium",
+                "property_id": null,
+                "status": "open",
+                "created_at": "2026-11-19T16:17:50.845Z",
+                "updated_at": "2026-11-19T16:17:50.845Z"
+              }
+            }
+          ]
+        },
+        "restartDuplicatePassed": true
+      },
+      "rejected": []
+    },
+    {
+      "caseId": "case-11",
+      "eventIds": [
+        "case-11-initial"
+      ],
+      "expected": {
+        "urgency": "low",
+        "disposition": "closed_out_of_scope"
+      },
+      "decision": {
+        "evidenceIds": [
+          "case-11-initial"
+        ],
+        "reason": "Noise complaint regarding persistent nighttime disturbance from upstairs neighbors (furniture dragging, pacing in boots) reported over three weeks, impacting tenant sleep. No immediate property damage, deterioration risk, or safety hazard observed.",
+        "kind": "open",
+        "title": "Noise disturbance complaint - upstairs neighbors",
+        "description": "Tenant reports recurring nighttime noise (fragmented sleep over three weeks) from upstairs unit, described as furniture dragging and pacing in boots.",
+        "urgency": "low"
+      },
+      "passed": false,
+      "underTriage": false,
+      "unscoredUrgency": false,
+      "category": "judgment",
+      "graph": {
+        "caseId": "case-11",
+        "passed": true,
+        "expectedValidation": "accept",
+        "writes": [
+          {
+            "operation": "createCase",
+            "input": {
+              "title": "Noise disturbance complaint - upstairs neighbors",
+              "urgency": "low",
+              "description": "Tenant reports recurring nighttime noise (fragmented sleep over three weeks) from upstairs unit, described as furniture dragging and pacing in boots."
+            },
+            "id": "56c927aa-a0ca-435d-8887-2f4ee15b452b"
+          }
+        ],
+        "inspection": {
+          "issue": {
+            "id": "issue-5f125888-c9e3-4a69-8741-893be2007c7f",
+            "session": "model-replay",
+            "actorId": "eval-tenant",
+            "conversationId": "case-11",
+            "status": "active",
+            "evidence": [
+              {
+                "eventId": "case-11-initial",
+                "cursor": 1,
+                "actor": {
+                  "id": "eval-tenant",
+                  "name": "Aisha Rahman",
+                  "role": "tenant"
+                },
+                "body": "It's ten past two in the morning and the people upstairs are stomping around again - it sounds like furniture being dragged and someone pacing in boots. This has been happening most nights for about three weeks now and I'm barely sleeping. Can you please do something about it?",
+                "occurredAt": "2025-07-21T02:12:00Z"
+              }
+            ],
+            "remoteCase": {
+              "id": "56c927aa-a0ca-435d-8887-2f4ee15b452b",
+              "title": "Noise disturbance complaint - upstairs neighbors",
+              "description": "Tenant reports recurring nighttime noise (fragmented sleep over three weeks) from upstairs unit, described as furniture dragging and pacing in boots.",
+              "urgency": "low",
+              "property_id": null,
+              "status": "open",
+              "created_at": "2026-11-19T16:17:50.856Z",
+              "updated_at": "2026-11-19T16:17:50.856Z"
+            },
+            "urgency": "low"
+          },
+          "events": [
+            {
+              "id": "case-11-initial",
+              "cursor": 1,
+              "type": "message.received",
+              "channel": "email",
+              "actor": {
+                "id": "eval-tenant",
+                "name": "Aisha Rahman",
+                "role": "tenant"
+              },
+              "sim_ms": 0,
+              "occurred_at": "2025-07-21T02:12:00Z",
+              "payload": {
+                "body": "It's ten past two in the morning and the people upstairs are stomping around again - it sounds like furniture being dragged and someone pacing in boots. This has been happening most nights for about three weeks now and I'm barely sleeping. Can you please do something about it?",
+                "conversation_id": "case-11"
+              }
+            }
+          ],
+          "actions": [
+            {
+              "id": "action-1ec2de8e-1a9b-420e-b9be-3d64ce6cf081",
+              "eventId": "case-11-initial",
+              "issueId": "issue-5f125888-c9e3-4a69-8741-893be2007c7f",
+              "decision": {
+                "evidenceIds": [
+                  "case-11-initial"
+                ],
+                "reason": "Noise complaint regarding persistent nighttime disturbance from upstairs neighbors (furniture dragging, pacing in boots) reported over three weeks, impacting tenant sleep. No immediate property damage, deterioration risk, or safety hazard observed.",
+                "kind": "open",
+                "title": "Noise disturbance complaint - upstairs neighbors",
+                "description": "Tenant reports recurring nighttime noise (fragmented sleep over three weeks) from upstairs unit, described as furniture dragging and pacing in boots.",
+                "urgency": "low"
+              },
+              "state": "confirmed",
+              "attempts": 1,
+              "result": {
+                "id": "56c927aa-a0ca-435d-8887-2f4ee15b452b",
+                "title": "Noise disturbance complaint - upstairs neighbors",
+                "description": "Tenant reports recurring nighttime noise (fragmented sleep over three weeks) from upstairs unit, described as furniture dragging and pacing in boots.",
+                "urgency": "low",
+                "property_id": null,
+                "status": "open",
+                "created_at": "2026-11-19T16:17:50.856Z",
+                "updated_at": "2026-11-19T16:17:50.856Z"
+              }
+            }
+          ],
+          "trace": [
+            {
+              "session": "model-replay",
+              "eventId": "case-11-initial",
+              "cursor": 1,
+              "issueId": "issue-5f125888-c9e3-4a69-8741-893be2007c7f",
+              "node": "Route",
+              "edge": "Assess",
+              "evidenceIds": [
+                "case-11-initial"
+              ],
+              "reason": "Material observation linked"
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-11-initial",
+              "cursor": 1,
+              "issueId": "issue-5f125888-c9e3-4a69-8741-893be2007c7f",
+              "node": "Assess",
+              "edge": "Validate",
+              "evidenceIds": [
+                "case-11-initial"
+              ],
+              "reason": "Noise complaint regarding persistent nighttime disturbance from upstairs neighbors (furniture dragging, pacing in boots) reported over three weeks, impacting tenant sleep. No immediate property damage, deterioration risk, or safety hazard observed."
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-11-initial",
+              "cursor": 1,
+              "issueId": "issue-5f125888-c9e3-4a69-8741-893be2007c7f",
+              "node": "Validate",
+              "edge": "Act",
+              "evidenceIds": [
+                "case-11-initial"
+              ],
+              "reason": "Noise complaint regarding persistent nighttime disturbance from upstairs neighbors (furniture dragging, pacing in boots) reported over three weeks, impacting tenant sleep. No immediate property damage, deterioration risk, or safety hazard observed.",
+              "outcome": {
+                "evidenceIds": [
+                  "case-11-initial"
+                ],
+                "reason": "Noise complaint regarding persistent nighttime disturbance from upstairs neighbors (furniture dragging, pacing in boots) reported over three weeks, impacting tenant sleep. No immediate property damage, deterioration risk, or safety hazard observed.",
+                "kind": "open",
+                "title": "Noise disturbance complaint - upstairs neighbors",
+                "description": "Tenant reports recurring nighttime noise (fragmented sleep over three weeks) from upstairs unit, described as furniture dragging and pacing in boots.",
+                "urgency": "low"
+              }
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-11-initial",
+              "cursor": 1,
+              "issueId": "issue-5f125888-c9e3-4a69-8741-893be2007c7f",
+              "node": "Act",
+              "edge": "dispatch",
+              "evidenceIds": [
+                "case-11-initial"
+              ],
+              "reason": "Noise complaint regarding persistent nighttime disturbance from upstairs neighbors (furniture dragging, pacing in boots) reported over three weeks, impacting tenant sleep. No immediate property damage, deterioration risk, or safety hazard observed.",
+              "outcome": {
+                "actionId": "action-1ec2de8e-1a9b-420e-b9be-3d64ce6cf081"
+              }
+            },
+            {
+              "session": "model-replay",
+              "eventId": "case-11-initial",
+              "cursor": 1,
+              "issueId": "issue-5f125888-c9e3-4a69-8741-893be2007c7f",
+              "remoteId": "56c927aa-a0ca-435d-8887-2f4ee15b452b",
+              "node": "Checkpoint",
+              "edge": "confirmed",
+              "evidenceIds": [
+                "case-11-initial"
+              ],
+              "reason": "Noise complaint regarding persistent nighttime disturbance from upstairs neighbors (furniture dragging, pacing in boots) reported over three weeks, impacting tenant sleep. No immediate property damage, deterioration risk, or safety hazard observed.",
+              "outcome": {
+                "id": "56c927aa-a0ca-435d-8887-2f4ee15b452b",
+                "title": "Noise disturbance complaint - upstairs neighbors",
+                "description": "Tenant reports recurring nighttime noise (fragmented sleep over three weeks) from upstairs unit, described as furniture dragging and pacing in boots.",
+                "urgency": "low",
+                "property_id": null,
+                "status": "open",
+                "created_at": "2026-11-19T16:17:50.856Z",
+                "updated_at": "2026-11-19T16:17:50.856Z"
+              }
+            }
+          ]
+        },
+        "restartDuplicatePassed": true
+      },
+      "rejected": []
+    }
+  ]
+}

@@ -1,0 +1,541 @@
+{
+  "mode": "offline scripted real-archive observations; synthetic event links",
+  "session": "verified-case04-1795101998285",
+  "issue": {
+    "issue": {
+      "id": "issue-33f5d81e-7f2e-4dde-8fa4-8bd881c51fdf",
+      "session": "verified-case04-1795101998285",
+      "actorId": "tenant-hannah",
+      "propertyId": "prop_02",
+      "conversationId": "case-04",
+      "status": "active",
+      "evidence": [
+        {
+          "eventId": "case-04-event-1",
+          "cursor": 3,
+          "actor": {
+            "id": "tenant-hannah",
+            "role": "tenant",
+            "name": "Hannah Osei"
+          },
+          "body": "Morning! Nothing dramatic - there's a tiny leak under the kitchen sink. I noticed a damp patch on the cabinet floor yesterday and put a takeaway tub under the pipe. It catches maybe a teaspoon a day. No rush at all, whenever someone is next in the area.",
+          "occurredAt": "2025-11-03T09:12:00Z"
+        },
+        {
+          "eventId": "case-04-event-2",
+          "cursor": 6,
+          "actor": {
+            "id": "tenant-hannah",
+            "role": "tenant",
+            "name": "Hannah Osei"
+          },
+          "body": "It looks like it's from the joint where the curved bit meets the straight pipe going into the wall. Cabinet floor is just surface-damp, wiped it dry this morning and it's fine. Honestly it's a dribble.",
+          "occurredAt": "2025-11-03T10:47:00Z"
+        },
+        {
+          "eventId": "case-04-event-3",
+          "cursor": 9,
+          "actor": {
+            "id": "tenant-hannah",
+            "role": "tenant",
+            "name": "Hannah Osei"
+          },
+          "body": "Quick update - it's dripping a bit faster now, the tub was about a third full this morning rather than a puddle at the bottom. Still not scary but thought you should know. Any word on the plumber?",
+          "occurredAt": "2025-11-05T08:31:00Z"
+        },
+        {
+          "eventId": "case-04-event-4",
+          "cursor": 12,
+          "actor": {
+            "id": "tenant-jamal",
+            "role": "tenant",
+            "name": "Jamal Reid (Flat 2, downstairs)"
+          },
+          "body": "Hi, I'm in Flat 2 directly below Flat 3. There's a brown stain on my kitchen ceiling that wasn't there at the weekend, and it's grown since yesterday - it's about the size of a dinner plate now and the paint is starting to bubble at one edge. I think water is coming from upstairs.",
+          "occurredAt": "2025-11-06T08:30:00Z"
+        }
+      ],
+      "remoteCase": {
+        "id": "59ae94d0-b68b-4bf6-a021-cf3405822b9f",
+        "title": "Kitchen waste pipe leak",
+        "description": "New tenant observation reports spreading ceiling damage in the flat below.",
+        "urgency": "high",
+        "property_id": "prop_02",
+        "status": "open",
+        "created_at": "2026-11-19T15:26:38.294Z",
+        "updated_at": "2026-11-19T15:26:38.299Z"
+      },
+      "urgency": "high"
+    },
+    "events": [
+      {
+        "id": "case-04-event-1",
+        "cursor": 3,
+        "type": "message.received",
+        "channel": "email",
+        "actor": {
+          "id": "tenant-hannah",
+          "role": "tenant",
+          "name": "Hannah Osei"
+        },
+        "sim_ms": 0,
+        "occurred_at": "2025-11-03T09:12:00Z",
+        "payload": {
+          "body": "Morning! Nothing dramatic - there's a tiny leak under the kitchen sink. I noticed a damp patch on the cabinet floor yesterday and put a takeaway tub under the pipe. It catches maybe a teaspoon a day. No rush at all, whenever someone is next in the area.",
+          "property_id": "prop_02",
+          "conversation_id": "case-04"
+        }
+      },
+      {
+        "id": "case-04-event-2",
+        "cursor": 6,
+        "type": "message.received",
+        "channel": "email",
+        "actor": {
+          "id": "tenant-hannah",
+          "role": "tenant",
+          "name": "Hannah Osei"
+        },
+        "sim_ms": 5700000,
+        "occurred_at": "2025-11-03T10:47:00Z",
+        "payload": {
+          "body": "It looks like it's from the joint where the curved bit meets the straight pipe going into the wall. Cabinet floor is just surface-damp, wiped it dry this morning and it's fine. Honestly it's a dribble.",
+          "property_id": "prop_02",
+          "conversation_id": "case-04"
+        }
+      },
+      {
+        "id": "case-04-event-3",
+        "cursor": 9,
+        "type": "message.received",
+        "channel": "email",
+        "actor": {
+          "id": "tenant-hannah",
+          "role": "tenant",
+          "name": "Hannah Osei"
+        },
+        "sim_ms": 170340000,
+        "occurred_at": "2025-11-05T08:31:00Z",
+        "payload": {
+          "body": "Quick update - it's dripping a bit faster now, the tub was about a third full this morning rather than a puddle at the bottom. Still not scary but thought you should know. Any word on the plumber?",
+          "property_id": "prop_02",
+          "conversation_id": "case-04"
+        }
+      },
+      {
+        "id": "case-04-event-4",
+        "cursor": 12,
+        "type": "message.received",
+        "channel": "email",
+        "actor": {
+          "id": "tenant-jamal",
+          "role": "tenant",
+          "name": "Jamal Reid (Flat 2, downstairs)"
+        },
+        "sim_ms": 256680000,
+        "occurred_at": "2025-11-06T08:30:00Z",
+        "payload": {
+          "body": "Hi, I'm in Flat 2 directly below Flat 3. There's a brown stain on my kitchen ceiling that wasn't there at the weekend, and it's grown since yesterday - it's about the size of a dinner plate now and the paint is starting to bubble at one edge. I think water is coming from upstairs.",
+          "property_id": "prop_02",
+          "conversation_id": "case-04"
+        }
+      }
+    ],
+    "actions": [
+      {
+        "id": "action-df4fdd19-999c-47ec-b3b4-198cf037a6ce",
+        "eventId": "case-04-event-1",
+        "issueId": "issue-33f5d81e-7f2e-4dde-8fa4-8bd881c51fdf",
+        "decision": {
+          "evidenceIds": [
+            "case-04-event-1"
+          ],
+          "reason": "Contained active leak requires routine repair; no evidence yet of damage below",
+          "kind": "open",
+          "title": "Kitchen waste pipe leak",
+          "urgency": "medium"
+        },
+        "state": "confirmed",
+        "attempts": 1,
+        "result": {
+          "id": "59ae94d0-b68b-4bf6-a021-cf3405822b9f",
+          "title": "Kitchen waste pipe leak",
+          "description": null,
+          "urgency": "medium",
+          "property_id": "prop_02",
+          "status": "open",
+          "created_at": "2026-11-19T15:26:38.294Z",
+          "updated_at": "2026-11-19T15:26:38.294Z"
+        }
+      },
+      {
+        "id": "action-118f2546-f60e-48a6-81c6-4fd6f4384123",
+        "eventId": "case-04-event-4",
+        "issueId": "issue-33f5d81e-7f2e-4dde-8fa4-8bd881c51fdf",
+        "decision": {
+          "evidenceIds": [
+            "case-04-event-4"
+          ],
+          "reason": "New evidence shows spreading damage to another flat",
+          "kind": "update",
+          "caseId": "59ae94d0-b68b-4bf6-a021-cf3405822b9f",
+          "patch": {
+            "description": "New tenant observation reports spreading ceiling damage in the flat below.",
+            "urgency": "high"
+          }
+        },
+        "state": "confirmed",
+        "attempts": 1,
+        "result": {
+          "id": "59ae94d0-b68b-4bf6-a021-cf3405822b9f",
+          "title": "Kitchen waste pipe leak",
+          "description": "New tenant observation reports spreading ceiling damage in the flat below.",
+          "urgency": "high",
+          "property_id": "prop_02",
+          "status": "open",
+          "created_at": "2026-11-19T15:26:38.294Z",
+          "updated_at": "2026-11-19T15:26:38.299Z"
+        }
+      }
+    ],
+    "trace": [
+      {
+        "session": "verified-case04-1795101998285",
+        "eventId": "case-04-event-1",
+        "cursor": 3,
+        "issueId": "issue-33f5d81e-7f2e-4dde-8fa4-8bd881c51fdf",
+        "node": "Route",
+        "edge": "Assess",
+        "evidenceIds": [
+          "case-04-event-1"
+        ],
+        "reason": "Material observation linked"
+      },
+      {
+        "session": "verified-case04-1795101998285",
+        "eventId": "case-04-event-1",
+        "cursor": 3,
+        "issueId": "issue-33f5d81e-7f2e-4dde-8fa4-8bd881c51fdf",
+        "node": "Assess",
+        "edge": "Validate",
+        "evidenceIds": [
+          "case-04-event-1"
+        ],
+        "reason": "Contained active leak requires routine repair; no evidence yet of damage below"
+      },
+      {
+        "session": "verified-case04-1795101998285",
+        "eventId": "case-04-event-1",
+        "cursor": 3,
+        "issueId": "issue-33f5d81e-7f2e-4dde-8fa4-8bd881c51fdf",
+        "node": "Validate",
+        "edge": "Act",
+        "evidenceIds": [
+          "case-04-event-1"
+        ],
+        "reason": "Contained active leak requires routine repair; no evidence yet of damage below",
+        "outcome": {
+          "evidenceIds": [
+            "case-04-event-1"
+          ],
+          "reason": "Contained active leak requires routine repair; no evidence yet of damage below",
+          "kind": "open",
+          "title": "Kitchen waste pipe leak",
+          "urgency": "medium"
+        }
+      },
+      {
+        "session": "verified-case04-1795101998285",
+        "eventId": "case-04-event-1",
+        "cursor": 3,
+        "issueId": "issue-33f5d81e-7f2e-4dde-8fa4-8bd881c51fdf",
+        "node": "Act",
+        "edge": "dispatch",
+        "evidenceIds": [
+          "case-04-event-1"
+        ],
+        "reason": "Contained active leak requires routine repair; no evidence yet of damage below",
+        "outcome": {
+          "actionId": "action-df4fdd19-999c-47ec-b3b4-198cf037a6ce"
+        }
+      },
+      {
+        "session": "verified-case04-1795101998285",
+        "eventId": "case-04-event-1",
+        "cursor": 3,
+        "issueId": "issue-33f5d81e-7f2e-4dde-8fa4-8bd881c51fdf",
+        "remoteId": "59ae94d0-b68b-4bf6-a021-cf3405822b9f",
+        "node": "Checkpoint",
+        "edge": "confirmed",
+        "evidenceIds": [
+          "case-04-event-1"
+        ],
+        "reason": "Contained active leak requires routine repair; no evidence yet of damage below",
+        "outcome": {
+          "id": "59ae94d0-b68b-4bf6-a021-cf3405822b9f",
+          "title": "Kitchen waste pipe leak",
+          "description": null,
+          "urgency": "medium",
+          "property_id": "prop_02",
+          "status": "open",
+          "created_at": "2026-11-19T15:26:38.294Z",
+          "updated_at": "2026-11-19T15:26:38.294Z"
+        }
+      },
+      {
+        "session": "verified-case04-1795101998285",
+        "eventId": "case-04-event-2",
+        "cursor": 6,
+        "issueId": "issue-33f5d81e-7f2e-4dde-8fa4-8bd881c51fdf",
+        "remoteId": "59ae94d0-b68b-4bf6-a021-cf3405822b9f",
+        "node": "Route",
+        "edge": "Assess",
+        "evidenceIds": [
+          "case-04-event-1",
+          "case-04-event-2"
+        ],
+        "reason": "Material observation linked"
+      },
+      {
+        "session": "verified-case04-1795101998285",
+        "eventId": "case-04-event-2",
+        "cursor": 6,
+        "issueId": "issue-33f5d81e-7f2e-4dde-8fa4-8bd881c51fdf",
+        "remoteId": "59ae94d0-b68b-4bf6-a021-cf3405822b9f",
+        "node": "Assess",
+        "edge": "Validate",
+        "evidenceIds": [
+          "case-04-event-1",
+          "case-04-event-2"
+        ],
+        "reason": "Additional leak details retained; no new justified remote change"
+      },
+      {
+        "session": "verified-case04-1795101998285",
+        "eventId": "case-04-event-2",
+        "cursor": 6,
+        "issueId": "issue-33f5d81e-7f2e-4dde-8fa4-8bd881c51fdf",
+        "remoteId": "59ae94d0-b68b-4bf6-a021-cf3405822b9f",
+        "node": "Validate",
+        "edge": "Act",
+        "evidenceIds": [
+          "case-04-event-1",
+          "case-04-event-2"
+        ],
+        "reason": "Additional leak details retained; no new justified remote change",
+        "outcome": {
+          "evidenceIds": [
+            "case-04-event-2"
+          ],
+          "reason": "Additional leak details retained; no new justified remote change",
+          "kind": "wait"
+        }
+      },
+      {
+        "session": "verified-case04-1795101998285",
+        "eventId": "case-04-event-2",
+        "cursor": 6,
+        "issueId": "issue-33f5d81e-7f2e-4dde-8fa4-8bd881c51fdf",
+        "remoteId": "59ae94d0-b68b-4bf6-a021-cf3405822b9f",
+        "node": "Checkpoint",
+        "edge": "done",
+        "evidenceIds": [
+          "case-04-event-1",
+          "case-04-event-2"
+        ],
+        "reason": "Additional leak details retained; no new justified remote change"
+      },
+      {
+        "session": "verified-case04-1795101998285",
+        "eventId": "case-04-event-3",
+        "cursor": 9,
+        "issueId": "issue-33f5d81e-7f2e-4dde-8fa4-8bd881c51fdf",
+        "remoteId": "59ae94d0-b68b-4bf6-a021-cf3405822b9f",
+        "node": "Route",
+        "edge": "Assess",
+        "evidenceIds": [
+          "case-04-event-1",
+          "case-04-event-2",
+          "case-04-event-3"
+        ],
+        "reason": "Material observation linked"
+      },
+      {
+        "session": "verified-case04-1795101998285",
+        "eventId": "case-04-event-3",
+        "cursor": 9,
+        "issueId": "issue-33f5d81e-7f2e-4dde-8fa4-8bd881c51fdf",
+        "remoteId": "59ae94d0-b68b-4bf6-a021-cf3405822b9f",
+        "node": "Assess",
+        "edge": "Validate",
+        "evidenceIds": [
+          "case-04-event-1",
+          "case-04-event-2",
+          "case-04-event-3"
+        ],
+        "reason": "Additional leak details retained; no new justified remote change"
+      },
+      {
+        "session": "verified-case04-1795101998285",
+        "eventId": "case-04-event-3",
+        "cursor": 9,
+        "issueId": "issue-33f5d81e-7f2e-4dde-8fa4-8bd881c51fdf",
+        "remoteId": "59ae94d0-b68b-4bf6-a021-cf3405822b9f",
+        "node": "Validate",
+        "edge": "Act",
+        "evidenceIds": [
+          "case-04-event-1",
+          "case-04-event-2",
+          "case-04-event-3"
+        ],
+        "reason": "Additional leak details retained; no new justified remote change",
+        "outcome": {
+          "evidenceIds": [
+            "case-04-event-3"
+          ],
+          "reason": "Additional leak details retained; no new justified remote change",
+          "kind": "wait"
+        }
+      },
+      {
+        "session": "verified-case04-1795101998285",
+        "eventId": "case-04-event-3",
+        "cursor": 9,
+        "issueId": "issue-33f5d81e-7f2e-4dde-8fa4-8bd881c51fdf",
+        "remoteId": "59ae94d0-b68b-4bf6-a021-cf3405822b9f",
+        "node": "Checkpoint",
+        "edge": "done",
+        "evidenceIds": [
+          "case-04-event-1",
+          "case-04-event-2",
+          "case-04-event-3"
+        ],
+        "reason": "Additional leak details retained; no new justified remote change"
+      },
+      {
+        "session": "verified-case04-1795101998285",
+        "eventId": "case-04-event-4",
+        "cursor": 12,
+        "issueId": "issue-33f5d81e-7f2e-4dde-8fa4-8bd881c51fdf",
+        "remoteId": "59ae94d0-b68b-4bf6-a021-cf3405822b9f",
+        "node": "Route",
+        "edge": "Assess",
+        "evidenceIds": [
+          "case-04-event-1",
+          "case-04-event-2",
+          "case-04-event-3",
+          "case-04-event-4"
+        ],
+        "reason": "Material observation linked"
+      },
+      {
+        "session": "verified-case04-1795101998285",
+        "eventId": "case-04-event-4",
+        "cursor": 12,
+        "issueId": "issue-33f5d81e-7f2e-4dde-8fa4-8bd881c51fdf",
+        "remoteId": "59ae94d0-b68b-4bf6-a021-cf3405822b9f",
+        "node": "Assess",
+        "edge": "Validate",
+        "evidenceIds": [
+          "case-04-event-1",
+          "case-04-event-2",
+          "case-04-event-3",
+          "case-04-event-4"
+        ],
+        "reason": "New evidence shows spreading damage to another flat"
+      },
+      {
+        "session": "verified-case04-1795101998285",
+        "eventId": "case-04-event-4",
+        "cursor": 12,
+        "issueId": "issue-33f5d81e-7f2e-4dde-8fa4-8bd881c51fdf",
+        "remoteId": "59ae94d0-b68b-4bf6-a021-cf3405822b9f",
+        "node": "Validate",
+        "edge": "Act",
+        "evidenceIds": [
+          "case-04-event-1",
+          "case-04-event-2",
+          "case-04-event-3",
+          "case-04-event-4"
+        ],
+        "reason": "New evidence shows spreading damage to another flat",
+        "outcome": {
+          "evidenceIds": [
+            "case-04-event-4"
+          ],
+          "reason": "New evidence shows spreading damage to another flat",
+          "kind": "update",
+          "caseId": "59ae94d0-b68b-4bf6-a021-cf3405822b9f",
+          "patch": {
+            "description": "New tenant observation reports spreading ceiling damage in the flat below.",
+            "urgency": "high"
+          }
+        }
+      },
+      {
+        "session": "verified-case04-1795101998285",
+        "eventId": "case-04-event-4",
+        "cursor": 12,
+        "issueId": "issue-33f5d81e-7f2e-4dde-8fa4-8bd881c51fdf",
+        "remoteId": "59ae94d0-b68b-4bf6-a021-cf3405822b9f",
+        "node": "Act",
+        "edge": "dispatch",
+        "evidenceIds": [
+          "case-04-event-1",
+          "case-04-event-2",
+          "case-04-event-3",
+          "case-04-event-4"
+        ],
+        "reason": "New evidence shows spreading damage to another flat",
+        "outcome": {
+          "actionId": "action-118f2546-f60e-48a6-81c6-4fd6f4384123"
+        }
+      },
+      {
+        "session": "verified-case04-1795101998285",
+        "eventId": "case-04-event-4",
+        "cursor": 12,
+        "issueId": "issue-33f5d81e-7f2e-4dde-8fa4-8bd881c51fdf",
+        "remoteId": "59ae94d0-b68b-4bf6-a021-cf3405822b9f",
+        "node": "Checkpoint",
+        "edge": "confirmed",
+        "evidenceIds": [
+          "case-04-event-1",
+          "case-04-event-2",
+          "case-04-event-3",
+          "case-04-event-4"
+        ],
+        "reason": "New evidence shows spreading damage to another flat",
+        "outcome": {
+          "id": "59ae94d0-b68b-4bf6-a021-cf3405822b9f",
+          "title": "Kitchen waste pipe leak",
+          "description": "New tenant observation reports spreading ceiling damage in the flat below.",
+          "urgency": "high",
+          "property_id": "prop_02",
+          "status": "open",
+          "created_at": "2026-11-19T15:26:38.294Z",
+          "updated_at": "2026-11-19T15:26:38.299Z"
+        }
+      }
+    ]
+  },
+  "writes": [
+    {
+      "operation": "createCase",
+      "input": {
+        "title": "Kitchen waste pipe leak",
+        "urgency": "medium",
+        "property_id": "prop_02"
+      },
+      "id": "59ae94d0-b68b-4bf6-a021-cf3405822b9f"
+    },
+    {
+      "operation": "patchCase",
+      "input": {
+        "urgency": "high",
+        "description": "New tenant observation reports spreading ceiling damage in the flat below."
+      },
+      "id": "59ae94d0-b68b-4bf6-a021-cf3405822b9f"
+    }
+  ]
+}

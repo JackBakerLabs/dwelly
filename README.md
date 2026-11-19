@@ -63,3 +63,27 @@ Dependencies: Zod validates network and model data; TypeScript and Node types su
 ## Verification status
 
 See `docs/verification.md` for the final executed checks and limitations. Real-provider evaluation and a live end-to-end run require credentials and are separate from offline replay evidence.
+
+## Contractor extension
+
+After inspecting a suitable open issue, stop the live worker (one writer per database), then explicitly select the trade and resume polling:
+
+```sh
+npm run coordinate -- <issue-id> plumbing
+npm run live
+```
+
+This sends one work order to a current, explicitly available contractor. It waits for acceptance/decline, can reassign after decline, records quotes and landlord authority, waits for matching tenant/contractor appointment agreement, then waits for separate confirmation and completion. `inspect` includes coordination state, original events and action outcomes.
+
+**The extension is verified with synthetic structured event fixtures.** Live correspondence extraction is not implemented: `coordination.*` event names and payload keys are local adapter conventions, not fields promised by the Dwelly API. They must be mapped from real, attributable observations before relying on this branch in a live session. Unknown payloads are held for review. Trade selection is explicit; availability accepts only clearly available values. Failed/uncertain coordination effects are held for review; unlike the MVP, extension rate limits do not automatically retry. It does not infer spending permission or place external calls. Changed appointments require human reconfirmation.
+
+See `docs/coordination-contract.md` for exact fixture shapes and limitations. The last fully verified capability is the offline MVP plus deterministic extension scenarios; real-model judgment and live operation remain unverified.
+
+## Operator review
+
+```sh
+npm run inspect -- --review
+npm run reconcile -- <action-id> <observed-event-id>
+```
+
+Both commands use the same `DWELLY_SESSION_ID` and database selection; reconciliation also requires the original token in `DWELLY_TOKEN` to verify the local binding. Reconciliation makes no remote write. Use it only after inspecting a matching persisted system `case.created` event with a complete `payload.case`: the validator requires matching original fields, a later cursor, a unique uncertain intent and an unlinked remote ID. If the live feed does not provide this evidence, leave the issue on review rather than retrying creation. This is operator-confirmed association, not a server idempotency guarantee.

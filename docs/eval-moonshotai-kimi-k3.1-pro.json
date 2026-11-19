@@ -1,0 +1,115 @@
+{
+  "provider": "openrouter",
+  "total": 4,
+  "passed": 2,
+  "underTriage": 2,
+  "results": [
+    {
+      "caseId": "case-02",
+      "eventIds": [
+        "case-02-initial"
+      ],
+      "expected": {
+        "urgency": "medium",
+        "disposition": "resolved"
+      },
+      "decision": {
+        "evidenceIds": [
+          "case-02-initial"
+        ],
+        "reason": "The reported defect is a minor tap drip with no evidence of water escaping containment, deterioration, or a safety hazard. The noise is a nuisance but does not increase the physical urgency, so routine repair is appropriate.",
+        "kind": "open",
+        "title": "Dripping kitchen tap",
+        "description": "The kitchen tap drips approximately every couple of seconds, causing noise at night and wasting water. No water escape, property damage, or loss of essential facilities is reported.",
+        "urgency": "low"
+      },
+      "passed": false,
+      "underTriage": true
+    },
+    {
+      "caseId": "case-05",
+      "eventIds": [
+        "case-05-initial"
+      ],
+      "expected": {
+        "urgency": "emergency",
+        "disposition": "escalated_externally"
+      },
+      "decision": {
+        "evidenceIds": [
+          "case-05-initial"
+        ],
+        "reason": "A strong gas odour concentrated near the meter cupboards indicates a possible active gas leak in a communal area, creating an immediate fire, explosion and life-safety risk. Emergency action is required without waiting for secondary details.",
+        "humanAction": "Evacuate the building immediately without using flames or operating electrical switches. From a safe location, call the gas emergency service and fire service, prevent re-entry, and arrange for qualified responders to isolate the supply and declare the area safe.",
+        "kind": "open",
+        "title": "Strong gas smell in communal entrance hall",
+        "description": "The tenant reports a strong eggy gas smell in the building entrance hall, strongest near the meter cupboards by the stairs.",
+        "urgency": "emergency"
+      },
+      "passed": true,
+      "underTriage": false
+    },
+    {
+      "caseId": "case-09",
+      "eventIds": [
+        "case-09-initial"
+      ],
+      "expected": {
+        "urgency": "medium",
+        "disposition": "resolved"
+      },
+      "decision": {
+        "evidenceIds": [
+          "case-09-initial"
+        ],
+        "reason": "Model assessment unavailable; no mutation performed",
+        "kind": "review"
+      },
+      "passed": false,
+      "underTriage": true,
+      "failure": "Model assessment unavailable; no mutation performed"
+    },
+    {
+      "caseId": "case-11",
+      "eventIds": [
+        "case-11-initial"
+      ],
+      "expected": {
+        "urgency": "low",
+        "disposition": "closed_out_of_scope"
+      },
+      "decision": {
+        "evidenceIds": [
+          "case-11-initial"
+        ],
+        "reason": "The report concerns recurring night-time noise from neighbours, with no building defect, repair need, property deterioration, or immediate safety hazard described. It is therefore a noise-nuisance matter rather than a property-maintenance case.",
+        "humanAction": "Refer the recurring noise to the housing provider or building manager's noise-nuisance/antisocial-behaviour process, supported by a dated log of incidents.",
+        "kind": "outOfScope",
+        "urgency": "low"
+      },
+      "passed": true,
+      "underTriage": false
+    }
+  ],
+  "model": "moonshotai/kimi-k3.1-pro",
+  "diagnostics": [
+    {
+      "status": 200,
+      "eventIds": [
+        "case-02-initial"
+      ]
+    },
+    {
+      "status": 200,
+      "eventIds": [
+        "case-05-initial"
+      ]
+    },
+    {
+      "status": 200,
+      "eventIds": [
+        "case-11-initial"
+      ]
+    }
+  ]
+}

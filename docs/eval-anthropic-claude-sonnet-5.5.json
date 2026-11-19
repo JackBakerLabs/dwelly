@@ -1,0 +1,124 @@
+{
+  "provider": "openrouter",
+  "total": 4,
+  "passed": 4,
+  "underTriage": 0,
+  "results": [
+    {
+      "caseId": "case-02",
+      "eventIds": [
+        "case-02-initial"
+      ],
+      "expected": {
+        "urgency": "medium",
+        "disposition": "resolved"
+      },
+      "decision": {
+        "evidenceIds": [
+          "case-02-initial"
+        ],
+        "reason": "This is a contained leak with no reported damage, electrical risk or effect on another flat, so it is medium priority and not high. It is in scope as routine plumbing, and no further question is needed before opening the case.",
+        "kind": "open",
+        "title": "Kitchen tap dripping continuously",
+        "description": "Tenant reports the kitchen tap dripping about every couple of seconds. It is audible from the bedroom with the door shut at night and is wasting water. The leak is contained, with no reported damage to the property or other flats, and the tap is still usable. A routine plumber visit is needed to repair or replace the worn tap parts.",
+        "urgency": "medium"
+      },
+      "passed": true,
+      "underTriage": false
+    },
+    {
+      "caseId": "case-05",
+      "eventIds": [
+        "case-05-initial"
+      ],
+      "expected": {
+        "urgency": "emergency",
+        "disposition": "escalated_externally"
+      },
+      "decision": {
+        "evidenceIds": [
+          "case-05-initial"
+        ],
+        "reason": "A strong gas smell in a shared area near meters is an immediate life-safety hazard, so it is in scope and an emergency. It must not wait for secondary details such as the leak's exact source or whether anyone is affected.",
+        "humanAction": "Urgent human action needed now: anyone in or near the building should avoid using switches, flames or anything that could spark, and should open doors and windows if safe to do so. Leave the building and call the national gas emergency line from outside, or 999 if there is immediate danger. Staff should also notify the gas emergency service and the on-call manager to attend. Nothing has yet been confirmed as done.",
+        "kind": "open",
+        "title": "Strong smell of gas in building entrance hall near meter cupboards",
+        "description": "Tenant reports a strong, definite gas smell (eggy odour) in the communal entrance hall, strongest near the meter cupboards by the stairs. Reported 2025-12-09 at 17:04Z on returning home. Potential gas leak, an immediate life-safety hazard (fire, explosion, poisoning). No case currently exists.",
+        "urgency": "emergency"
+      },
+      "passed": true,
+      "underTriage": false
+    },
+    {
+      "caseId": "case-09",
+      "eventIds": [
+        "case-09-initial"
+      ],
+      "expected": {
+        "urgency": "medium",
+        "disposition": "resolved"
+      },
+      "decision": {
+        "evidenceIds": [
+          "case-09-initial"
+        ],
+        "reason": "A single socket has lost power while other sockets work and nothing has tripped. That points to a localised electrical fault. The tenant reports no arcing, burning smell, water or other immediate hazard, so it is not high or emergency. It does need an electrician on a routine slot, because a fault in the wiring can worsen. It is in scope for maintenance.",
+        "humanAction": "Arrange an electrician to inspect the socket. Advise the tenant not to use the socket, and to report any burning smell, heat, scorch marks or sparking immediately.",
+        "kind": "open",
+        "title": "Bedside double socket dead (no power, no trip)",
+        "description": "Tenant reports the left-hand bedside double socket has no power. The phone charger and lamp both work in another socket. No trip at the fuse box. No burning smell, scorching, sparking or water is reported. A qualified electrician should inspect the socket and circuit for a loose connection or failed socket. If the tenant later reports a burning smell, scorching, heat or sparking, raise urgency to high.",
+        "urgency": "medium"
+      },
+      "passed": true,
+      "underTriage": false
+    },
+    {
+      "caseId": "case-11",
+      "eventIds": [
+        "case-11-initial"
+      ],
+      "expected": {
+        "urgency": "low",
+        "disposition": "closed_out_of_scope"
+      },
+      "decision": {
+        "evidenceIds": [
+          "case-11-initial"
+        ],
+        "reason": "The tenant reports recurring night-time noise from upstairs neighbours (furniture dragging, pacing in boots). This is a neighbour conduct or nuisance matter, not a building defect. There is no physical evidence of damage, a failed building element, a safety hazard or deterioration risk. The disruption to sleep is real, but it does not make this a maintenance issue.",
+        "humanAction": "A person responsible for tenancy or neighbour-nuisance matters should contact the tenant. They should explain how to log noise incidents (dates, times, description) and consider raising the complaint with the upstairs household. If the tenant later reports a building cause, such as missing floor insulation or a damaged ceiling, a maintenance case can be opened.",
+        "kind": "outOfScope",
+        "urgency": "low"
+      },
+      "passed": true,
+      "underTriage": false
+    }
+  ],
+  "model": "anthropic/claude-sonnet-5.5",
+  "diagnostics": [
+    {
+      "status": 200,
+      "eventIds": [
+        "case-02-initial"
+      ]
+    },
+    {
+      "status": 200,
+      "eventIds": [
+        "case-05-initial"
+      ]
+    },
+    {
+      "status": 200,
+      "eventIds": [
+        "case-09-initial"
+      ]
+    },
+    {
+      "status": 200,
+      "eventIds": [
+        "case-11-initial"
+      ]
+    }
+  ]
+}

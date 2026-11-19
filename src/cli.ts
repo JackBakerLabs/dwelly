@@ -8,6 +8,9 @@ import { Coordinator, inspectCoordination } from './coordination/index.js';
 import { Graph } from './graph/index.js';
 import { LiveWorldClient, ReplayWorldClient } from './world/index.js';
 import { buildCase04Replay, case04ScriptedAssessor, createModelAssessor, runEvaluation } from './triage/index.js';
+import { diagnose } from './evaluation/diagnose.js';
+import type { AssessmentDiagnostic } from './triage/index.js';
+import { modelConfiguration } from './triage/config.js';
 import type { HistoryCase } from './types.js';
 const archive = (): HistoryCase[] => JSON.parse(readFileSync(new URL('../../snapshots/2026-11-19/history.json', import.meta.url), 'utf8')).cases as HistoryCase[];
 function required(name: string): string { const value = process.env[name]; if (!value)
@@ -67,17 +70,22 @@ export async function main(args = process.argv.slice(2)): Promise<void> {
             store.close();
         }
     }
+    else if (command === 'diagnose') {
+        const models=args.slice(1).filter(a=>a!=='--saved');
+        await diagnose(models,models.length?required('OPENROUTER_API_KEY'):undefined);
+    }
     else if (command === 'eval') {
-        const apiKey = required('OPENAI_API_KEY');
-        const report = await runEvaluation(archive(), createModelAssessor({ apiKey, model: process.env.OPENAI_MODEL ?? 'gpt-4.1-mini' }));
-        console.log(JSON.stringify({ ...report, provider: 'OpenAI', model: process.env.OPENAI_MODEL ?? 'gpt-4.1-mini' }, null, 2));
+        const modelConfig = modelConfiguration();
+        const diagnostics: AssessmentDiagnostic[] = [];
+        const report = await runEvaluation(archive(), createModelAssessor({...modelConfig,onDiagnostic:d=>diagnostics.push(d)}));
+        console.log(JSON.stringify({ ...report, provider: modelConfig.provider, model: modelConfig.model, diagnostics }, null, 2));
         if (report.passed !== report.total)
             process.exitCode = 1;
     }
     else if (command === 'live') {
         const token = required('DWELLY_TOKEN');
         const session = required('DWELLY_SESSION_ID');
-        const apiKey = required('OPENAI_API_KEY');
+        const modelConfig = modelConfiguration();
         const world = new LiveWorldClient({ baseUrl: process.env.DWELLY_BASE_URL ?? 'https://167.172.96.156.sslip.io', token });
         const store = new Store({ path: process.env.DWELLY_DB ?? dataPath(session), session, identity: createHash('sha256').update(token).digest('hex') });
         let stopped = false;
@@ -88,7 +96,7 @@ export async function main(args = process.argv.slice(2)): Promise<void> {
             const precedents = await world.readHistory();
             const coordinator = new Coordinator({ store, world });
             await coordinator.drain();
-            const graph = new Graph({ store, world, beforeEvent: event => coordinator.processEvent(event), assess: createModelAssessor({ apiKey, model: process.env.OPENAI_MODEL ?? 'gpt-4.1-mini' }), precedents });
+            const graph = new Graph({ store, world, beforeEvent: event => coordinator.processEvent(event), assess: createModelAssessor(modelConfig), precedents });
             await graph.drain();
             console.log(`Live session ${session}; cursor ${store.cursor()}; Ctrl-C to stop.`);
             while (!stopped) {

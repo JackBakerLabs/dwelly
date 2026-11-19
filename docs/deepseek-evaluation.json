@@ -1,0 +1,96 @@
+{
+  "provider": "openrouter",
+  "total": 4,
+  "passed": 3,
+  "underTriage": 1,
+  "results": [
+    {
+      "caseId": "case-02",
+      "eventIds": [
+        "case-02-initial"
+      ],
+      "expected": {
+        "urgency": "medium",
+        "disposition": "resolved"
+      },
+      "decision": {
+        "evidenceIds": [
+          "case-02-initial"
+        ],
+        "reason": "Dripping tap without evidence of water damage, deterioration risk, or functional failure constitutes a low urgency maintenance issue. The problem is contained to the tenant's unit with no active damage occurring.",
+        "kind": "open",
+        "title": "Dripping kitchen tap causing noise disturbance",
+        "description": "Tenant reports a dripping kitchen tap at approximately 0.5 drips per second, audible from bedroom with door closed. No water damage or functional impairment reported. Issue primarily causes noise disturbance and water waste.",
+        "urgency": "low"
+      },
+      "passed": false,
+      "underTriage": true
+    },
+    {
+      "caseId": "case-05",
+      "eventIds": [
+        "case-05-initial"
+      ],
+      "expected": {
+        "urgency": "emergency",
+        "disposition": "escalated_externally"
+      },
+      "decision": {
+        "evidenceIds": [
+          "case-05-initial"
+        ],
+        "reason": "Reported gas smell indicates potential gas leak, which is an immediate life-safety hazard requiring emergency response. Gas leaks can lead to explosion risk and require immediate professional investigation.",
+        "humanAction": "Immediately contact gas emergency services and evacuate the building if advised. Do not operate electrical switches or create sparks.",
+        "kind": "open",
+        "title": "Reported Gas Smell in Building Entrance Hall",
+        "description": "Tenant reports strong smell of gas (described as 'eggy') in entrance hall, strongest near meter cupboards by stairs. Potential gas leak requires immediate investigation.",
+        "urgency": "emergency"
+      },
+      "passed": true,
+      "underTriage": false
+    },
+    {
+      "caseId": "case-09",
+      "eventIds": [
+        "case-09-initial"
+      ],
+      "expected": {
+        "urgency": "medium",
+        "disposition": "resolved"
+      },
+      "decision": {
+        "evidenceIds": [
+          "case-09-initial"
+        ],
+        "reason": "Electrical failure in a single socket without tripped breakers indicates a potential wiring fault. While contained to one outlet, electrical issues can pose fire or shock risks if underlying causes are not addressed. The tenant has confirmed the issue is isolated to this socket and no tripping occurred, reducing immediate emergency but warranting prompt investigation.",
+        "kind": "open",
+        "title": "Faulty double socket - left side of bed",
+        "description": "Tenant reports complete failure of the left bedside double socket. Devices do not work in this socket but function correctly elsewhere. No tripping at the fuse box observed. Requires electrical inspection to diagnose fault (e.g., loose wiring, damaged socket).",
+        "urgency": "medium"
+      },
+      "passed": true,
+      "underTriage": false
+    },
+    {
+      "caseId": "case-11",
+      "eventIds": [
+        "case-11-initial"
+      ],
+      "expected": {
+        "urgency": "low",
+        "disposition": "closed_out_of_scope"
+      },
+      "decision": {
+        "evidenceIds": [
+          "case-11-initial"
+        ],
+        "reason": "Noise complaints from neighbors are a behavioral issue, not a property maintenance defect. This requires tenant management or mediation, not repair. No deterioration risk or physical damage to the property is described.",
+        "kind": "outOfScope",
+        "urgency": "low"
+      },
+      "passed": true,
+      "underTriage": false
+    }
+  ],
+  "model": "deepseek/deepseek-chat-v3.1"
+}

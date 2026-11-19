@@ -14,7 +14,8 @@
     "eval": "node dist/src/cli.js eval",
     "live": "node dist/src/cli.js live",
     "coordinate": "node dist/src/cli.js coordinate",
-    "reconcile": "node dist/src/cli.js reconcile"
+    "reconcile": "node dist/src/cli.js reconcile",
+    "diagnose": "node dist/src/cli.js diagnose"
   },
   "dependencies": {
     "zod": "4.6.7"

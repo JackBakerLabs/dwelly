@@ -78,3 +78,19 @@ test('emergency decisions require human action and unsupported closure is reject
     assert.equal(validateDecision({ ...linked, evidence: [{ ...issue.evidence[0]!, body: 'The pipe is repaired, no further leaks.' }] }, close).kind, 'update');
     assert.throws(() => validateDecision({ ...linked, evidence: [{ ...issue.evidence[0]!, body: 'The pipe is not repaired.' }] }, close));
 });
+test('OpenRouter uses its own endpoint, bearer credential, explicit model and JSON mode', async () => {
+    let called = false;
+    const assessor = createModelAssessor({apiKey:'mock-openrouter-key',provider:'openrouter',model:'organization/test-model',fetch:async (url,init)=>{
+        called=true;
+        assert.equal(url,'https://openrouter.ai/api/v1/chat/completions');
+        assert.equal(new Headers(init?.headers).get('Authorization'),'Bearer mock-openrouter-key');
+        assert.equal(init?.redirect,'error');
+        const body=JSON.parse(String(init?.body));
+        assert.equal(body.model,'organization/test-model');
+        assert.deepEqual(body.response_format,{type:'json_object'});
+        return new Response(JSON.stringify({choices:[{message:{content:JSON.stringify(open)}}]}));
+    }});
+    assert.equal((await assessor(issue,issue.evidence,[])).kind,'open');
+    assert.equal(called,true);
+    assert.throws(()=>createModelAssessor({apiKey:'mock',provider:'openrouter'}),/explicit model/);
+});

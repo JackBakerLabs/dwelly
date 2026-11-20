@@ -5,7 +5,7 @@ import { createHash } from 'node:crypto';
 import { pathToFileURL } from 'node:url';
 import { setTimeout as delay } from 'node:timers/promises';
 import { Store } from './store/index.js';
-import { Coordinator, inspectCoordination } from './coordination/index.js';
+import { inspectCoordination } from './coordination/index.js';
 import { Graph } from './graph/index.js';
 import { LiveWorldClient, ReplayWorldClient } from './world/index.js';
 import { buildCase04Replay, case04ScriptedAssessor, createModelAssessor, runEvaluation } from './triage/index.js';
@@ -55,21 +55,17 @@ export async function main(args = process.argv.slice(2)): Promise<void> {
             store.close();
         }
     }
-    else if (command === 'coordinate' || command === 'reconcile') {
+    else if (command === 'coordinate') {
+        throw new Error('The coordinate command is retired. Contractor coordination runs on the graph-native engagement path during live/replay; use inspect to read legacy coordination tables.');
+    }
+    else if (command === 'reconcile') {
         if (!arg || !args[2])
-            throw new Error('Usage: npm run coordinate -- <issue-id> <trade> or npm run reconcile -- <action-id> <event-id>');
+            throw new Error('Usage: npm run reconcile -- <action-id> <event-id>');
         const session = required('DWELLY_SESSION_ID');
         const token = required('DWELLY_TOKEN');
         const store = new Store({ path: process.env.DWELLY_DB ?? dataPath(session), session, identity: createHash('sha256').update(token).digest('hex') });
         try {
-            if (command === 'reconcile')
-                console.log(JSON.stringify(store.reconcileCase(arg, args[2]), null, 2));
-            else {
-                const world = new LiveWorldClient({ baseUrl: process.env.DWELLY_BASE_URL ?? 'https://167.172.96.156.sslip.io', token });
-                const coordinator = new Coordinator({ store, world });
-                await coordinator.start(arg, args[2]);
-                console.log(JSON.stringify(coordinator.inspect(arg), null, 2));
-            }
+            console.log(JSON.stringify(store.reconcileCase(arg, args[2]), null, 2));
         }
         finally {
             store.close();
@@ -105,13 +101,19 @@ export async function main(args = process.argv.slice(2)): Promise<void> {
         process.once('SIGTERM', stop);
         try {
             const precedents = await world.readHistory();
-            const coordinator = new Coordinator({ store, world });
-            await coordinator.drain();
-            const graph = new Graph({ store, world, beforeEvent: event => coordinator.processEvent(event), reviewAfterMs:process.env.DWELLY_REVIEW_AFTER_MS?Number(process.env.DWELLY_REVIEW_AFTER_MS):undefined, assess: createModelAssessor(modelConfig), precedents });
+            const graph = new Graph({ store, world, reviewAfterMs: process.env.DWELLY_REVIEW_AFTER_MS ? Number(process.env.DWELLY_REVIEW_AFTER_MS) : undefined, assess: createModelAssessor(modelConfig), precedents });
             await graph.drain();
             console.log(`Live session ${session}; cursor ${store.cursor()}; Ctrl-C to stop.`);
             while (!stopped) {
+                if (store.meta('mutationsStopped')) {
+                    console.log(store.meta('mutationsStopped'));
+                    break;
+                }
                 await graph.pollOnce();
+                if (store.meta('mutationsStopped')) {
+                    console.log(store.meta('mutationsStopped'));
+                    break;
+                }
                 if (!stopped)
                     await delay(2000);
             }
@@ -123,7 +125,7 @@ export async function main(args = process.argv.slice(2)): Promise<void> {
         }
     }
     else {
-        console.log('Dwelly maintenance agent\nCommands: replay case-04 | inspect <issue-id>|--review|--waiting | ack-wait <issue-id> | eval | live | coordinate <issue-id> <trade> | reconcile <action-id> <event-id>\nSee README.md for environment configuration.');
+        console.log('Dwelly maintenance agent\nCommands: replay case-04 | inspect <issue-id>|--review|--waiting | ack-wait <issue-id> | eval | live | reconcile <action-id> <event-id>\nSee README.md for environment configuration.');
         if (command)
             process.exitCode = 1;
     }

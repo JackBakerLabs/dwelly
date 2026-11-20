@@ -13,12 +13,14 @@
     "inspect": "node dist/src/cli.js inspect",
     "eval": "node dist/src/cli.js eval",
     "live": "node dist/src/cli.js live",
-    "coordinate": "node dist/src/cli.js coordinate",
     "reconcile": "node dist/src/cli.js reconcile",
     "diagnose": "node dist/src/cli.js diagnose",
     "eval-fresh": "node dist/src/cli.js eval-fresh",
     "ack-wait": "node dist/src/cli.js ack-wait",
-    "eval-conversations": "node dist/src/evaluation/run-conversations.js"
+    "eval-conversations": "node dist/src/evaluation/run-conversations.js",
+    "demo": "npm run build && node dist/src/demo/server.js",
+    "observe": "npm run build && node dist/src/demo/observer.js",
+    "demo:llm": "npm run build && node dist/src/demo/server.js --llm"
   },
   "dependencies": {
     "zod": "4.6.7"

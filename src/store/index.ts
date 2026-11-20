@@ -2,12 +2,12 @@ import { DatabaseSync } from 'node:sqlite';
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { remoteCaseSchema } from '../world/index.js';
-import type { Decision, EventBatch, Issue, TraceEntry, WorldEvent } from '../types.js';
+import type { AgentDecision, EventBatch, Issue, RemoteCase, TraceEntry, WorldEvent } from '../types.js';
 export interface Intent {
     id: string;
     eventId: string;
     issueId: string;
-    decision: Decision;
+    decision: AgentDecision;
     state: 'queued' | 'inflight' | 'confirmed' | 'uncertain' | 'failed' | 'deferred';
     attempts: number;
     retryAt?: number;
@@ -134,28 +134,53 @@ export class Store {
     }[]).map(r => JSON.parse(r.data) as TraceEntry); }
     inspect(id: string) { const issue = this.issue(id); if (!issue)
         throw new Error('Unknown issue ' + id); return { issue, events: this.traces().filter(t => t.issueId === id).map(t => t.eventId).filter((id, index, all) => all.indexOf(id) === index).map(id => this.event(id)), actions: this.intents().filter(i => i.issueId === id), trace: this.traces().filter(t => t.issueId === id) }; }
-    /** Operator confirms this observed creation belongs to the uncertain intent. Never sends a write. */
+    /**
+     * Operator confirms an observed remote case belongs to the uncertain open intent. Never sends a write.
+     * Accepts `case.created` (full case payload) or `case.acknowledged` (title + urgency + case_id only).
+     * Acknowledgements carry no description/property, so uniqueness of the uncertain open intent
+     * (plus title + urgency match) is the safety property — not field-for-field payload equality.
+     */
     reconcileCase(actionId: string, eventId: string) {
         const intent = this.intents().find(i => i.id === actionId);
         const event = this.event(eventId);
-        if (!intent || intent.state !== 'uncertain' || intent.decision.kind !== 'open')
+        const isOpenDecision = (decision: Intent['decision']): decision is Extract<Intent['decision'], { kind: 'open' }> => !('channel' in decision) && 'kind' in decision && decision.kind === 'open';
+        if (!intent || intent.state !== 'uncertain' || !isOpenDecision(intent.decision))
             throw new Error('Only an uncertain case creation can be reconciled');
-        if (!event || event.type !== 'case.created' || event.channel !== 'system')
-            throw new Error('Choose a persisted system case.created event');
+        if (!event || event.channel !== 'system' || (event.type !== 'case.created' && event.type !== 'case.acknowledged'))
+            throw new Error('Choose a persisted system case.created or case.acknowledged event');
         const original = this.event(intent.eventId);
         if (!original || event.cursor <= original.cursor || Date.parse(event.occurred_at) < Date.parse(original.occurred_at))
             throw new Error('Observed creation must follow the original report');
-        const remote = remoteCaseSchema.parse(event.payload.case);
         const issue = this.issue(intent.issueId);
         if (!issue)
             throw new Error('Missing local issue');
-        const matches = (candidate: Intent) => { if (candidate.decision.kind !== 'open')
-            return false; const local = this.issue(candidate.issueId); return remote.title === candidate.decision.title && remote.urgency === candidate.decision.urgency && remote.description === (candidate.decision.description ?? null) && remote.property_id === (local?.propertyId ?? null); };
-        if (!matches(intent) || remote.status !== 'open')
-            throw new Error('Observed case does not match the exact original creation fields');
-        if (this.issues().some(i => i.remoteCase?.id === remote.id) || this.intents().filter(i => i.state === 'uncertain' && matches(i)).length !== 1)
-            throw new Error('Ambiguous or already linked remote case');
-        this.transaction(() => { intent.state = 'confirmed'; intent.result = { reconciled: true, eventId, case: remote }; this.putIntent(intent); issue.remoteCase = remote; issue.urgency = remote.urgency ?? undefined; issue.status = 'active'; issue.humanAction = intent.decision.humanAction; delete issue.outstandingQuestion; this.putIssue(issue); this.finish(intent.eventId); this.trace({ session: this.session, eventId: event.id, cursor: event.cursor, issueId: issue.id, remoteId: remote.id, node: 'Checkpoint', edge: 'reconciled', evidenceIds: [...intent.decision.evidenceIds, event.id], reason: 'Operator confirmed a uniquely matching observed creation; no remote retry', outcome: { actionId, remoteId: remote.id } }); });
+        const decision = intent.decision;
+        let remote: RemoteCase;
+        if (event.type === 'case.created') {
+            remote = remoteCaseSchema.parse(event.payload.case);
+            const matches = (candidate: Intent) => { if (!isOpenDecision(candidate.decision))
+                return false; const local = this.issue(candidate.issueId); return remote.title === candidate.decision.title && remote.urgency === candidate.decision.urgency && remote.description === (candidate.decision.description ?? null) && remote.property_id === (local?.propertyId ?? null); };
+            if (!matches(intent) || remote.status !== 'open')
+                throw new Error('Observed case does not match the exact original creation fields');
+            if (this.issues().some(i => i.remoteCase?.id === remote.id) || this.intents().filter(i => i.state === 'uncertain' && matches(i)).length !== 1)
+                throw new Error('Ambiguous or already linked remote case');
+        }
+        else {
+            const caseId = typeof event.payload.case_id === 'string' ? event.payload.case_id : typeof event.payload.caseId === 'string' ? event.payload.caseId : undefined;
+            const title = typeof event.payload.title === 'string' ? event.payload.title : undefined;
+            const urgency = event.payload.urgency;
+            if (!caseId || !title || (urgency !== 'low' && urgency !== 'medium' && urgency !== 'high' && urgency !== 'emergency'))
+                throw new Error('case.acknowledged requires case_id, title and urgency');
+            if (title !== decision.title || urgency !== decision.urgency)
+                throw new Error('Observed acknowledgement does not match the original creation title and urgency');
+            const openUncertain = this.intents().filter(i => i.state === 'uncertain' && isOpenDecision(i.decision) && i.decision.title === title && i.decision.urgency === urgency);
+            if (openUncertain.length !== 1 || this.issues().some(i => i.remoteCase?.id === caseId))
+                throw new Error('Ambiguous or already linked remote case');
+            const now = event.occurred_at;
+            remote = { id: caseId, title, description: decision.description ?? null, urgency, property_id: issue.propertyId ?? null, status: 'open', created_at: now, updated_at: now };
+        }
+        this.transaction(() => { intent.state = 'confirmed'; intent.result = { reconciled: true, eventId, case: remote }; this.putIntent(intent); issue.remoteCase = remote; issue.urgency = remote.urgency ?? undefined; issue.status = 'active'; if (decision.humanAction)
+            issue.humanAction = decision.humanAction; delete issue.outstandingQuestion; this.putIssue(issue); this.finish(intent.eventId); this.trace({ session: this.session, eventId: event.id, cursor: event.cursor, issueId: issue.id, remoteId: remote.id, node: 'Checkpoint', edge: 'reconciled', evidenceIds: [...decision.evidenceIds, event.id], reason: 'Operator confirmed a uniquely matching observed creation; no remote retry', outcome: { actionId, remoteId: remote.id } }); });
         return this.inspect(issue.id);
     }
     waitingQueue(){return this.issues().filter(i=>i.waiting||['waiting','awaitingReply'].includes(i.status)).map(i=>({issueId:i.id,status:i.status,scope:i.scope??null,waiting:i.waiting??null,humanAction:i.humanAction??(!i.waiting?'Legacy wait has no recorded trigger/deadline; operator review required':null)}));}

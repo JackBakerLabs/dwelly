@@ -187,6 +187,29 @@ test('persisted queued unsent intent is dispatched once', async () => { const { 
 finally {
     store.close();
 } });
+test('session.ended stops mutations and case.acknowledged reconciles an uncertain create', async () => {
+    const { store, world, graph } = setup();
+    const create = world.createCase.bind(world);
+    world.createCase = async (input) => { await create(input); throw new WorldError('Timeout', undefined, true); };
+    try {
+        await graph.processEvent(event('1', 1, 'Leak under sink'));
+        const remote = [...world.cases.values()][0]!;
+        const ack = { ...event('2', 2, 'ack'), type: 'case.acknowledged', channel: 'system' as const, actor: null, payload: { case_id: remote.id, title: 'Leaking pipe', urgency: 'low' } };
+        await graph.processEvent(ack);
+        store.reconcileCase(store.intents()[0]!.id, '2');
+        assert.equal(store.intents()[0]?.state, 'confirmed');
+        assert.equal(store.issues()[0]?.remoteCase?.id, remote.id);
+        assert.equal(world.writes.length, 1);
+        await graph.processEvent({ ...event('3', 3, 'end'), type: 'session.ended', channel: 'system', actor: null, payload: {} });
+        assert.ok(store.meta('mutationsStopped'));
+        const before = world.writes.length;
+        await graph.processEvent(event('4', 4, 'Another leak'));
+        assert.equal(world.writes.length, before, 'no mutations after session.ended');
+    }
+    finally {
+        store.close();
+    }
+});
 test('explicit reconciliation uses uniquely matching persisted case.created event and sends no retry', async () => { const { store, world, graph } = setup(); const create = world.createCase.bind(world); world.createCase = async (input) => { await create(input); throw new WorldError('Timeout', undefined, true); }; try {
     await graph.processEvent(event('1', 1, 'Leak'));
     const remote = [...world.cases.values()][0]!;
@@ -249,3 +272,72 @@ test('unrelated window report does not answer outstanding leak question', async 
 finally {
     store.close();
 } });
+test('same-actor Re: follow-up attaches to the active case and patches once', async () => {
+    const assess: Assessor = async (i) => i.remoteCase
+        ? { kind: 'update', caseId: i.remoteCase.id, patch: { urgency: 'high' }, evidenceIds: [i.evidence.at(-1)!.eventId], reason: 'Worse' }
+        : { kind: 'open', title: 'Sink drip', urgency: 'medium', evidenceIds: [i.evidence.at(-1)!.eventId], reason: 'Contained drip' };
+    const { store, world, graph } = setup(assess);
+    try {
+        await graph.processEvent(event('1', 1, 'Drip under kitchen sink in Flat 12', { subject: 'Something dripping under my kitchen sink' }));
+        await graph.processEvent(event('2', 2, 'Now staining the flat below ceiling', { subject: 'Re: Something dripping under my kitchen sink' }));
+        assert.equal(store.issues().length, 1);
+        assert.equal(world.writes.filter(w => w.operation === 'createCase').length, 1);
+        assert.equal(world.writes.filter(w => w.operation === 'patchCase').length, 1);
+        assert.equal(store.issues()[0]!.remoteCase?.urgency, 'high');
+    }
+    finally {
+        store.close();
+    }
+});
+test('same-actor genuinely new subject opens a second issue', async () => {
+    const { store, world, graph } = setup();
+    try {
+        await graph.processEvent(event('1', 1, 'Kitchen sink dripping in Flat 12', { subject: 'Something dripping under my kitchen sink' }));
+        await graph.processEvent(event('2', 2, 'Bedroom window will not close in Flat 12', { subject: 'Bedroom window stuck shut' }));
+        assert.equal(store.issues().length, 2);
+        assert.equal(world.writes.filter(w => w.operation === 'createCase').length, 2);
+    }
+    finally {
+        store.close();
+    }
+});
+test('ambiguous follow-up against two active same-actor issues is held with zero writes', async () => {
+    const { store, world, graph } = setup();
+    try {
+        await graph.processEvent(event('1', 1, 'Kitchen sink dripping in Flat 12', { subject: 'Sink drip' }));
+        await graph.processEvent(event('2', 2, 'Radiator cold in Flat 12', { subject: 'No heating' }));
+        const before = world.writes.length;
+        await graph.processEvent(event('3', 3, 'Still a problem in Flat 12', { subject: 'Re: maintenance' }));
+        assert.equal(world.writes.length, before);
+        assert.ok(store.traces().some(t => t.eventId === '3' && t.edge === 'review'));
+    }
+    finally {
+        store.close();
+    }
+});
+test('redelivery of both tenant events adds no writes across a restart', async () => {
+    const dir = mkdtempSync(join(tmpdir(), 'dwelly-'));
+    const path = join(dir, 'state.sqlite');
+    const world = new ReplayWorldClient();
+    const assess: Assessor = async (i) => i.remoteCase
+        ? { kind: 'update', caseId: i.remoteCase.id, patch: { urgency: 'high' }, evidenceIds: [i.evidence.at(-1)!.eventId], reason: 'Worse' }
+        : { kind: 'open', title: 'Sink drip', urgency: 'medium', evidenceIds: [i.evidence.at(-1)!.eventId], reason: 'Contained drip' };
+    let store = new Store({ path, session: 's' });
+    try {
+        const first = event('1', 1, 'Drip under kitchen sink', { subject: 'Something dripping under my kitchen sink' });
+        const second = event('2', 2, 'Now staining downstairs', { subject: 'Re: Something dripping under my kitchen sink' });
+        await new Graph({ store, world, assess }).processEvent(first);
+        await new Graph({ store, world, assess }).processEvent(second);
+        const writes = world.writes.length;
+        store.close();
+        store = new Store({ path, session: 's' });
+        await new Graph({ store, world, assess }).processEvent(first);
+        await new Graph({ store, world, assess }).processEvent(second);
+        assert.equal(world.writes.length, writes);
+        assert.equal(store.issues().length, 1);
+    }
+    finally {
+        store.close();
+        rmSync(dir, { recursive: true, force: true });
+    }
+});

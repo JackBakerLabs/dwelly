@@ -8,6 +8,45 @@ import { validateDecision } from './validation.js';
 import { buildAssessmentContext, bindProposal, proposalResponseSchema, validationErrors, allowedActions, CONTRACT_VERSION } from './proposal.js';
 // User-approved prompt revision; original archive cases are policy regressions, not blind hold-outs.
 import {USER_POLICY,POLICY_METADATA} from './policy.js';
+export { explicitlyAvailable, proposalFrom, inferTrade, selectContractor } from './directory.js';
+export {
+    NAME_PROPERTY_QUESTION,
+    issueCorpus,
+    propertyPhrases,
+    isOpenMaintenanceIssue,
+    sameProperty,
+    matchProperty,
+    matchIssueByTitle,
+    whichIssueQuestion,
+    explicitIssue,
+    acceptProposedMatch,
+    amountAppears,
+    parsePounds,
+    parseBudget,
+    parseTimeframe,
+    classifyLandlord,
+    rememberLandlord,
+    knownLandlordAcross,
+    validateLandlordDecision,
+} from './landlord.js';
+export type { PropertyMatch } from './landlord.js';
+export {
+    quoteWithin,
+    slotFitsTimeframe,
+    parseQuote,
+    classifyContractor,
+    validateContractorAssessment,
+} from './contractor-reply.js';
+export {
+    cloneEngagement,
+    briefingBody,
+    draftProposal,
+    planLandlord,
+    planContractor,
+    planWorkOrderAccepted,
+    planWorkOrderDeclined,
+} from './engagement.js';
+export type { Effect, Plan, SendEffect, CreateEffect, PatchEffect } from './engagement.js';
 export const RUBRIC = USER_POLICY;
 export function selectGuidance(history: HistoryCase[], excludeCaseId?: string) {
     return history.filter(c => !reserved.has(c.id) && c.id !== excludeCaseId).map(c => ({ id: c.id, urgency: c.classification.urgency, rationale: c.classification.rationale }));

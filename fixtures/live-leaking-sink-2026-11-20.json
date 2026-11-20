@@ -1,0 +1,433 @@
+{
+  "source": ".data/22e795eab1c7b6a55219.sqlite",
+  "session": "interview-session-1",
+  "scenarioId": "leaking-sink",
+  "exported": "2026-11-20T00:00:00Z",
+  "note": "Captured live simulation (interview day). No credentials. Simulation data only.",
+  "events": [
+    {
+      "id": "evt_1",
+      "cursor": 1,
+      "type": "session.started",
+      "channel": "system",
+      "actor": null,
+      "sim_ms": 0,
+      "occurred_at": "2026-11-20T12:10:17.955Z",
+      "payload": {
+        "timeScale": 20,
+        "scenarioId": "leaking-sink",
+        "startPaused": true
+      }
+    },
+    {
+      "id": "evt_2",
+      "cursor": 2,
+      "type": "message.received",
+      "channel": "email",
+      "actor": {
+        "id": "act_tenant_1",
+        "role": "tenant",
+        "name": "Sarah Mitchell"
+      },
+      "sim_ms": 0,
+      "occurred_at": "2026-11-20T12:10:40.018Z",
+      "payload": {
+        "body": "Hi, it's Sarah in Flat 12. Something is dripping under the kitchen sink - I can hear it when the flat is quiet, and there's a damp smell coming from the cupboard. Could someone take a look, please?",
+        "subject": "Something dripping under my kitchen sink"
+      }
+    },
+    {
+      "id": "evt_5",
+      "cursor": 5,
+      "type": "message.received",
+      "channel": "email",
+      "actor": {
+        "id": "act_tenant_1",
+        "role": "tenant",
+        "name": "Sarah Mitchell"
+      },
+      "sim_ms": 937460,
+      "occurred_at": "2026-11-20T12:11:26.888Z",
+      "payload": {
+        "body": "Hi,\n\nI'm really worried now — there's a stain appearing on my downstairs neighbour's ceiling and I'm scared this is going to get worse. The dripping under my kitchen sink is still happening and the damp smell is getting stronger. Please can someone come out as soon as possible? I don't want this to cause damage to their flat.\n\nSarah Mitchell\n14 Elm Road, Flat 12, London SE15 4QN",
+        "subject": "Re: Something dripping under my kitchen sink"
+      }
+    },
+    {
+      "id": "evt_10",
+      "cursor": 10,
+      "type": "case.acknowledged",
+      "channel": "system",
+      "actor": null,
+      "sim_ms": 1659240,
+      "occurred_at": "2026-11-20T12:12:02.975Z",
+      "payload": {
+        "title": "Leak under kitchen sink with damp smell - Flat 12",
+        "case_id": "c1544c2e-0065-4cd3-986d-0975d0223a46",
+        "urgency": "medium"
+      }
+    },
+    {
+      "id": "evt_13",
+      "cursor": 13,
+      "type": "case.acknowledged",
+      "channel": "system",
+      "actor": null,
+      "sim_ms": 1734900,
+      "occurred_at": "2026-11-20T12:12:06.751Z",
+      "payload": {
+        "title": "Active leak under kitchen sink causing ceiling stain in flat below (Flat 12, 14 Elm Road)",
+        "case_id": "25ea7e8f-3beb-4c7f-96fa-fa141c9c2f23",
+        "urgency": "high"
+      }
+    },
+    {
+      "id": "evt_17",
+      "cursor": 17,
+      "type": "message.received",
+      "channel": "email",
+      "actor": {
+        "id": "act_landlord_1",
+        "role": "landlord",
+        "name": "David Okafor"
+      },
+      "sim_ms": 1800460,
+      "occurred_at": "2026-11-20T12:12:10.039Z",
+      "payload": {
+        "body": "Hi,\n\nJust to confirm — any repair spend above £150 at 14 Elm Road, Flat 12 needs my sign-off first, and I'll need the contractor's price in writing from you before I'll approve it. Let me know what comes up.\n\nDavid",
+        "subject": "Re: maintenance case at 14 Elm Road, Flat 12"
+      }
+    },
+    {
+      "id": "evt_25",
+      "cursor": 25,
+      "type": "message.received",
+      "channel": "email",
+      "actor": {
+        "id": "act_landlord_1",
+        "role": "landlord",
+        "name": "David Okafor"
+      },
+      "sim_ms": 1951560,
+      "occurred_at": "2026-11-20T12:12:17.595Z",
+      "payload": {
+        "body": "Both need sorting — get me the contractor's price for each one and I'll decide what to approve.\n\nDavid",
+        "subject": "Re: your message",
+        "reply_to": 20
+      }
+    },
+    {
+      "id": "evt_35",
+      "cursor": 35,
+      "type": "message.received",
+      "channel": "email",
+      "actor": {
+        "id": "act_landlord_1",
+        "role": "landlord",
+        "name": "David Okafor"
+      },
+      "sim_ms": 2200520,
+      "occurred_at": "2026-11-20T12:12:30.023Z",
+      "payload": {
+        "body": "Both are at 14 Elm Road, Flat 12 — the leak under the kitchen sink with the damp smell, and the active leak causing the ceiling stain in the flat below. Get me the prices and I'll approve what needs doing.\n\nDavid",
+        "subject": "Re: your message",
+        "reply_to": 28
+      }
+    },
+    {
+      "id": "evt_43",
+      "cursor": 43,
+      "type": "message.received",
+      "channel": "email",
+      "actor": {
+        "id": "act_landlord_1",
+        "role": "landlord",
+        "name": "David Okafor"
+      },
+      "sim_ms": 2369820,
+      "occurred_at": "2026-11-20T12:12:38.508Z",
+      "payload": {
+        "body": "I've already told you — both issues, at 14 Elm Road, Flat 12: the leak under the kitchen sink with the damp smell, and the active leak causing the ceiling stain below. Send me the contractor's price for each and I'll tell you what I'm approving.\n\nDavid",
+        "subject": "Re: your message",
+        "reply_to": 38
+      }
+    },
+    {
+      "id": "evt_51",
+      "cursor": 51,
+      "type": "message.received",
+      "channel": "email",
+      "actor": {
+        "id": "act_landlord_1",
+        "role": "landlord",
+        "name": "David Okafor"
+      },
+      "sim_ms": 2538420,
+      "occurred_at": "2026-11-20T12:12:46.936Z",
+      "payload": {
+        "body": "I've told you twice already — both issues at 14 Elm Road, Flat 12. Stop asking which one and send me the contractor's prices for the kitchen sink leak and the ceiling stain damage, then I'll approve the work.\n\nDavid",
+        "subject": "Re: your message",
+        "reply_to": 46
+      }
+    },
+    {
+      "id": "evt_57",
+      "cursor": 57,
+      "type": "message.received",
+      "channel": "email",
+      "actor": {
+        "id": "act_landlord_1",
+        "role": "landlord",
+        "name": "David Okafor"
+      },
+      "sim_ms": 2626320,
+      "occurred_at": "2026-11-20T12:12:51.328Z",
+      "payload": {
+        "body": "I've already told you five times — I need the contractor's price for BOTH the kitchen sink leak AND the ceiling stain damage at 14 Elm Road, Flat 12, so stop asking which one and just send them.\n\nDavid",
+        "subject": "Re: your message",
+        "reply_to": 54
+      }
+    },
+    {
+      "id": "evt_64",
+      "cursor": 64,
+      "type": "message.received",
+      "channel": "email",
+      "actor": {
+        "id": "act_landlord_1",
+        "role": "landlord",
+        "name": "David Okafor"
+      },
+      "sim_ms": 2749600,
+      "occurred_at": "2026-11-20T12:12:57.496Z",
+      "payload": {
+        "body": "Look, I've been clear enough — I need the prices for both jobs at 14 Elm Road, Flat 12, not another question about which one. Send me what the contractor is charging and I'll approve it or I won't.\n\nDavid",
+        "subject": "Re: your message",
+        "reply_to": 60
+      }
+    },
+    {
+      "id": "evt_70",
+      "cursor": 70,
+      "type": "message.received",
+      "channel": "email",
+      "actor": {
+        "id": "act_landlord_1",
+        "role": "landlord",
+        "name": "David Okafor"
+      },
+      "sim_ms": 2849920,
+      "occurred_at": "2026-11-20T12:13:02.512Z",
+      "payload": {
+        "body": "I'm not going to keep answering the same question — you know exactly what I mean. Get the contractor's prices for both the kitchen sink leak and the ceiling damage, email them to me with the figures, and we'll move on.\n\nDavid",
+        "subject": "Re: your message",
+        "reply_to": 67
+      }
+    },
+    {
+      "id": "evt_76",
+      "cursor": 76,
+      "type": "message.received",
+      "channel": "email",
+      "actor": {
+        "id": "act_landlord_1",
+        "role": "landlord",
+        "name": "David Okafor"
+      },
+      "sim_ms": 2926900,
+      "occurred_at": "2026-11-20T12:13:06.360Z",
+      "payload": {
+        "body": "Both issues are at 14 Elm Road, Flat 12 — the kitchen sink leak and the ceiling stain damage below it. I need the contractor's prices for both jobs, so get them and send them over.\n\nDavid",
+        "subject": "Re: your message",
+        "reply_to": 73
+      }
+    },
+    {
+      "id": "evt_84",
+      "cursor": 84,
+      "type": "message.received",
+      "channel": "email",
+      "actor": {
+        "id": "act_landlord_1",
+        "role": "landlord",
+        "name": "David Okafor"
+      },
+      "sim_ms": 3066120,
+      "occurred_at": "2026-11-20T12:13:13.321Z",
+      "payload": {
+        "body": "I've told you repeatedly — both jobs at 14 Elm Road, Flat 12, and I need the figures from the contractor now, not another question about which one.\n\nDavid",
+        "subject": "Re: your message",
+        "reply_to": 79
+      }
+    },
+    {
+      "id": "evt_92",
+      "cursor": 92,
+      "type": "message.received",
+      "channel": "email",
+      "actor": {
+        "id": "act_landlord_1",
+        "role": "landlord",
+        "name": "David Okafor"
+      },
+      "sim_ms": 3249500,
+      "occurred_at": "2026-11-20T12:13:22.490Z",
+      "payload": {
+        "body": "I'm not answering this again — you've got two jobs at 14 Elm Road, Flat 12, and I need the contractor's prices in your next email or nothing gets approved.\n\nDavid",
+        "subject": "Re: your message",
+        "reply_to": 87
+      }
+    },
+    {
+      "id": "evt_99",
+      "cursor": 99,
+      "type": "message.received",
+      "channel": "email",
+      "actor": {
+        "id": "act_landlord_1",
+        "role": "landlord",
+        "name": "David Okafor"
+      },
+      "sim_ms": 3378480,
+      "occurred_at": "2026-11-20T12:13:28.941Z",
+      "payload": {
+        "body": "I'm not going to repeat myself again — you know what I need. Get me the contractor's prices for both the kitchen sink leak and the ceiling damage, with the figures in writing, or tell me you can't do it.\n\nDavid",
+        "subject": "Re: your message",
+        "reply_to": 95
+      }
+    },
+    {
+      "id": "evt_105",
+      "cursor": 105,
+      "type": "message.received",
+      "channel": "email",
+      "actor": {
+        "id": "act_landlord_1",
+        "role": "landlord",
+        "name": "David Okafor"
+      },
+      "sim_ms": 3464780,
+      "occurred_at": "2026-11-20T12:13:33.254Z",
+      "payload": {
+        "body": "I've already told you — 14 Elm Road, Flat 12, both the kitchen sink leak and the ceiling damage. Stop asking and send me the contractor's prices.\n\nDavid",
+        "subject": "Re: your message",
+        "reply_to": 102
+      }
+    },
+    {
+      "id": "evt_113",
+      "cursor": 113,
+      "type": "message.received",
+      "channel": "email",
+      "actor": {
+        "id": "act_landlord_1",
+        "role": "landlord",
+        "name": "David Okafor"
+      },
+      "sim_ms": 3609220,
+      "occurred_at": "2026-11-20T12:13:40.461Z",
+      "payload": {
+        "body": "I'm not going through this again — you have the address and you have both jobs. Send me the contractor's prices with figures, or let me know you can't get them.\n\nDavid",
+        "subject": "Re: your message",
+        "reply_to": 108
+      }
+    },
+    {
+      "id": "evt_115",
+      "cursor": 115,
+      "type": "message.received",
+      "channel": "email",
+      "actor": {
+        "id": "act_tenant_2",
+        "role": "tenant",
+        "name": "Tom Bradley"
+      },
+      "sim_ms": 3644700,
+      "occurred_at": "2026-11-20T12:13:42.248Z",
+      "payload": {
+        "body": "Hi,\n\nI need to report a strong smell of gas in the stairwell at 14 Elm Road, Flat 9, London SE15 4QN, and it seems to be getting worse. This is urgent and I'm worried about safety — can you tell me what I should do next and when someone can come and check it?\n\nThanks,\nTom Bradley",
+        "subject": "Smell of gas in the stairwell"
+      }
+    },
+    {
+      "id": "evt_120",
+      "cursor": 120,
+      "type": "case.acknowledged",
+      "channel": "system",
+      "actor": null,
+      "sim_ms": 3738160,
+      "occurred_at": "2026-11-20T12:13:46.925Z",
+      "payload": {
+        "title": "Suspected gas leak in stairwell - 14 Elm Road, Flat 9, SE15 4QN",
+        "case_id": "e669515e-4388-4e53-aab0-2a8b2c348f42",
+        "urgency": "emergency"
+      }
+    },
+    {
+      "id": "evt_122",
+      "cursor": 122,
+      "type": "message.received",
+      "channel": "email",
+      "actor": {
+        "id": "act_landlord_1",
+        "role": "landlord",
+        "name": "David Okafor"
+      },
+      "sim_ms": 3767120,
+      "occurred_at": "2026-11-20T12:13:48.370Z",
+      "payload": {
+        "body": "I've told you a dozen times — 14 Elm Road, Flat 12, both jobs. Either send me the contractor's prices or tell me what the hold-up is.\n\nDavid",
+        "subject": "Re: your message",
+        "reply_to": 118
+      }
+    },
+    {
+      "id": "evt_129",
+      "cursor": 129,
+      "type": "message.received",
+      "channel": "email",
+      "actor": {
+        "id": "act_landlord_1",
+        "role": "landlord",
+        "name": "David Okafor"
+      },
+      "sim_ms": 3876800,
+      "occurred_at": "2026-11-20T12:13:53.853Z",
+      "payload": {
+        "body": "Look, I'm not doing this anymore — you clearly have the information. Either email me the contractor's prices for both jobs at 14 Elm Road, Flat 12, or tell me what the actual problem is.\n\nDavid",
+        "subject": "Re: your message",
+        "reply_to": 125
+      }
+    },
+    {
+      "id": "evt_136",
+      "cursor": 136,
+      "type": "message.received",
+      "channel": "email",
+      "actor": {
+        "id": "act_landlord_1",
+        "role": "landlord",
+        "name": "David Okafor"
+      },
+      "sim_ms": 4011280,
+      "occurred_at": "2026-11-20T12:14:00.570Z",
+      "payload": {
+        "body": "I'm not answering this question again — you've got the address, you've got both jobs, and I've made it clear what I need. Either get me those contractor's prices in your next email with the figures, or tell me there's a genuine problem stopping you.\n\nDavid",
+        "subject": "Re: your message",
+        "reply_to": 132
+      }
+    },
+    {
+      "id": "evt_144",
+      "cursor": 144,
+      "type": "session.ended",
+      "channel": "system",
+      "actor": null,
+      "sim_ms": 4214400,
+      "occurred_at": "2026-11-20T12:14:10.737Z",
+      "payload": {
+        "scenario_id": "leaking-sink"
+      }
+    }
+  ]
+}

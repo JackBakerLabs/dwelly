@@ -111,6 +111,15 @@ export class LiveWorldClient implements CoordinationWorldClient {
         subject?: string;
     }) { z.string().min(1).parse(actorId); return this.request(`/actors/${encodeURIComponent(actorId)}/messages`, 'POST', acceptedSchema, messageSchema.parse(input)); }
 }
+/** Strip leading Re:/Fwd:/Fw: prefixes, trim, and case-fold for email thread matching. */
+export function normaliseThreadKey(subject?: string): string | undefined {
+    if (!subject)
+        return undefined;
+    let key = subject.trim();
+    while (/^(?:re|fwd|fw)\s*:/i.test(key))
+        key = key.replace(/^(?:re|fwd|fw)\s*:/i, '').trim();
+    return key ? key.toLowerCase() : undefined;
+}
 /** Only documented envelope fields are guaranteed. These payload aliases are explicit integration assumptions. */
 export function decodeEvent(event: WorldEvent): DecodedEvent {
     const p = event.payload;
@@ -120,16 +129,25 @@ export function decodeEvent(event: WorldEvent): DecodedEvent {
             return value;
     } return undefined; };
     const links = { propertyId: str('property_id', 'propertyId'), issueId: str('issue_id', 'issueId'), caseId: str('case_id', 'caseId'), conversationId: str('conversation_id', 'thread_id', 'conversationId'), replyToEventId: str('reply_to_event_id', 'in_reply_to', 'replyToEventId'), supersedes: str('supersedes_event_id', 'supersedes'), newIssue: p.new_issue === true || p.newIssue === true };
-    if (['case.created', 'case.updated', 'message.sent', 'message.delivered', 'message.accepted'].includes(event.type))
+    const systemTypes = ['session.started', 'case.acknowledged', 'case.created', 'case.updated', 'session.ended'] as const;
+    if ((systemTypes as readonly string[]).includes(event.type)) {
+        const urgencyRaw = str('urgency');
+        const urgency = urgencyRaw === 'low' || urgencyRaw === 'medium' || urgencyRaw === 'high' || urgencyRaw === 'emergency' ? urgencyRaw : undefined;
+        return { kind: 'system', ...links, ...(str('title') ? { title: str('title') } : {}), ...(urgency ? { urgency } : {}) };
+    }
+    if (['message.sent', 'message.delivered', 'message.accepted'].includes(event.type))
         return { kind: 'echo', ...links };
     if (event.type !== 'message.received' || !event.actor || event.channel !== 'email')
         return { kind: 'unknown', ...links };
     const body = str('body', 'text', 'message');
     if (!body)
         return { kind: 'unknown', ...links };
+    const subject = str('subject');
+    const threadKey = normaliseThreadKey(subject);
+    const subjectFields = { ...(subject ? { subject } : {}), ...(threadKey ? { threadKey } : {}) };
     if (/^(thanks?( you)?|thank you( very much)?|ok(ay)?|cheers|noted|received)[.!\s]*$/i.test(body.trim()))
-        return { kind: 'echo', body, ...links };
-    return { kind: 'message', body, ...links };
+        return { kind: 'echo', body, ...subjectFields, ...links };
+    return { kind: 'message', body, ...subjectFields, ...links };
 }
 export interface RecordedWrite {
     operation: 'createCase' | 'patchCase' | 'sendMessage' | 'createWorkOrder' | 'patchWorkOrder';

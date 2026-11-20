@@ -90,6 +90,8 @@ export interface Observation {
     body: string;
     occurredAt: string;
     supersedes?: string;
+    /** Original message subject when present; used for thread-key follow-up routing. */
+    subject?: string;
 }
 export type MaintenanceScope = 'maintenance'|'nonMaintenance'|'externalEmergency'|'unknown';
 export type ResumeTrigger = { kind:'tenantReply'|'caseUpdate'|'operatorReview'; condition:string };
@@ -109,6 +111,45 @@ export interface Issue {
     waiting?: WaitState;
     urgency?: Urgency;
     humanAction?: string;
+    engagement?: Engagement;
+}
+export interface ContractorProposal {
+    id: string;
+    name: string;
+    trade: string;
+    rating: number;
+    directoryAvailability: string;
+}
+export interface ApprovalTerms {
+    budgetGbp: number;
+    inclusive: boolean;
+    timeframe: string;
+}
+export interface Engagement {
+    trade?: string;
+    proposal?: ContractorProposal;
+    excludedContractorIds: string[];
+    landlordId?: string;
+    landlordWrote?: boolean;
+    /** Exact question last sent to this landlord and still awaiting an answer. Used to route/interpret the reply and to never send the same question twice in a row. */
+    landlordQuestion?: string;
+    queuedBriefing?: string;
+    briefingSent?: boolean;
+    rejected?: boolean;
+    unconditional?: boolean;
+    terms?: ApprovalTerms;
+    notedBudgetGbp?: number;
+    quoteGbp?: number;
+    slot?: string;
+    unavailable?: boolean;
+    awaitingContractor?: 'quote' | 'availability' | 'both' | 'revision';
+    order?: WorkOrder;
+    visitConfirmedEventId?: string;
+    replacement?: boolean;
+    /** Slot offered/accepted pending the linked tenant's confirmation before PATCH. */
+    pendingTenantSlot?: string;
+    /** Exact question last sent to the tenant about the pending slot. */
+    tenantSlotQuestion?: string;
 }
 export interface DecisionBase {
     scope?: MaintenanceScope;
@@ -141,21 +182,105 @@ export type Decision = DecisionBase & ({
     urgency?: Urgency;
 });
 export type Assessor = (issue: Issue, evidence: Observation[], precedents: HistoryCase[]) => Promise<Decision>;
+export interface LandlordDecisionBase {
+    channel: 'landlord';
+    evidenceIds: string[];
+    reason: string;
+    proposedPropertyText?: string;
+}
+export type LandlordDecision = LandlordDecisionBase & ({
+    kind: 'approve';
+} | {
+    kind: 'approveIf';
+    budgetGbp: number;
+    inclusive: boolean;
+    timeframe: string;
+} | {
+    kind: 'reject';
+} | {
+    kind: 'requestQuote';
+    notedBudgetGbp?: number;
+} | {
+    kind: 'requestAvailability';
+} | {
+    kind: 'ask';
+    question: string;
+} | {
+    kind: 'review';
+});
+export type ContractorAssessment = {
+    channel: 'contractor';
+    evidenceIds: string[];
+    reason: string;
+} & ({
+    kind: 'quote';
+    quoteGbp: number;
+} | {
+    kind: 'availability';
+    slot: string;
+    unavailable?: boolean;
+} | {
+    kind: 'quoteAndAvailability';
+    quoteGbp: number;
+    slot: string;
+    unavailable?: boolean;
+} | {
+    kind: 'reject';
+} | {
+    kind: 'visitConfirmed';
+} | {
+    kind: 'completed';
+} | {
+    kind: 'review';
+});
+export type WorkOrderSignal = {
+    channel: 'workOrder';
+    kind: 'accepted' | 'declined';
+    evidenceIds: string[];
+    reason: string;
+};
+/** One journaled remote effect. Old Decision/channel intents remain readable alongside this form. */
+export type EffectDecision = {
+    channel: 'effect';
+    reason: string;
+    evidenceIds: string[];
+} & ({
+    op: 'sendMessage';
+    actorId: string;
+    body: string;
+    subject?: string;
+} | {
+    op: 'createWorkOrder';
+    input: WorkOrderCreate;
+} | {
+    op: 'patchWorkOrder';
+    id: string;
+    input: WorkOrderPatch;
+} | {
+    op: 'patchCase';
+    id: string;
+    input: CasePatch;
+});
+export type AgentDecision = Decision | LandlordDecision | ContractorAssessment | WorkOrderSignal | EffectDecision;
 export interface TraceEntry {
     session: string;
     eventId: string;
     cursor: number;
     issueId?: string;
     remoteId?: string;
-    node: 'Ingest' | 'Route' | 'Assess' | 'Validate' | 'Act' | 'Checkpoint';
+    node: 'Ingest' | 'Route' | 'Assess' | 'LandlordTriage' | 'ContractorTriage' | 'Validate' | 'Act' | 'Checkpoint';
     edge: string;
     evidenceIds: string[];
     reason: string;
     outcome?: unknown;
 }
 export interface DecodedEvent {
-    kind: 'message' | 'echo' | 'unknown';
+    kind: 'message' | 'echo' | 'unknown' | 'system';
     body?: string;
+    /** Raw email subject when present on message.received. */
+    subject?: string;
+    /** Subject with leading Re:/Fwd: stripped, trimmed, lower-cased — thread join key. */
+    threadKey?: string;
     propertyId?: string;
     issueId?: string;
     caseId?: string;
@@ -163,6 +288,9 @@ export interface DecodedEvent {
     replyToEventId?: string;
     supersedes?: string;
     newIssue?: boolean;
+    /** Parsed from system envelopes (case.acknowledged / case.created / case.updated). */
+    title?: string;
+    urgency?: Urgency;
 }
 export interface Contractor {
     id: string;

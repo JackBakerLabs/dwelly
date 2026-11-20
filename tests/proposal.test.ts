@@ -151,9 +151,9 @@ test('fresh fixture labels and other fixture texts stay outside model context; m
     let calls = 0;
     const assess = createModelAssessor({ apiKey: 'fake', fetch: async (_url, init) => { calls++; const c = JSON.parse(JSON.parse(String(init!.body)).messages[1].content); assert.equal('expected' in c, false); assert.equal(c.currentObservations.length, 1); assert.ok(!JSON.stringify(c.guidance).includes('fresh-')); return response({ ...open, reason: undefined }); } });
     const report = await runEvaluation(history, assess, fixtures);
-    assert.equal(calls, 8);
-    assert.equal(report.contractFailures, 4);
+    assert.equal(calls, 10);
+    assert.equal(report.contractFailures, 5);
     assert.equal(report.providerFailures, 0);
     assert.equal(report.underTriage, 0);
-    assert.equal(report.unscoredUrgency, 4);
+    assert.equal(report.unscoredUrgency, 5);
 });

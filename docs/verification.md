@@ -1,25 +1,22 @@
-# Verification — 19 November 2026
+# Verification — 20 November 2026
 
-Runtime: Node 22.14.0; native SQLite 3.47.2. API snapshot: Candidate API 1.0.0 with 15 archive cases. Package installation is lockfile-pinned; final dependency audit reported zero vulnerabilities.
+Offline gate for the brief-gaps plan. Runtime: Node 22.14.0. No live Dwelly writes and no paid model calls in this run.
 
-Executed in workspace:
+## Executed checks
 
-- `npm ci --offline --ignore-scripts`: passed using cached pinned packages.
-- `npm run build`: strict TypeScript compilation passed.
-- `npm test`: **52 passed, 0 failed, 0 skipped**, without credentials or external network requests.
-- Case-04 through the real graph/recording client across restart: one case creation, one update to high on that same ID, zero landlord announcements; repeat events add no writes.
-- Replay plus CLI `inspect`: verified matching remote ID, high final urgency and two confirmed action records. Saved inspectable artifact: `docs/case04-trace.json`.
-- `npm run eval`: configuration check correctly fails with missing OPENAI_API_KEY. **Real-provider evaluation not run; no model pass count claimed.**
-- `npm run live`: configuration check correctly fails with missing DWELLY_TOKEN. **Authenticated end-to-end session not run.**
+1. `npm ci && npm run build && npm test` — **184 passed, 0 failed**, including `tests/live-replay.test.ts` (captured `interview-session-1` leaking-sink fixture).
+2. `npm run replay -- case-04` — one create, one same-case high update, zero landlord announcements.
+3. Clean-checkout rehearsal: `git archive` of the final commit into a temp directory, then `npm ci`, build, test, replay — no workspace DB or `dist` reused (recorded in the handoff after the final commit).
+4. Fixture hygiene: credential-shaped scan of `fixtures/live-leaking-sink-2026-11-20.json` and `docs/diagnostics/llm-demo-review-2026-11-20/` — clean; `git diff --check` clean.
 
-Offline test split: 2 bootstrap; 18 graph/recovery/routing; 1 archive integration; 8 triage/validation/evaluation-isolation; 17 API/replay; 6 contractor coordination = 52. Injected model decisions test validation/plumbing, not real-model judgment.
+## What this does **not** claim
 
-MVP checkpoint: 62500df. Contractor extension adds fixture-verified selection, reassignment, approval, slot agreement, confirmation and completion with persistent effects. It remains a partial live extension: natural-language fact extraction, real feed payload mapping, scheduling solicitation and automatic extension rate-limit retries are not implemented. See `coordination-contract.md` for exact boundaries. All original observations are retained and uncertain effects remain visible rather than being retried blindly.
+- Live rerun on a fresh Dwelly session.
+- Real-model `npm run eval` / `eval-fresh` accuracy on the v4 prompt (including reserved cases 02/05/09/11).
+- Contractor behaviour against real non-fixture correspondence.
 
-Review fixes include preserving the stable local issue across a crash after routing, separating an unrelated report while another question awaits reply, refusing unsupported closure/emergency output, validating correction references, and replaying confirmed coordination effects without duplicate writes.
+Those remain interview-day steps. The labelled demo under-triage regression (`demo-undertriage-2026-11-20` in `fixtures/assessment-v2-fresh.json` and conversations) records expected medium on turn 1; it does not assert a measured model score.
 
-Clean committed-source verification: exported commit `1056d26` with `git archive` into an empty temporary directory, then ran cached `npm ci`, strict build, the full test suite and `npm run replay -- case-04`. Result: **52/52 tests passed and replay passed**, with no workspace files or existing database reused.
+## Historical appendix (pre-2026-11-20)
 
-## Assessment v2 follow-up
-
-See `assessment-v2.md` for the newer implementation and evidence. Strict schema generation, application-bound execution IDs, exact bounded correction and separated failure scoring are implemented. **103 deterministic tests pass.** Three models were evaluated on four archive and four fresh synthetic cases each: all 24 responses passed contract validation and graph replay; judgment scores are reported separately. Earlier missing-credential statements above describe the original build only. Live Dwelly verification remains unperformed.
+Earlier dated verification notes (52 → 103 → 109 → 112 offline counts, MVP checkpoint 62500df, assessment-v2 follow-ups) are superseded for current status. See git history and `docs/assessment-v2.md` / `docs/scope-wait-results.md` for those archives.

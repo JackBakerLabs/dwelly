@@ -42,13 +42,19 @@ npm run live
 flowchart LR
   Ingest --> Route
   Route --> Assess
+  Route --> LandlordTriage
+  Route --> ContractorTriage
   Assess --> Validate
+  LandlordTriage --> Validate
+  ContractorTriage --> Validate
   Validate --> Act
   Act --> Checkpoint
   Route --> Checkpoint
   Validate --> Checkpoint
   Checkpoint -. new observation .-> Ingest
 ```
+
+Commands: `replay case-04` | `inspect <issue-id>|--review|--waiting` | `ack-wait <issue-id>` | `eval` / `eval-fresh` | `live` | `reconcile <action-id> <event-id>`. The `coordinate` command is retired; contractor coordination runs on the graph engagement path during live/replay.
 
 Each event and poll cursor are saved together. Every write gets a durable intent before dispatch. A confirmed result, remote ID, issue state and completion are checkpointed together. Duplicate event delivery does not duplicate writes. An in-flight write after a crash becomes uncertain and holds dependent actions; there is no blind POST retry. A confirmed rate limit is deferred with bounded retries. Authentication failure stops the worker, and an ended session stops mutations. Unknown payloads and ambiguous routing remain in the audit trail.
 
@@ -62,22 +68,19 @@ Dependencies: Zod validates network and model data; TypeScript and Node types su
 
 ## Verification status
 
-See `docs/verification.md` for the final executed checks and limitations. Real-provider evaluation and a live end-to-end run require credentials and are separate from offline replay evidence.
+See `docs/verification.md` for the offline gate results. **Unverified until interview day** (do not report as done):
 
-## Contractor extension
+- Live rerun on a fresh Dwelly session
+- Real-model `npm run eval` / `eval-fresh` on the v4 prompt (reserved cases 02/05/09/11 remain unmeasured for current-prompt accuracy)
+- Contractor behaviour against real (non-fixture) correspondence
 
-After inspecting a suitable open issue, stop the live worker (one writer per database), then explicitly select the trade and resume polling:
+The labelled demo under-triage regression `demo-undertriage-2026-11-20` expects medium on turn 1; it does not claim a measured model score.
 
-```sh
-npm run coordinate -- <issue-id> plumbing
-npm run live
-```
+## Contractor coordination (graph-native)
 
-This sends one work order to a current, explicitly available contractor. It waits for acceptance/decline, can reassign after decline, records quotes and landlord authority, waits for matching tenant/contractor appointment agreement, then waits for separate confirmation and completion. `inspect` includes coordination state, original events and action outcomes.
+Medium/high in-scope cases may propose one exact-trade contractor and send the landlord a single journaled briefing. Landlord and contractor natural-language mail drive quotes, approvals, work orders, tenant slot confirmation, visit confirmation and completion. Every remote effect is a journaled intent. `inspect` may still show legacy `coordination_*` rows from older databases (read-only).
 
-**The extension is verified with synthetic structured event fixtures.** Live correspondence extraction is not implemented: `coordination.*` event names and payload keys are local adapter conventions, not fields promised by the Dwelly API. They must be mapped from real, attributable observations before relying on this branch in a live session. Unknown payloads are held for review. Trade selection is explicit; availability accepts only clearly available values. Failed/uncertain coordination effects are held for review; unlike the MVP, extension rate limits do not automatically retry. It does not infer spending permission or place external calls. Changed appointments require human reconfirmation.
-
-See `docs/coordination-contract.md` for exact fixture shapes and limitations. The last fully verified capability is the offline MVP plus deterministic extension scenarios; real-model judgment is measured separately below; live operation remains unverified.
+See `docs/coordination-contract.md`. Offline graph fixtures cover decline/reassign, slot→confirm→complete, silence and changed-terms hold.
 
 ## Operator review
 
@@ -86,7 +89,7 @@ npm run inspect -- --review
 npm run reconcile -- <action-id> <observed-event-id>
 ```
 
-Both commands use the same `DWELLY_SESSION_ID` and database selection; reconciliation also requires the original token in `DWELLY_TOKEN` to verify the local binding. Reconciliation makes no remote write. Use it only after inspecting a matching persisted system `case.created` event with a complete `payload.case`: the validator requires matching original fields, a later cursor, a unique uncertain intent and an unlinked remote ID. If the live feed does not provide this evidence, leave the issue on review rather than retrying creation. This is operator-confirmed association, not a server idempotency guarantee.
+Both commands use the same `DWELLY_SESSION_ID` and database selection; reconciliation also requires the original token in `DWELLY_TOKEN` to verify the local binding. Reconciliation makes no remote write. Use it after inspecting a matching persisted system `case.created` (full `payload.case`) or `case.acknowledged` (title + urgency + `case_id`). Acknowledgements carry no description/property — uniqueness of the uncertain open intent plus title/urgency match is the safety property. A later cursor and unlinked remote ID are still required. If the live feed does not provide this evidence, leave the issue on review rather than retrying creation.
 
 ## OpenRouter evaluation
 
@@ -124,3 +127,43 @@ Set `DWELLY_REVIEW_AFTER_MS` to an explicitly chosen positive integer to schedul
 `npm run eval-conversations -- <OpenRouter-model-id> 2` runs frozen synthetic conversations, two paraphrases and two repeats per scenario. It requires `OPENROUTER_API_KEY` and writes a timestamped report. Labels remain outside model context. Every turn exercises the full graph against a simulated World API, followed by restart and duplicate-delivery checks. Reports separate scope, urgency, action, provider/contract failure and graph execution, and retain returned usage and latency. They do not establish independent real-world accuracy or replace live-token verification.
 
 Latest measurement: Claude Sonnet 5.5 and GPT-4.1 mini each passed all 24 synthetic conversation turns (20 urgency-scored), with no provider/contract errors and all graph/restart checks passing. See [the detailed report and limitations](docs/scope-wait-results.md).
+
+## Interview dashboard
+
+Run `npm run demo` and open **http://localhost:3000**. This small local interface shows archived incoming messages, actual graph traces, saved case state and simulated API actions. Step through the leak escalation, redeliver an event to demonstrate duplicate suppression, and reset for another walkthrough.
+
+It uses the existing graph and SQLite with a **scripted assessor and simulated API**; no credentials are needed and no live records are changed. This is an explainer of execution, not a real-model accuracy demo. See [the walkthrough and design](docs/interview-demo.md). Use `PORT=3001 npm run demo` for a different port.
+
+## Read-only live observer
+
+Run the worker normally with `npm run live`. In a second terminal, from the same repository, set **the same** `DWELLY_SESSION_ID` and, if overridden for the worker, `DWELLY_DB`, then run:
+
+```sh
+export DWELLY_SESSION_ID=your-session-id
+# Only if the worker uses an explicit path:
+# export DWELLY_DB=/absolute/path/to/worker.sqlite
+npm run observe
+```
+
+Open http://localhost:3000. If the demo is still using that port, run `PORT=3001 npm run observe` and open http://localhost:3001. The observer itself needs no Dwelly or model credentials and makes no external calls. It can also inspect a saved replay database using that replay's printed session and path.
+
+It refreshes once per second with a read-only, transactional SQLite snapshot. It displays incoming events (including pending/system events), recorded graph steps, the current issue linked to the selected event, action journal states, and expandable coordination records. It follows new events while the latest event is selected; choosing an older event keeps your selection. Confirmed before/after comparisons are restricted to the linked issue. Queued, in-flight, failed and uncertain actions are labelled as journal entries rather than confirmed API writes.
+
+Demo reset/delivery controls are hidden and all non-GET requests are rejected by the observer server. It does not take the writer lock, run recovery, change intents, advance the cursor, or reset state. Missing databases or session mismatches show a disconnected/error state and retry automatically; a last successful snapshot is retained and labelled stale. A database can remain readable after the worker stops, so connection status is **not a worker heartbeat**. Fast stages can complete between polls; the saved trace remains inspectable. This small local view returns the full session history; pagination would be needed for large production histories.
+
+Validation: 112 tests passed, including simultaneous writer/observer access, in-progress assessment, uncommitted-write isolation, unchanged in-flight intents, session mismatch, read-only HTTP enforcement and recovery after database creation. JavaScript syntax checks pass; browser interaction automation was unavailable.
+
+## Real-model interview demo
+
+Use `npm run demo:llm` to replace scripted assessment with the existing structured-output model assessor. Dwelly actions remain simulated. Select a provider/model using the same environment configuration as live triage; keys remain on the server and are never sent to the browser.
+
+```sh
+export MODEL_PROVIDER=openrouter
+export OPENROUTER_MODEL=openai/gpt-4.1-mini
+# Supply OPENROUTER_API_KEY securely in your shell, then:
+PORT=3002 npm run demo:llm
+```
+
+Open http://localhost:3002. Delivering each archived message can make a paid model call (at most one correction attempt). The dashboard shows the configured model and expandable response/validation/timing/usage diagnostics. The frontend allows up to 100 seconds for processing; model requests have the existing 45-second per-attempt bound. Concurrent delivery/reset requests are rejected while processing. Redelivering a completed event does not reassess it. Reset clears demo state and diagnostics; delivering again after reset makes fresh calls.
+
+No free-text input or deterministic result is promised: the model may ask questions or hold a case for review. The archive is a regression demonstration, not a blind evaluation. Provider errors and invalid output remain visible, with no scripted fallback. The simulated API never creates live Dwelly cases or sends actual messages. `npm run demo` remains the credential-free scripted mode; observer mode remains read-only.

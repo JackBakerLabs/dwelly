@@ -1,0 +1,210 @@
+{
+  "timestamp": "2026-11-21T21:08:29.511Z",
+  "suite": "tier2-real-model-no-dwelly-mutations",
+  "openrouterApiKey": "set-for-run-via-env-only",
+  "smoke": {
+    "openrouterChatCompletionsHttpStatus": 200
+  },
+  "provider": "openrouter",
+  "model": "openai/gpt-4.1-mini",
+  "promptVersion": "triage-v4-scope-wait",
+  "previousGate": "CONDITIONAL GO — Tier 2 blocked (OpenRouter chat 401)",
+  "updatedGate": "CONDITIONAL GO — Tier 2 model path UNBLOCKED; live write session still NO-GO",
+  "eval": {
+    "passed": 4,
+    "total": 4,
+    "underTriage": 0,
+    "providerFailures": 0,
+    "contractFailures": 0,
+    "unscoredUrgency": 0,
+    "summaryPath": "docs/diagnostics/eval-summary-openai-gpt-4.1-mini-2026-11-21T21-06-58Z.json",
+    "per_case": [
+      {
+        "caseId": "case-02",
+        "expected_urgency": "medium",
+        "actual_urgency": "medium",
+        "passed": true,
+        "underTriage": false
+      },
+      {
+        "caseId": "case-05",
+        "expected_urgency": "emergency",
+        "actual_urgency": "emergency",
+        "passed": true,
+        "underTriage": false
+      },
+      {
+        "caseId": "case-09",
+        "expected_urgency": "medium",
+        "actual_urgency": "medium",
+        "passed": true,
+        "underTriage": false
+      },
+      {
+        "caseId": "case-11",
+        "expected_urgency": "low",
+        "actual_urgency": "low",
+        "passed": true,
+        "underTriage": false
+      }
+    ]
+  },
+  "evalFresh": {
+    "passed": 4,
+    "total": 5,
+    "underTriage": 1,
+    "providerFailures": 0,
+    "contractFailures": 0,
+    "summaryPath": "docs/diagnostics/eval-fresh-summary-openai-gpt-4.1-mini-2026-11-21T21-07-13Z.json",
+    "per_case": [
+      {
+        "caseId": "fresh-01",
+        "expected_urgency": "emergency",
+        "actual_urgency": "emergency",
+        "passed": true,
+        "underTriage": false
+      },
+      {
+        "caseId": "fresh-02",
+        "expected_urgency": "low",
+        "actual_urgency": "low",
+        "passed": true,
+        "underTriage": false
+      },
+      {
+        "caseId": "fresh-03",
+        "expected_urgency": "high",
+        "actual_urgency": "high",
+        "passed": true,
+        "underTriage": false
+      },
+      {
+        "caseId": "fresh-04",
+        "expected_urgency": "low",
+        "actual_urgency": "low",
+        "passed": true,
+        "underTriage": false
+      },
+      {
+        "caseId": "demo-undertriage-2026-11-20",
+        "expected_urgency": "medium",
+        "actual_urgency": "low",
+        "passed": false,
+        "underTriage": true
+      }
+    ]
+  },
+  "evalConversations": {
+    "directory": "docs/diagnostics/conversations-v4-2026-11-21T21-07-13.592Z",
+    "modelFile": "docs/diagnostics/conversations-v4-2026-11-21T21-07-13.592Z/openai_gpt-4.1-mini.json",
+    "turns": 28,
+    "scopePassed": 28,
+    "urgencyScored": 24,
+    "urgencyPassed": 20,
+    "actionPassed": 28,
+    "failures": 0,
+    "executionPassed": 28,
+    "restartDuplicatePassed": 28,
+    "urgencyMisses": [
+      {
+        "fixture": "leak-escalation",
+        "variant": 1,
+        "turn": 1,
+        "repeat": 1,
+        "expected": "medium",
+        "actual": "low"
+      },
+      {
+        "fixture": "demo-undertriage-2026-11-20",
+        "variant": 0,
+        "turn": 0,
+        "repeat": 1,
+        "expected": "medium",
+        "actual": "low"
+      },
+      {
+        "fixture": "demo-undertriage-2026-11-20",
+        "variant": 1,
+        "turn": 0,
+        "repeat": 0,
+        "expected": "medium",
+        "actual": "low"
+      },
+      {
+        "fixture": "demo-undertriage-2026-11-20",
+        "variant": 1,
+        "turn": 0,
+        "repeat": 1,
+        "expected": "medium",
+        "actual": "low"
+      }
+    ],
+    "demoUndertriageTurn0": {
+      "note": "expected medium; stochastic across variants/repeats",
+      "outcomes": [
+        "v0/r0: medium (pass)",
+        "v0/r1: low (under-triage)",
+        "v1/r0: low (under-triage)",
+        "v1/r1: low (under-triage)"
+      ]
+    }
+  },
+  "diagnose": {
+    "savedReplays": {
+      "passed": 14,
+      "total": 14
+    },
+    "liveModel": {
+      "outputDir": "docs/diagnostics/triage-v4-scope-wait-2026-11-21T21-08-08.324Z",
+      "passed": 3,
+      "total": 4,
+      "underTriage": 1,
+      "providerFailures": 0,
+      "contractFailures": 0,
+      "per_case": [
+        {
+          "caseId": "case-02",
+          "category": "judgment",
+          "expected": "medium",
+          "actual": "low",
+          "underTriage": true,
+          "graph": true
+        },
+        {
+          "caseId": "case-05",
+          "category": "pass",
+          "expected": "emergency",
+          "actual": "emergency",
+          "underTriage": false,
+          "graph": true
+        },
+        {
+          "caseId": "case-09",
+          "category": "pass",
+          "expected": "medium",
+          "actual": "medium",
+          "underTriage": false,
+          "graph": true
+        },
+        {
+          "caseId": "case-11",
+          "category": "pass",
+          "expected": "low",
+          "actual": "low",
+          "underTriage": false,
+          "graph": true
+        }
+      ]
+    }
+  },
+  "notRun": [
+    "npm run live",
+    "Dwelly mutations"
+  ],
+  "goNoGo": {
+    "workingModelProvider": "GO (OpenRouter chat 200; evals completed)",
+    "offlinePath": "GO (unchanged)",
+    "liveWriteSession": "NO-GO (prior: session ended / need fresh token)",
+    "overall": "CONDITIONAL GO — LLM auth unblocked; remaining blocker is fresh live write session"
+  }
+}

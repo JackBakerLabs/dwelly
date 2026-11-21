@@ -1,0 +1,715 @@
+{
+  "model": "openai/gpt-4.1",
+  "fixtureVersion": "conversations-v1",
+  "limitation": "Synthetic regression cases, not independent expert-labelled accuracy. Actual decisions run through a fake World API; no live Dwelly writes.",
+  "repeats": 1,
+  "rows": [
+    {
+      "fixture": "leak-escalation",
+      "variant": 0,
+      "repeat": 0,
+      "turn": 0,
+      "expected": {
+        "scope": "unknown",
+        "actions": [
+          "ask"
+        ]
+      },
+      "decision": {
+        "scope": "unknown",
+        "evidenceIds": [
+          "leak-escalation-0"
+        ],
+        "reason": "[omitted]",
+        "kind": "ask",
+        "actorId": "tenant",
+        "question": "Can you describe what is wrong in the kitchen or what you have noticed\u2014such as water, smells, noise, or electrical issues?"
+      },
+      "scopePassed": true,
+      "urgencyPassed": null,
+      "actionPassed": true,
+      "executionPassed": true,
+      "restartDuplicatePassed": true,
+      "elapsedMs": 1997,
+      "writes": [
+        {
+          "operation": "sendMessage",
+          "input": {
+            "body": "Can you describe what is wrong in the kitchen or what you have noticed\u2014such as water, smells, noise, or electrical issues?"
+          },
+          "id": "tenant"
+        }
+      ]
+    },
+    {
+      "fixture": "leak-escalation",
+      "variant": 0,
+      "repeat": 0,
+      "turn": 1,
+      "expected": {
+        "scope": "maintenance",
+        "urgency": "medium",
+        "actions": [
+          "open"
+        ]
+      },
+      "decision": {
+        "scope": "maintenance",
+        "evidenceIds": [
+          "leak-escalation-1"
+        ],
+        "reason": "[omitted]",
+        "kind": "open",
+        "title": "Slow drip from cold water pipe under kitchen sink (fully contained)",
+        "description": "[omitted]",
+        "urgency": "medium"
+      },
+      "scopePassed": true,
+      "urgencyPassed": true,
+      "actionPassed": true,
+      "executionPassed": true,
+      "restartDuplicatePassed": true,
+      "elapsedMs": 1766,
+      "writes": [
+        {
+          "operation": "createCase",
+          "input": {
+            "title": "Slow drip from cold water pipe under kitchen sink (fully contained)",
+            "urgency": "medium",
+            "description": "[omitted]"
+          },
+          "id": "50daa7a7-034a-43a2-9400-122b8179e841"
+        }
+      ]
+    },
+    {
+      "fixture": "leak-escalation",
+      "variant": 0,
+      "repeat": 0,
+      "turn": 2,
+      "expected": {
+        "scope": "maintenance",
+        "urgency": "high",
+        "actions": [
+          "update"
+        ]
+      },
+      "decision": {
+        "scope": "maintenance",
+        "evidenceIds": [
+          "leak-escalation-0",
+          "leak-escalation-1",
+          "leak-escalation-2"
+        ],
+        "reason": "[omitted]",
+        "kind": "update",
+        "caseId": "50daa7a7-034a-43a2-9400-122b8179e841",
+        "patch": {
+          "title": "[omitted]",
+          "description": "[omitted]",
+          "urgency": "high",
+          "status": "open"
+        }
+      },
+      "scopePassed": true,
+      "urgencyPassed": true,
+      "actionPassed": true,
+      "executionPassed": true,
+      "restartDuplicatePassed": true,
+      "elapsedMs": 2568,
+      "writes": [
+        {
+          "operation": "patchCase",
+          "input": {
+            "title": "[omitted]",
+            "urgency": "high",
+            "description": "[omitted]",
+            "status": "open"
+          },
+          "id": "50daa7a7-034a-43a2-9400-122b8179e841"
+        }
+      ]
+    },
+    {
+      "fixture": "leak-escalation",
+      "variant": 1,
+      "repeat": 0,
+      "turn": 0,
+      "expected": {
+        "scope": "unknown",
+        "actions": [
+          "ask"
+        ]
+      },
+      "decision": {
+        "scope": "unknown",
+        "evidenceIds": [
+          "leak-escalation-0"
+        ],
+        "reason": "[omitted]",
+        "kind": "ask",
+        "actorId": "tenant",
+        "question": "Can you describe the problem in your kitchen in more detail? For example, is there a leak, a broken appliance, strange smell, visible damage, or another issue? Any details will help us assist you."
+      },
+      "scopePassed": true,
+      "urgencyPassed": null,
+      "actionPassed": true,
+      "executionPassed": true,
+      "restartDuplicatePassed": true,
+      "elapsedMs": 2730,
+      "writes": [
+        {
+          "operation": "sendMessage",
+          "input": {
+            "body": "Can you describe the problem in your kitchen in more detail? For example, is there a leak, a broken appliance, strange smell, visible damage, or another issue? Any details will help us assist you."
+          },
+          "id": "tenant"
+        }
+      ]
+    },
+    {
+      "fixture": "leak-escalation",
+      "variant": 1,
+      "repeat": 0,
+      "turn": 1,
+      "expected": {
+        "scope": "maintenance",
+        "urgency": "medium",
+        "actions": [
+          "open"
+        ]
+      },
+      "decision": {
+        "scope": "maintenance",
+        "evidenceIds": [
+          "leak-escalation-1"
+        ],
+        "reason": "[omitted]",
+        "kind": "open",
+        "title": "Contained slow drip from cold supply pipe under kitchen sink",
+        "description": "[omitted]",
+        "urgency": "medium"
+      },
+      "scopePassed": true,
+      "urgencyPassed": true,
+      "actionPassed": true,
+      "executionPassed": true,
+      "restartDuplicatePassed": true,
+      "elapsedMs": 2137,
+      "writes": [
+        {
+          "operation": "createCase",
+          "input": {
+            "title": "Contained slow drip from cold supply pipe under kitchen sink",
+            "urgency": "medium",
+            "description": "[omitted]"
+          },
+          "id": "e5fb4cfb-2ca2-4c1c-abdd-9d31e41d3fc9"
+        }
+      ]
+    },
+    {
+      "fixture": "leak-escalation",
+      "variant": 1,
+      "repeat": 0,
+      "turn": 2,
+      "expected": {
+        "scope": "maintenance",
+        "urgency": "high",
+        "actions": [
+          "update"
+        ]
+      },
+      "decision": {
+        "scope": "maintenance",
+        "evidenceIds": [
+          "leak-escalation-2"
+        ],
+        "reason": "[omitted]",
+        "kind": "update",
+        "caseId": "e5fb4cfb-2ca2-4c1c-abdd-9d31e41d3fc9",
+        "patch": {
+          "title": "[omitted]",
+          "description": "[omitted]",
+          "urgency": "high",
+          "status": "open"
+        }
+      },
+      "scopePassed": true,
+      "urgencyPassed": true,
+      "actionPassed": true,
+      "executionPassed": true,
+      "restartDuplicatePassed": true,
+      "elapsedMs": 2218,
+      "writes": [
+        {
+          "operation": "patchCase",
+          "input": {
+            "title": "[omitted]",
+            "urgency": "high",
+            "description": "[omitted]",
+            "status": "open"
+          },
+          "id": "e5fb4cfb-2ca2-4c1c-abdd-9d31e41d3fc9"
+        }
+      ]
+    },
+    {
+      "fixture": "scope-correction",
+      "variant": 0,
+      "repeat": 0,
+      "turn": 0,
+      "expected": {
+        "scope": "nonMaintenance",
+        "urgency": "low",
+        "actions": [
+          "outOfScope"
+        ]
+      },
+      "decision": {
+        "scope": "nonMaintenance",
+        "evidenceIds": [
+          "scope-correction-0"
+        ],
+        "reason": "[omitted]",
+        "kind": "outOfScope",
+        "urgency": "low"
+      },
+      "scopePassed": true,
+      "urgencyPassed": true,
+      "actionPassed": true,
+      "executionPassed": true,
+      "restartDuplicatePassed": true,
+      "elapsedMs": 1380,
+      "writes": []
+    },
+    {
+      "fixture": "scope-correction",
+      "variant": 0,
+      "repeat": 0,
+      "turn": 1,
+      "expected": {
+        "scope": "maintenance",
+        "urgency": "medium",
+        "actions": [
+          "open"
+        ]
+      },
+      "decision": {
+        "scope": "maintenance",
+        "evidenceIds": [
+          "scope-correction-1"
+        ],
+        "reason": "[omitted]",
+        "kind": "open",
+        "title": "Kitchen tap dripping continuously",
+        "description": "[omitted]",
+        "urgency": "medium"
+      },
+      "scopePassed": true,
+      "urgencyPassed": true,
+      "actionPassed": true,
+      "executionPassed": true,
+      "restartDuplicatePassed": true,
+      "elapsedMs": 1996,
+      "writes": [
+        {
+          "operation": "createCase",
+          "input": {
+            "title": "Kitchen tap dripping continuously",
+            "urgency": "medium",
+            "description": "[omitted]"
+          },
+          "id": "0186b0d1-ccab-476d-a181-ca5189f64e18"
+        }
+      ]
+    },
+    {
+      "fixture": "scope-correction",
+      "variant": 1,
+      "repeat": 0,
+      "turn": 0,
+      "expected": {
+        "scope": "nonMaintenance",
+        "urgency": "low",
+        "actions": [
+          "outOfScope"
+        ]
+      },
+      "decision": {
+        "scope": "nonMaintenance",
+        "evidenceIds": [
+          "scope-correction-0"
+        ],
+        "reason": "[omitted]",
+        "humanAction": "[omitted]",
+        "kind": "outOfScope",
+        "urgency": "low"
+      },
+      "scopePassed": true,
+      "urgencyPassed": true,
+      "actionPassed": true,
+      "executionPassed": true,
+      "restartDuplicatePassed": true,
+      "elapsedMs": 2034,
+      "writes": []
+    },
+    {
+      "fixture": "scope-correction",
+      "variant": 1,
+      "repeat": 0,
+      "turn": 1,
+      "expected": {
+        "scope": "maintenance",
+        "urgency": "medium",
+        "actions": [
+          "open"
+        ]
+      },
+      "decision": {
+        "scope": "maintenance",
+        "evidenceIds": [
+          "scope-correction-1"
+        ],
+        "reason": "[omitted]",
+        "kind": "open",
+        "title": "Continuously dripping kitchen tap (safe, no damage)",
+        "description": "[omitted]",
+        "urgency": "medium"
+      },
+      "scopePassed": true,
+      "urgencyPassed": true,
+      "actionPassed": true,
+      "executionPassed": true,
+      "restartDuplicatePassed": true,
+      "elapsedMs": 2784,
+      "writes": [
+        {
+          "operation": "createCase",
+          "input": {
+            "title": "Continuously dripping kitchen tap (safe, no damage)",
+            "urgency": "medium",
+            "description": "[omitted]"
+          },
+          "id": "0335ffcf-b13c-4e91-bdb2-302936001473"
+        }
+      ]
+    },
+    {
+      "fixture": "cosmetic",
+      "variant": 0,
+      "repeat": 0,
+      "turn": 0,
+      "expected": {
+        "scope": "maintenance",
+        "urgency": "low",
+        "actions": [
+          "open"
+        ]
+      },
+      "decision": {
+        "scope": "maintenance",
+        "evidenceIds": [
+          "cosmetic-0"
+        ],
+        "reason": "[omitted]",
+        "kind": "open",
+        "title": "Stable minor hallway paint scratch - cosmetic defect",
+        "description": "[omitted]",
+        "urgency": "low"
+      },
+      "scopePassed": true,
+      "urgencyPassed": true,
+      "actionPassed": true,
+      "executionPassed": true,
+      "restartDuplicatePassed": true,
+      "elapsedMs": 1685,
+      "writes": [
+        {
+          "operation": "createCase",
+          "input": {
+            "title": "Stable minor hallway paint scratch - cosmetic defect",
+            "urgency": "low",
+            "description": "[omitted]"
+          },
+          "id": "7569245e-2bc4-4b70-ac90-3a49df79c75f"
+        }
+      ]
+    },
+    {
+      "fixture": "cosmetic",
+      "variant": 1,
+      "repeat": 0,
+      "turn": 0,
+      "expected": {
+        "scope": "maintenance",
+        "urgency": "low",
+        "actions": [
+          "open"
+        ]
+      },
+      "decision": {
+        "scope": "maintenance",
+        "evidenceIds": [
+          "cosmetic-0"
+        ],
+        "reason": "[omitted]",
+        "kind": "open",
+        "title": "Log cosmetic scuff on hall wall for future paint touch-up",
+        "description": "[omitted]",
+        "urgency": "low"
+      },
+      "scopePassed": true,
+      "urgencyPassed": true,
+      "actionPassed": true,
+      "executionPassed": true,
+      "restartDuplicatePassed": true,
+      "elapsedMs": 2396,
+      "writes": [
+        {
+          "operation": "createCase",
+          "input": {
+            "title": "Log cosmetic scuff on hall wall for future paint touch-up",
+            "urgency": "low",
+            "description": "[omitted]"
+          },
+          "id": "1dd47657-4a6a-4b53-9c27-8f924576fb42"
+        }
+      ]
+    },
+    {
+      "fixture": "demo-undertriage-2026-11-20",
+      "variant": 0,
+      "repeat": 0,
+      "turn": 0,
+      "expected": {
+        "scope": "maintenance",
+        "urgency": "medium",
+        "actions": [
+          "open"
+        ]
+      },
+      "decision": {
+        "scope": "maintenance",
+        "evidenceIds": [
+          "demo-undertriage-2026-11-20-0"
+        ],
+        "reason": "[omitted]",
+        "kind": "open",
+        "title": "Minor contained leak under kitchen sink",
+        "description": "[omitted]",
+        "urgency": "low"
+      },
+      "scopePassed": true,
+      "urgencyPassed": false,
+      "actionPassed": true,
+      "executionPassed": true,
+      "restartDuplicatePassed": true,
+      "elapsedMs": 2136,
+      "writes": [
+        {
+          "operation": "createCase",
+          "input": {
+            "title": "Minor contained leak under kitchen sink",
+            "urgency": "low",
+            "description": "[omitted]"
+          },
+          "id": "2f699e26-79c6-4284-b5eb-c910ecd1f91c"
+        }
+      ]
+    },
+    {
+      "fixture": "demo-undertriage-2026-11-20",
+      "variant": 1,
+      "repeat": 0,
+      "turn": 0,
+      "expected": {
+        "scope": "maintenance",
+        "urgency": "medium",
+        "actions": [
+          "open"
+        ]
+      },
+      "decision": {
+        "scope": "maintenance",
+        "evidenceIds": [
+          "demo-undertriage-2026-11-20-0"
+        ],
+        "reason": "[omitted]",
+        "kind": "open",
+        "title": "Small contained leak under kitchen sink",
+        "description": "[omitted]",
+        "urgency": "medium"
+      },
+      "scopePassed": true,
+      "urgencyPassed": true,
+      "actionPassed": true,
+      "executionPassed": true,
+      "restartDuplicatePassed": true,
+      "elapsedMs": 2541,
+      "writes": [
+        {
+          "operation": "createCase",
+          "input": {
+            "title": "Small contained leak under kitchen sink",
+            "urgency": "medium",
+            "description": "[omitted]"
+          },
+          "id": "0b4aa00a-17a6-4617-9edf-0b86d205a475"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "turns": 14,
+    "scopePassed": 14,
+    "urgencyScored": 12,
+    "urgencyPassed": 11,
+    "actionPassed": 14,
+    "failures": 0,
+    "executionPassed": 14,
+    "restartDuplicatePassed": 14
+  },
+  "diagnostics_meta": [
+    {
+      "eventIds": [
+        "leak-escalation-0"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "elapsedMs": 1990,
+      "usage_cost": 0.00535
+    },
+    {
+      "eventIds": [
+        "leak-escalation-0",
+        "leak-escalation-1"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "elapsedMs": 1761,
+      "usage_cost": 0.006004
+    },
+    {
+      "eventIds": [
+        "leak-escalation-0",
+        "leak-escalation-1",
+        "leak-escalation-2"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "elapsedMs": 2563,
+      "usage_cost": 0.007008
+    },
+    {
+      "eventIds": [
+        "leak-escalation-0"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "elapsedMs": 2728,
+      "usage_cost": 0.005562
+    },
+    {
+      "eventIds": [
+        "leak-escalation-0",
+        "leak-escalation-1"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "elapsedMs": 2135,
+      "usage_cost": 0.00601
+    },
+    {
+      "eventIds": [
+        "leak-escalation-0",
+        "leak-escalation-1",
+        "leak-escalation-2"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "elapsedMs": 2215,
+      "usage_cost": 0.006664
+    },
+    {
+      "eventIds": [
+        "scope-correction-0"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "elapsedMs": 1377,
+      "usage_cost": 0.005282
+    },
+    {
+      "eventIds": [
+        "scope-correction-0",
+        "scope-correction-1"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "elapsedMs": 1994,
+      "usage_cost": 0.005802
+    },
+    {
+      "eventIds": [
+        "scope-correction-0"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "elapsedMs": 2031,
+      "usage_cost": 0.005324
+    },
+    {
+      "eventIds": [
+        "scope-correction-0",
+        "scope-correction-1"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "elapsedMs": 2783,
+      "usage_cost": 0.006058
+    },
+    {
+      "eventIds": [
+        "cosmetic-0"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "elapsedMs": 1681,
+      "usage_cost": 0.00574
+    },
+    {
+      "eventIds": [
+        "cosmetic-0"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "elapsedMs": 2393,
+      "usage_cost": 0.005912
+    },
+    {
+      "eventIds": [
+        "demo-undertriage-2026-11-20-0"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "elapsedMs": 2134,
+      "usage_cost": 0.006088
+    },
+    {
+      "eventIds": [
+        "demo-undertriage-2026-11-20-0"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "elapsedMs": 2539,
+      "usage_cost": 0.005984
+    }
+  ],
+  "cost": {
+    "totalUsd": 0.082788
+  },
+  "latency": {
+    "sumElapsedMs": 30324
+  }
+}

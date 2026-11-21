@@ -1,0 +1,713 @@
+{
+  "model": "anthropic/claude-sonnet-5.5",
+  "fixtureVersion": "conversations-v1",
+  "limitation": "Synthetic regression cases, not independent expert-labelled accuracy. Actual decisions run through a fake World API; no live Dwelly writes.",
+  "repeats": 1,
+  "rows": [
+    {
+      "fixture": "leak-escalation",
+      "variant": 0,
+      "repeat": 0,
+      "turn": 0,
+      "expected": {
+        "scope": "unknown",
+        "actions": [
+          "ask"
+        ]
+      },
+      "decision": {
+        "scope": "unknown",
+        "evidenceIds": [
+          "leak-escalation-0"
+        ],
+        "reason": "[omitted]",
+        "kind": "ask",
+        "actorId": "tenant",
+        "question": "Sorry to hear that. Could you tell us what you are seeing in the kitchen, for example any water leaking, a burning smell, smoke or sparks, a gas smell, or something broken? If there is any water near electrics, a gas smell, or smoke or fire, please tell us straight away so we can arrange urgent help."
+      },
+      "scopePassed": true,
+      "urgencyPassed": null,
+      "actionPassed": true,
+      "executionPassed": true,
+      "restartDuplicatePassed": true,
+      "elapsedMs": 3563,
+      "writes": [
+        {
+          "operation": "sendMessage",
+          "input": {
+            "body": "Sorry to hear that. Could you tell us what you are seeing in the kitchen, for example any water leaking, a burning smell, smoke or sparks, a gas smell, or something broken? If there is any water near electrics, a gas smell, or smoke or fire, please tell us straight away so we can arrange urgent help."
+          },
+          "id": "tenant"
+        }
+      ]
+    },
+    {
+      "fixture": "leak-escalation",
+      "variant": 0,
+      "repeat": 0,
+      "turn": 1,
+      "expected": {
+        "scope": "maintenance",
+        "urgency": "medium",
+        "actions": [
+          "open"
+        ]
+      },
+      "decision": {
+        "scope": "maintenance",
+        "evidenceIds": [
+          "leak-escalation-1"
+        ],
+        "reason": "[omitted]",
+        "kind": "open",
+        "title": "Cold water pipe dripping under kitchen sink",
+        "description": "[omitted]",
+        "urgency": "medium"
+      },
+      "scopePassed": true,
+      "urgencyPassed": true,
+      "actionPassed": true,
+      "executionPassed": true,
+      "restartDuplicatePassed": true,
+      "elapsedMs": 2824,
+      "writes": [
+        {
+          "operation": "createCase",
+          "input": {
+            "title": "Cold water pipe dripping under kitchen sink",
+            "urgency": "medium",
+            "description": "[omitted]"
+          },
+          "id": "a3758252-a28a-4462-9808-76f56bffdfb5"
+        }
+      ]
+    },
+    {
+      "fixture": "leak-escalation",
+      "variant": 0,
+      "repeat": 0,
+      "turn": 2,
+      "expected": {
+        "scope": "maintenance",
+        "urgency": "high",
+        "actions": [
+          "update"
+        ]
+      },
+      "decision": {
+        "scope": "maintenance",
+        "evidenceIds": [
+          "leak-escalation-2",
+          "leak-escalation-1"
+        ],
+        "reason": "[omitted]",
+        "humanAction": "[omitted]",
+        "kind": "update",
+        "caseId": "a3758252-a28a-4462-9808-76f56bffdfb5",
+        "patch": {
+          "title": "Cold water pipe leak under kitchen sink now pouring, water entering flat below",
+          "description": "[omitted]",
+          "urgency": "high"
+        }
+      },
+      "scopePassed": true,
+      "urgencyPassed": true,
+      "actionPassed": true,
+      "executionPassed": true,
+      "restartDuplicatePassed": true,
+      "elapsedMs": 5871,
+      "writes": [
+        {
+          "operation": "patchCase",
+          "input": {
+            "title": "Cold water pipe leak under kitchen sink now pouring, water entering flat below",
+            "urgency": "high",
+            "description": "[omitted]"
+          },
+          "id": "a3758252-a28a-4462-9808-76f56bffdfb5"
+        }
+      ]
+    },
+    {
+      "fixture": "leak-escalation",
+      "variant": 1,
+      "repeat": 0,
+      "turn": 0,
+      "expected": {
+        "scope": "unknown",
+        "actions": [
+          "ask"
+        ]
+      },
+      "decision": {
+        "scope": "unknown",
+        "evidenceIds": [
+          "leak-escalation-0"
+        ],
+        "reason": "[omitted]",
+        "kind": "ask",
+        "actorId": "tenant",
+        "question": "Thanks for letting us know. Could you tell us what you are seeing in the kitchen, for example any water or leaking, a smell of gas or burning, smoke, sparking, or something broken or not working? If you notice anything that feels dangerous, please tell us straight away."
+      },
+      "scopePassed": true,
+      "urgencyPassed": null,
+      "actionPassed": true,
+      "executionPassed": true,
+      "restartDuplicatePassed": true,
+      "elapsedMs": 3038,
+      "writes": [
+        {
+          "operation": "sendMessage",
+          "input": {
+            "body": "Thanks for letting us know. Could you tell us what you are seeing in the kitchen, for example any water or leaking, a smell of gas or burning, smoke, sparking, or something broken or not working? If you notice anything that feels dangerous, please tell us straight away."
+          },
+          "id": "tenant"
+        }
+      ]
+    },
+    {
+      "fixture": "leak-escalation",
+      "variant": 1,
+      "repeat": 0,
+      "turn": 1,
+      "expected": {
+        "scope": "maintenance",
+        "urgency": "medium",
+        "actions": [
+          "open"
+        ]
+      },
+      "decision": {
+        "scope": "maintenance",
+        "evidenceIds": [
+          "leak-escalation-1"
+        ],
+        "reason": "[omitted]",
+        "kind": "open",
+        "title": "Slow drip from cold supply pipe under kitchen sink",
+        "description": "[omitted]",
+        "urgency": "medium"
+      },
+      "scopePassed": true,
+      "urgencyPassed": true,
+      "actionPassed": true,
+      "executionPassed": true,
+      "restartDuplicatePassed": true,
+      "elapsedMs": 3024,
+      "writes": [
+        {
+          "operation": "createCase",
+          "input": {
+            "title": "Slow drip from cold supply pipe under kitchen sink",
+            "urgency": "medium",
+            "description": "[omitted]"
+          },
+          "id": "1469df22-8a0d-45ab-bb2e-b5e84686bad0"
+        }
+      ]
+    },
+    {
+      "fixture": "leak-escalation",
+      "variant": 1,
+      "repeat": 0,
+      "turn": 2,
+      "expected": {
+        "scope": "maintenance",
+        "urgency": "high",
+        "actions": [
+          "update"
+        ]
+      },
+      "decision": {
+        "scope": "maintenance",
+        "evidenceIds": [
+          "leak-escalation-2",
+          "leak-escalation-1"
+        ],
+        "reason": "[omitted]",
+        "kind": "update",
+        "caseId": "1469df22-8a0d-45ab-bb2e-b5e84686bad0",
+        "patch": {
+          "title": "Continuous leak from cold supply pipe under kitchen sink damaging flat below",
+          "description": "[omitted]",
+          "urgency": "high"
+        }
+      },
+      "scopePassed": true,
+      "urgencyPassed": true,
+      "actionPassed": true,
+      "executionPassed": true,
+      "restartDuplicatePassed": true,
+      "elapsedMs": 3820,
+      "writes": [
+        {
+          "operation": "patchCase",
+          "input": {
+            "title": "Continuous leak from cold supply pipe under kitchen sink damaging flat below",
+            "urgency": "high",
+            "description": "[omitted]"
+          },
+          "id": "1469df22-8a0d-45ab-bb2e-b5e84686bad0"
+        }
+      ]
+    },
+    {
+      "fixture": "scope-correction",
+      "variant": 0,
+      "repeat": 0,
+      "turn": 0,
+      "expected": {
+        "scope": "nonMaintenance",
+        "urgency": "low",
+        "actions": [
+          "outOfScope"
+        ]
+      },
+      "decision": {
+        "scope": "nonMaintenance",
+        "evidenceIds": [
+          "scope-correction-0"
+        ],
+        "reason": "[omitted]",
+        "humanAction": "[omitted]",
+        "kind": "outOfScope",
+        "urgency": "low"
+      },
+      "scopePassed": true,
+      "urgencyPassed": true,
+      "actionPassed": true,
+      "executionPassed": true,
+      "restartDuplicatePassed": true,
+      "elapsedMs": 3115,
+      "writes": []
+    },
+    {
+      "fixture": "scope-correction",
+      "variant": 0,
+      "repeat": 0,
+      "turn": 1,
+      "expected": {
+        "scope": "maintenance",
+        "urgency": "medium",
+        "actions": [
+          "open"
+        ]
+      },
+      "decision": {
+        "scope": "maintenance",
+        "evidenceIds": [
+          "scope-correction-1"
+        ],
+        "reason": "[omitted]",
+        "kind": "open",
+        "title": "Kitchen tap dripping continuously",
+        "description": "[omitted]",
+        "urgency": "medium"
+      },
+      "scopePassed": true,
+      "urgencyPassed": true,
+      "actionPassed": true,
+      "executionPassed": true,
+      "restartDuplicatePassed": true,
+      "elapsedMs": 3055,
+      "writes": [
+        {
+          "operation": "createCase",
+          "input": {
+            "title": "Kitchen tap dripping continuously",
+            "urgency": "medium",
+            "description": "[omitted]"
+          },
+          "id": "06a161c3-06f2-4e2e-af03-bd54e1a2030f"
+        }
+      ]
+    },
+    {
+      "fixture": "scope-correction",
+      "variant": 1,
+      "repeat": 0,
+      "turn": 0,
+      "expected": {
+        "scope": "nonMaintenance",
+        "urgency": "low",
+        "actions": [
+          "outOfScope"
+        ]
+      },
+      "decision": {
+        "scope": "nonMaintenance",
+        "evidenceIds": [
+          "scope-correction-0"
+        ],
+        "reason": "[omitted]",
+        "humanAction": "[omitted]",
+        "kind": "outOfScope",
+        "urgency": "low"
+      },
+      "scopePassed": true,
+      "urgencyPassed": true,
+      "actionPassed": true,
+      "executionPassed": true,
+      "restartDuplicatePassed": true,
+      "elapsedMs": 2292,
+      "writes": []
+    },
+    {
+      "fixture": "scope-correction",
+      "variant": 1,
+      "repeat": 0,
+      "turn": 1,
+      "expected": {
+        "scope": "maintenance",
+        "urgency": "medium",
+        "actions": [
+          "open"
+        ]
+      },
+      "decision": {
+        "scope": "maintenance",
+        "evidenceIds": [
+          "scope-correction-1"
+        ],
+        "reason": "[omitted]",
+        "kind": "open",
+        "title": "Continuously dripping kitchen tap",
+        "description": "[omitted]",
+        "urgency": "medium"
+      },
+      "scopePassed": true,
+      "urgencyPassed": true,
+      "actionPassed": true,
+      "executionPassed": true,
+      "restartDuplicatePassed": true,
+      "elapsedMs": 2712,
+      "writes": [
+        {
+          "operation": "createCase",
+          "input": {
+            "title": "Continuously dripping kitchen tap",
+            "urgency": "medium",
+            "description": "[omitted]"
+          },
+          "id": "8f06dea8-548c-4cae-b7ec-49a7c64f993f"
+        }
+      ]
+    },
+    {
+      "fixture": "cosmetic",
+      "variant": 0,
+      "repeat": 0,
+      "turn": 0,
+      "expected": {
+        "scope": "maintenance",
+        "urgency": "low",
+        "actions": [
+          "open"
+        ]
+      },
+      "decision": {
+        "scope": "maintenance",
+        "evidenceIds": [
+          "cosmetic-0"
+        ],
+        "reason": "[omitted]",
+        "kind": "open",
+        "title": "Hallway paint scratch - future touch-up",
+        "description": "[omitted]",
+        "urgency": "low"
+      },
+      "scopePassed": true,
+      "urgencyPassed": true,
+      "actionPassed": true,
+      "executionPassed": true,
+      "restartDuplicatePassed": true,
+      "elapsedMs": 3004,
+      "writes": [
+        {
+          "operation": "createCase",
+          "input": {
+            "title": "Hallway paint scratch - future touch-up",
+            "urgency": "low",
+            "description": "[omitted]"
+          },
+          "id": "5d7d0814-74dd-477a-8cfb-f9d03c276756"
+        }
+      ]
+    },
+    {
+      "fixture": "cosmetic",
+      "variant": 1,
+      "repeat": 0,
+      "turn": 0,
+      "expected": {
+        "scope": "maintenance",
+        "urgency": "low",
+        "actions": [
+          "open"
+        ]
+      },
+      "decision": {
+        "scope": "maintenance",
+        "evidenceIds": [
+          "cosmetic-0"
+        ],
+        "reason": "[omitted]",
+        "kind": "open",
+        "title": "Hall wall paint scuff - future touch-up",
+        "description": "[omitted]",
+        "urgency": "low"
+      },
+      "scopePassed": true,
+      "urgencyPassed": true,
+      "actionPassed": true,
+      "executionPassed": true,
+      "restartDuplicatePassed": true,
+      "elapsedMs": 2829,
+      "writes": [
+        {
+          "operation": "createCase",
+          "input": {
+            "title": "Hall wall paint scuff - future touch-up",
+            "urgency": "low",
+            "description": "[omitted]"
+          },
+          "id": "b8b14e20-e7a9-45a5-b232-87f2ca3e7284"
+        }
+      ]
+    },
+    {
+      "fixture": "demo-undertriage-2026-11-20",
+      "variant": 0,
+      "repeat": 0,
+      "turn": 0,
+      "expected": {
+        "scope": "maintenance",
+        "urgency": "medium",
+        "actions": [
+          "open"
+        ]
+      },
+      "decision": {
+        "scope": "maintenance",
+        "evidenceIds": [
+          "demo-undertriage-2026-11-20-0"
+        ],
+        "reason": "[omitted]",
+        "kind": "open",
+        "title": "Kitchen sink pipe leak - slow drip, damp cabinet floor",
+        "description": "[omitted]",
+        "urgency": "medium"
+      },
+      "scopePassed": true,
+      "urgencyPassed": true,
+      "actionPassed": true,
+      "executionPassed": true,
+      "restartDuplicatePassed": true,
+      "elapsedMs": 4127,
+      "writes": [
+        {
+          "operation": "createCase",
+          "input": {
+            "title": "Kitchen sink pipe leak - slow drip, damp cabinet floor",
+            "urgency": "medium",
+            "description": "[omitted]"
+          },
+          "id": "857a1ca2-7cd4-4977-9b4b-a7ee5aaaa4d3"
+        }
+      ]
+    },
+    {
+      "fixture": "demo-undertriage-2026-11-20",
+      "variant": 1,
+      "repeat": 0,
+      "turn": 0,
+      "expected": {
+        "scope": "maintenance",
+        "urgency": "medium",
+        "actions": [
+          "open"
+        ]
+      },
+      "decision": {
+        "scope": "maintenance",
+        "evidenceIds": [
+          "demo-undertriage-2026-11-20-0"
+        ],
+        "reason": "[omitted]",
+        "kind": "open",
+        "title": "Minor leak under kitchen sink pipe",
+        "description": "[omitted]",
+        "urgency": "medium"
+      },
+      "scopePassed": true,
+      "urgencyPassed": true,
+      "actionPassed": true,
+      "executionPassed": true,
+      "restartDuplicatePassed": true,
+      "elapsedMs": 3480,
+      "writes": [
+        {
+          "operation": "createCase",
+          "input": {
+            "title": "Minor leak under kitchen sink pipe",
+            "urgency": "medium",
+            "description": "[omitted]"
+          },
+          "id": "3d7f8e53-b817-4630-af77-31cae56ea82d"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "turns": 14,
+    "scopePassed": 14,
+    "urgencyScored": 12,
+    "urgencyPassed": 12,
+    "actionPassed": 14,
+    "failures": 0,
+    "executionPassed": 14,
+    "restartDuplicatePassed": 14
+  },
+  "diagnostics_meta": [
+    {
+      "eventIds": [
+        "leak-escalation-0"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "elapsedMs": 3557,
+      "usage_cost": 0.012884
+    },
+    {
+      "eventIds": [
+        "leak-escalation-0",
+        "leak-escalation-1"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "elapsedMs": 2820,
+      "usage_cost": 0.01405
+    },
+    {
+      "eventIds": [
+        "leak-escalation-0",
+        "leak-escalation-1",
+        "leak-escalation-2"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "elapsedMs": 5865,
+      "usage_cost": 0.01684
+    },
+    {
+      "eventIds": [
+        "leak-escalation-0"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "elapsedMs": 3035,
+      "usage_cost": 0.012766
+    },
+    {
+      "eventIds": [
+        "leak-escalation-0",
+        "leak-escalation-1"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "elapsedMs": 3020,
+      "usage_cost": 0.01381
+    },
+    {
+      "eventIds": [
+        "leak-escalation-0",
+        "leak-escalation-1",
+        "leak-escalation-2"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "elapsedMs": 3817,
+      "usage_cost": 0.015608
+    },
+    {
+      "eventIds": [
+        "scope-correction-0"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "elapsedMs": 3113,
+      "usage_cost": 0.012432
+    },
+    {
+      "eventIds": [
+        "scope-correction-0",
+        "scope-correction-1"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "elapsedMs": 3052,
+      "usage_cost": 0.013602
+    },
+    {
+      "eventIds": [
+        "scope-correction-0"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "elapsedMs": 2289,
+      "usage_cost": 0.01221
+    },
+    {
+      "eventIds": [
+        "scope-correction-0",
+        "scope-correction-1"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "elapsedMs": 2708,
+      "usage_cost": 0.013438
+    },
+    {
+      "eventIds": [
+        "cosmetic-0"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "elapsedMs": 3001,
+      "usage_cost": 0.013316
+    },
+    {
+      "eventIds": [
+        "cosmetic-0"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "elapsedMs": 2825,
+      "usage_cost": 0.013122
+    },
+    {
+      "eventIds": [
+        "demo-undertriage-2026-11-20-0"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "elapsedMs": 4125,
+      "usage_cost": 0.014558
+    },
+    {
+      "eventIds": [
+        "demo-undertriage-2026-11-20-0"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "elapsedMs": 3477,
+      "usage_cost": 0.014372
+    }
+  ],
+  "cost": {
+    "totalUsd": 0.193008
+  },
+  "latency": {
+    "sumElapsedMs": 46704
+  }
+}

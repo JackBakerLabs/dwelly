@@ -26,8 +26,9 @@ Load environment variables into your shell, using `.env.example` as a reference.
 ```sh
 export DWELLY_SESSION_ID=interview-session-1
 export DWELLY_BASE_URL=https://167.172.96.156.sslip.io
-# Supply DWELLY_TOKEN and OPENAI_API_KEY through your secret manager or shell.
-export OPENAI_MODEL=gpt-4.1-mini
+# Supply DWELLY_TOKEN and OPENROUTER_API_KEY through your secret manager or shell.
+export MODEL_PROVIDER=openrouter
+export OPENROUTER_MODEL=anthropic/claude-sonnet-5.5
 npm run eval
 npm run live
 ```
@@ -93,7 +94,7 @@ Both commands use the same `DWELLY_SESSION_ID` and database selection; reconcili
 
 ## OpenRouter evaluation
 
-The evaluator also supports [OpenRouter Chat Completions](https://openrouter.ai/docs/api/reference/overview). Set `MODEL_PROVIDER=openrouter`, supply `OPENROUTER_API_KEY` securely in your shell, and set `OPENROUTER_MODEL` to your chosen full model ID (including its organization prefix). Then run `npm run build` and `npm run eval`. The same configuration works for live triage. The CLI does not read `.env` automatically.
+The evaluator also supports [OpenRouter Chat Completions](https://openrouter.ai/docs/api/reference/overview). Set `MODEL_PROVIDER=openrouter`, supply `OPENROUTER_API_KEY` securely in your shell, and set `OPENROUTER_MODEL` to your chosen full model ID (including its organization prefix). The documented interview default is `anthropic/claude-sonnet-5.5` (see `.env.example` and `docs/interview-handoff.md`). Then run `npm run build` and `npm run eval`. The same configuration works for live triage. The CLI does not read `.env` automatically.
 
 OpenRouter model selection is explicit so evaluation does not silently choose a paid model. Output records the selected provider and model, never the key. All normal evidence/decision validation still applies. Provider support is tested with mocked requests and recorded real-model runs under `docs/diagnostics/`.
 
@@ -159,7 +160,7 @@ Use `npm run demo:llm` to replace scripted assessment with the existing structur
 
 ```sh
 export MODEL_PROVIDER=openrouter
-export OPENROUTER_MODEL=openai/gpt-4.1-mini
+export OPENROUTER_MODEL=anthropic/claude-sonnet-5.5
 # Supply OPENROUTER_API_KEY securely in your shell, then:
 PORT=3002 npm run demo:llm
 ```

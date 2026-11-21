@@ -1,0 +1,145 @@
+{
+  "timestamp": "2026-11-21T21-15-28Z",
+  "suite": "eval-fresh",
+  "openrouterApiKey": "set-for-run-via-env-only",
+  "passed": 5,
+  "total": 5,
+  "underTriage": 0,
+  "providerFailures": 0,
+  "contractFailures": 0,
+  "unscoredUrgency": 0,
+  "provider": "openrouter",
+  "model": "openai/gpt-4.1",
+  "promptVersion": "triage-v4-scope-wait",
+  "per_case": [
+    {
+      "caseId": "fresh-01",
+      "passed": true,
+      "underTriage": false,
+      "expected_urgency": "emergency",
+      "actual_urgency": "emergency",
+      "expected_disposition": "escalated_externally",
+      "kind": "open",
+      "scope": "maintenance"
+    },
+    {
+      "caseId": "fresh-02",
+      "passed": true,
+      "underTriage": false,
+      "expected_urgency": "low",
+      "actual_urgency": "low",
+      "expected_disposition": "resolved",
+      "kind": "open",
+      "scope": "maintenance"
+    },
+    {
+      "caseId": "fresh-03",
+      "passed": true,
+      "underTriage": false,
+      "expected_urgency": "high",
+      "actual_urgency": "high",
+      "expected_disposition": "resolved",
+      "kind": "open",
+      "scope": "maintenance"
+    },
+    {
+      "caseId": "fresh-04",
+      "passed": true,
+      "underTriage": false,
+      "expected_urgency": "low",
+      "actual_urgency": "low",
+      "expected_disposition": "closed_out_of_scope",
+      "kind": "outOfScope",
+      "scope": "nonMaintenance"
+    },
+    {
+      "caseId": "demo-undertriage-2026-11-20",
+      "passed": true,
+      "underTriage": false,
+      "expected_urgency": "medium",
+      "actual_urgency": "medium",
+      "expected_disposition": "resolved",
+      "kind": "open",
+      "scope": "maintenance"
+    }
+  ],
+  "failures": [],
+  "diagnostics_meta": [
+    {
+      "caseEventIds": [
+        "fresh-01-initial"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "attempt": 1,
+      "elapsedMs": 2683,
+      "correctionSucceeded": false,
+      "usage_cost": 0.006392,
+      "usage_total_tokens": 2485
+    },
+    {
+      "caseEventIds": [
+        "fresh-02-initial"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "attempt": 1,
+      "elapsedMs": 1515,
+      "correctionSucceeded": false,
+      "usage_cost": 0.005838,
+      "usage_total_tokens": 2421
+    },
+    {
+      "caseEventIds": [
+        "fresh-03-initial"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "attempt": 1,
+      "elapsedMs": 2653,
+      "correctionSucceeded": false,
+      "usage_cost": 0.00595,
+      "usage_total_tokens": 2435
+    },
+    {
+      "caseEventIds": [
+        "fresh-04-initial"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "attempt": 1,
+      "elapsedMs": 1679,
+      "correctionSucceeded": false,
+      "usage_cost": 0.005334,
+      "usage_total_tokens": 2358
+    },
+    {
+      "caseEventIds": [
+        "demo-undertriage-2026-11-20-initial"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "attempt": 1,
+      "elapsedMs": 2586,
+      "correctionSucceeded": false,
+      "usage_cost": 0.006214,
+      "usage_total_tokens": 2492
+    }
+  ],
+  "latency": {
+    "sumElapsedMs": 11116,
+    "caseCount": 5
+  },
+  "cost": {
+    "totalUsd": 0.029728,
+    "totalTokens": 12191
+  },
+  "notable": {
+    "demo-undertriage-2026-11-20": {
+      "expected": "medium",
+      "actual": "medium",
+      "underTriage": false,
+      "passed": true
+    }
+  }
+}

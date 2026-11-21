@@ -1,0 +1,156 @@
+{
+  "timestamp": "2026-11-21T21-16-00Z",
+  "suite": "eval-fresh",
+  "openrouterApiKey": "set-for-run-via-env-only",
+  "passed": 4,
+  "total": 5,
+  "underTriage": 1,
+  "providerFailures": 0,
+  "contractFailures": 0,
+  "unscoredUrgency": 0,
+  "provider": "openrouter",
+  "model": "deepseek/deepseek-chat-v3.1",
+  "promptVersion": "triage-v4-scope-wait",
+  "per_case": [
+    {
+      "caseId": "fresh-01",
+      "passed": true,
+      "underTriage": false,
+      "expected_urgency": "emergency",
+      "actual_urgency": "emergency",
+      "expected_disposition": "escalated_externally",
+      "kind": "open",
+      "scope": "maintenance"
+    },
+    {
+      "caseId": "fresh-02",
+      "passed": true,
+      "underTriage": false,
+      "expected_urgency": "low",
+      "actual_urgency": "low",
+      "expected_disposition": "resolved",
+      "kind": "open",
+      "scope": "maintenance"
+    },
+    {
+      "caseId": "fresh-03",
+      "passed": true,
+      "underTriage": false,
+      "expected_urgency": "high",
+      "actual_urgency": "high",
+      "expected_disposition": "resolved",
+      "kind": "open",
+      "scope": "maintenance"
+    },
+    {
+      "caseId": "fresh-04",
+      "passed": true,
+      "underTriage": false,
+      "expected_urgency": "low",
+      "actual_urgency": "low",
+      "expected_disposition": "closed_out_of_scope",
+      "kind": "outOfScope",
+      "scope": "nonMaintenance"
+    },
+    {
+      "caseId": "demo-undertriage-2026-11-20",
+      "passed": false,
+      "underTriage": true,
+      "expected_urgency": "medium",
+      "actual_urgency": "low",
+      "expected_disposition": "resolved",
+      "kind": "open",
+      "scope": "maintenance"
+    }
+  ],
+  "failures": [
+    {
+      "caseId": "demo-undertriage-2026-11-20",
+      "passed": false,
+      "underTriage": true,
+      "expected_urgency": "medium",
+      "actual_urgency": "low",
+      "expected_disposition": "resolved",
+      "kind": "open",
+      "scope": "maintenance"
+    }
+  ],
+  "diagnostics_meta": [
+    {
+      "caseEventIds": [
+        "fresh-01-initial"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "attempt": 1,
+      "elapsedMs": 2229,
+      "correctionSucceeded": false,
+      "usage_cost": 0.0007628,
+      "usage_total_tokens": 1874
+    },
+    {
+      "caseEventIds": [
+        "fresh-02-initial"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "attempt": 1,
+      "elapsedMs": 1699,
+      "correctionSucceeded": false,
+      "usage_cost": 0.001057,
+      "usage_total_tokens": 1838
+    },
+    {
+      "caseEventIds": [
+        "fresh-03-initial"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "attempt": 1,
+      "elapsedMs": 6029,
+      "correctionSucceeded": false,
+      "usage_cost": 0.00042186,
+      "usage_total_tokens": 1840
+    },
+    {
+      "caseEventIds": [
+        "fresh-04-initial"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "attempt": 1,
+      "elapsedMs": 1780,
+      "correctionSucceeded": false,
+      "usage_cost": 0.0006978,
+      "usage_total_tokens": 1836
+    },
+    {
+      "caseEventIds": [
+        "demo-undertriage-2026-11-20-initial"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "attempt": 1,
+      "elapsedMs": 6059,
+      "correctionSucceeded": false,
+      "usage_cost": 0.00045126,
+      "usage_total_tokens": 1896
+    }
+  ],
+  "latency": {
+    "sumElapsedMs": 17796,
+    "caseCount": 5
+  },
+  "cost": {
+    "totalUsd": 0.003391,
+    "totalTokens": 9284
+  },
+  "notable": {
+    "demo-undertriage-2026-11-20": {
+      "expected": "medium",
+      "actual": "low",
+      "underTriage": true,
+      "passed": false
+    }
+  }
+}

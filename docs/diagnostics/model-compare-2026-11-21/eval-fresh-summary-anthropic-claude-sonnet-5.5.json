@@ -1,0 +1,145 @@
+{
+  "timestamp": "2026-11-21T21-14-44Z",
+  "suite": "eval-fresh",
+  "openrouterApiKey": "set-for-run-via-env-only",
+  "passed": 5,
+  "total": 5,
+  "underTriage": 0,
+  "providerFailures": 0,
+  "contractFailures": 0,
+  "unscoredUrgency": 0,
+  "provider": "openrouter",
+  "model": "anthropic/claude-sonnet-5.5",
+  "promptVersion": "triage-v4-scope-wait",
+  "per_case": [
+    {
+      "caseId": "fresh-01",
+      "passed": true,
+      "underTriage": false,
+      "expected_urgency": "emergency",
+      "actual_urgency": "emergency",
+      "expected_disposition": "escalated_externally",
+      "kind": "open",
+      "scope": "maintenance"
+    },
+    {
+      "caseId": "fresh-02",
+      "passed": true,
+      "underTriage": false,
+      "expected_urgency": "low",
+      "actual_urgency": "low",
+      "expected_disposition": "resolved",
+      "kind": "open",
+      "scope": "maintenance"
+    },
+    {
+      "caseId": "fresh-03",
+      "passed": true,
+      "underTriage": false,
+      "expected_urgency": "high",
+      "actual_urgency": "high",
+      "expected_disposition": "resolved",
+      "kind": "open",
+      "scope": "maintenance"
+    },
+    {
+      "caseId": "fresh-04",
+      "passed": true,
+      "underTriage": false,
+      "expected_urgency": "low",
+      "actual_urgency": "low",
+      "expected_disposition": "closed_out_of_scope",
+      "kind": "outOfScope",
+      "scope": "nonMaintenance"
+    },
+    {
+      "caseId": "demo-undertriage-2026-11-20",
+      "passed": true,
+      "underTriage": false,
+      "expected_urgency": "medium",
+      "actual_urgency": "medium",
+      "expected_disposition": "resolved",
+      "kind": "open",
+      "scope": "maintenance"
+    }
+  ],
+  "failures": [],
+  "diagnostics_meta": [
+    {
+      "caseEventIds": [
+        "fresh-01-initial"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "attempt": 1,
+      "elapsedMs": 4666,
+      "correctionSucceeded": false,
+      "usage_cost": 0.015536,
+      "usage_total_tokens": 5656
+    },
+    {
+      "caseEventIds": [
+        "fresh-02-initial"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "attempt": 1,
+      "elapsedMs": 3744,
+      "correctionSucceeded": false,
+      "usage_cost": 0.013352,
+      "usage_total_tokens": 5448
+    },
+    {
+      "caseEventIds": [
+        "fresh-03-initial"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "attempt": 1,
+      "elapsedMs": 3731,
+      "correctionSucceeded": false,
+      "usage_cost": 0.014424,
+      "usage_total_tokens": 5552
+    },
+    {
+      "caseEventIds": [
+        "fresh-04-initial"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "attempt": 1,
+      "elapsedMs": 3231,
+      "correctionSucceeded": false,
+      "usage_cost": 0.012516,
+      "usage_total_tokens": 5366
+    },
+    {
+      "caseEventIds": [
+        "demo-undertriage-2026-11-20-initial"
+      ],
+      "stage": "accepted",
+      "status": 200,
+      "attempt": 1,
+      "elapsedMs": 3718,
+      "correctionSucceeded": false,
+      "usage_cost": 0.014292,
+      "usage_total_tokens": 5590
+    }
+  ],
+  "latency": {
+    "sumElapsedMs": 19090,
+    "caseCount": 5
+  },
+  "cost": {
+    "totalUsd": 0.07012,
+    "totalTokens": 27612
+  },
+  "notable": {
+    "demo-undertriage-2026-11-20": {
+      "expected": "medium",
+      "actual": "medium",
+      "underTriage": false,
+      "passed": true
+    }
+  }
+}

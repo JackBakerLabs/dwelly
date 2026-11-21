@@ -1,0 +1,287 @@
+{
+  "timestamp": "2026-11-21T21-18-00Z",
+  "suite": "model-compare-tier2-gates",
+  "promptVersion": "triage-v4-scope-wait",
+  "provider": "openrouter",
+  "openrouterApiKey": "set-for-run-via-env-only",
+  "notRun": [
+    "npm run live",
+    "Dwelly mutations"
+  ],
+  "substitute": null,
+  "models": [
+    {
+      "model": "openai/gpt-4.1-mini",
+      "baseline": true,
+      "source": "docs/diagnostics/tier2-openrouter-gpt-4.1-mini-2026-11-21T21-08-29Z.json",
+      "eval": {
+        "passed": 4,
+        "total": 4,
+        "underTriage": 0,
+        "providerFailures": 0,
+        "contractFailures": 0,
+        "urgencies": {
+          "case-02": "medium",
+          "case-05": "emergency",
+          "case-09": "medium",
+          "case-11": "low"
+        },
+        "costUsd": null,
+        "latencySumMs": null
+      },
+      "evalFresh": {
+        "passed": 4,
+        "total": 5,
+        "underTriage": 1,
+        "providerFailures": 0,
+        "contractFailures": 0,
+        "demoUndertriage": {
+          "expected": "medium",
+          "actual": "low",
+          "passed": false,
+          "underTriage": true
+        },
+        "costUsd": null,
+        "latencySumMs": null
+      },
+      "conversations": {
+        "note": "prior run repeats=2",
+        "turns": 28,
+        "urgencyPassed": 20,
+        "urgencyScored": 24,
+        "demoUndertriageTurn0": {
+          "note": "expected medium; stochastic across variants/repeats",
+          "outcomes": [
+            "v0/r0: medium (pass)",
+            "v0/r1: low (under-triage)",
+            "v1/r0: low (under-triage)",
+            "v1/r1: low (under-triage)"
+          ]
+        },
+        "urgencyMisses": [
+          {
+            "fixture": "leak-escalation",
+            "variant": 1,
+            "turn": 1,
+            "repeat": 1,
+            "expected": "medium",
+            "actual": "low"
+          },
+          {
+            "fixture": "demo-undertriage-2026-11-20",
+            "variant": 0,
+            "turn": 0,
+            "repeat": 1,
+            "expected": "medium",
+            "actual": "low"
+          },
+          {
+            "fixture": "demo-undertriage-2026-11-20",
+            "variant": 1,
+            "turn": 0,
+            "repeat": 0,
+            "expected": "medium",
+            "actual": "low"
+          },
+          {
+            "fixture": "demo-undertriage-2026-11-20",
+            "variant": 1,
+            "turn": 0,
+            "repeat": 1,
+            "expected": "medium",
+            "actual": "low"
+          }
+        ]
+      }
+    },
+    {
+      "model": "anthropic/claude-sonnet-5.5",
+      "baseline": false,
+      "eval": {
+        "passed": 4,
+        "total": 4,
+        "underTriage": 0,
+        "providerFailures": 0,
+        "contractFailures": 0,
+        "urgencies": {
+          "case-02": "medium",
+          "case-05": "emergency",
+          "case-09": "medium",
+          "case-11": "low"
+        },
+        "costUsd": 0.05578,
+        "latencySumMs": 17278
+      },
+      "evalFresh": {
+        "passed": 5,
+        "total": 5,
+        "underTriage": 0,
+        "providerFailures": 0,
+        "contractFailures": 0,
+        "demoUndertriage": {
+          "expected": "medium",
+          "actual": "medium",
+          "passed": true,
+          "underTriage": false
+        },
+        "costUsd": 0.07012,
+        "latencySumMs": 19090
+      },
+      "conversations": {
+        "note": "optional repeats=1",
+        "directory": "docs/diagnostics/conversations-v4-2026-11-21T21-16-23.205Z",
+        "summary": {
+          "turns": 14,
+          "scopePassed": 14,
+          "urgencyScored": 12,
+          "urgencyPassed": 12,
+          "actionPassed": 14,
+          "failures": 0,
+          "executionPassed": 14,
+          "restartDuplicatePassed": 14
+        },
+        "demoUndertriage": [
+          {
+            "variant": 0,
+            "turn": 0,
+            "repeat": 0,
+            "expected": "medium",
+            "actual": "medium",
+            "urgencyPassed": true
+          },
+          {
+            "variant": 1,
+            "turn": 0,
+            "repeat": 0,
+            "expected": "medium",
+            "actual": "medium",
+            "urgencyPassed": true
+          }
+        ],
+        "costUsd": 0.193008,
+        "latencySumMs": 46704
+      }
+    },
+    {
+      "model": "openai/gpt-4.1",
+      "baseline": false,
+      "eval": {
+        "passed": 4,
+        "total": 4,
+        "underTriage": 0,
+        "providerFailures": 0,
+        "contractFailures": 0,
+        "urgencies": {
+          "case-02": "medium",
+          "case-05": "emergency",
+          "case-09": "medium",
+          "case-11": "low"
+        },
+        "costUsd": 0.023226,
+        "latencySumMs": 7949
+      },
+      "evalFresh": {
+        "passed": 5,
+        "total": 5,
+        "underTriage": 0,
+        "providerFailures": 0,
+        "contractFailures": 0,
+        "demoUndertriage": {
+          "expected": "medium",
+          "actual": "medium",
+          "passed": true,
+          "underTriage": false
+        },
+        "costUsd": 0.029728,
+        "latencySumMs": 11116
+      },
+      "conversations": {
+        "note": "optional repeats=1",
+        "directory": "docs/diagnostics/conversations-v4-2026-11-21T21-17-10.329Z",
+        "summary": {
+          "turns": 14,
+          "scopePassed": 14,
+          "urgencyScored": 12,
+          "urgencyPassed": 11,
+          "actionPassed": 14,
+          "failures": 0,
+          "executionPassed": 14,
+          "restartDuplicatePassed": 14
+        },
+        "demoUndertriage": [
+          {
+            "variant": 0,
+            "turn": 0,
+            "repeat": 0,
+            "expected": "medium",
+            "actual": "low",
+            "urgencyPassed": false
+          },
+          {
+            "variant": 1,
+            "turn": 0,
+            "repeat": 0,
+            "expected": "medium",
+            "actual": "medium",
+            "urgencyPassed": true
+          }
+        ],
+        "costUsd": 0.082788,
+        "latencySumMs": 30324
+      }
+    },
+    {
+      "model": "deepseek/deepseek-chat-v3.1",
+      "baseline": false,
+      "eval": {
+        "passed": 4,
+        "total": 4,
+        "underTriage": 0,
+        "providerFailures": 0,
+        "contractFailures": 0,
+        "urgencies": {
+          "case-02": "medium",
+          "case-05": "emergency",
+          "case-09": "medium",
+          "case-11": "low"
+        },
+        "costUsd": 0.003328,
+        "latencySumMs": 12634
+      },
+      "evalFresh": {
+        "passed": 4,
+        "total": 5,
+        "underTriage": 1,
+        "providerFailures": 0,
+        "contractFailures": 0,
+        "demoUndertriage": {
+          "expected": "medium",
+          "actual": "low",
+          "passed": false,
+          "underTriage": true
+        },
+        "costUsd": 0.003391,
+        "latencySumMs": 17796
+      },
+      "conversations": {
+        "note": "skipped \u2014 not a clear under-triage winner vs mini"
+      }
+    }
+  ],
+  "recommendation": {
+    "interviewLive": "anthropic/claude-sonnet-5.5",
+    "rationale": [
+      "Only model with perfect archive eval (4/4), fresh (5/5 incl. demo-undertriage medium), and conversations urgency (12/12) in this compare.",
+      "openai/gpt-4.1 also cleared archive+fresh including demo-undertriage, but conversations still under-triaged demo variant 0 (low vs medium) at repeats=1.",
+      "deepseek/deepseek-chat-v3.1 matched mini failure mode: archive 4/4 but demo-undertriage low.",
+      "gpt-4.1-mini baseline: archive 4/4, fresh 4/5 with demo under-triage; conversations flaky on demo."
+    ],
+    "caveats": [
+      "Single-run stochasticity; mini diagnose previously under-triaged case-02 even when eval passed.",
+      "Conversations for winners used repeats=1 (cheaper); mini baseline used repeats=2.",
+      "Sonnet ~2x cost of gpt-4.1 and slower; gpt-4.1 still better under-triage than mini on fresh gate.",
+      "No live Dwelly write session exercised."
+    ],
+    "costLatencyNote": "Costs from OpenRouter usage.cost on accepted attempts; latency is sum of per-case elapsedMs."
+  }
+}

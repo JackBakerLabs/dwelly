@@ -1,0 +1,74 @@
+{
+  "timestamp": "2026-11-21T21:07:13.349Z",
+  "suite": "eval-fresh",
+  "openrouterApiKey": "set-for-run-via-env-only",
+  "passed": 4,
+  "total": 5,
+  "underTriage": 1,
+  "providerFailures": 0,
+  "contractFailures": 0,
+  "unscoredUrgency": 0,
+  "provider": "openrouter",
+  "model": "openai/gpt-4.1-mini",
+  "promptVersion": "triage-v4-scope-wait",
+  "per_case": [
+    {
+      "caseId": "fresh-01",
+      "passed": true,
+      "underTriage": false,
+      "expected_urgency": "emergency",
+      "actual_urgency": "emergency",
+      "expected_disposition": "escalated_externally",
+      "kind": "open",
+      "scope": "externalEmergency"
+    },
+    {
+      "caseId": "fresh-02",
+      "passed": true,
+      "underTriage": false,
+      "expected_urgency": "low",
+      "actual_urgency": "low",
+      "expected_disposition": "resolved",
+      "kind": "open",
+      "scope": "maintenance"
+    },
+    {
+      "caseId": "fresh-03",
+      "passed": true,
+      "underTriage": false,
+      "expected_urgency": "high",
+      "actual_urgency": "high",
+      "expected_disposition": "resolved",
+      "kind": "open",
+      "scope": "maintenance"
+    },
+    {
+      "caseId": "fresh-04",
+      "passed": true,
+      "underTriage": false,
+      "expected_urgency": "low",
+      "actual_urgency": "low",
+      "expected_disposition": "closed_out_of_scope",
+      "kind": "outOfScope",
+      "scope": "nonMaintenance"
+    },
+    {
+      "caseId": "demo-undertriage-2026-11-20",
+      "passed": false,
+      "underTriage": true,
+      "expected_urgency": "medium",
+      "actual_urgency": "low",
+      "expected_disposition": "resolved",
+      "kind": "open",
+      "scope": "maintenance"
+    }
+  ],
+  "notable": {
+    "demo-undertriage-2026-11-20": {
+      "expected": "medium",
+      "actual": "low",
+      "underTriage": true,
+      "passed": false
+    }
+  }
+}
